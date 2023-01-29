@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { CurrencyService } from '../../../services/currency.service'
+import { CurrencyService } from '../../../services/currency/currency.service'
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Currency } from '../../../interfaces/currency.model';
 
 @Component({
-  selector: 'app-add-currency',
-  templateUrl: './add-currency.component.html'
+  selector: 'home-crypto-selector',
+  templateUrl: './crypto-selector.component.html'
 })
-export class AddCurrencyComponent {
+export class CryptoSelectorComponent {
   @Input() currencies: ReadonlyArray<Currency> = [];
   @Output() add = new EventEmitter<string>();
 

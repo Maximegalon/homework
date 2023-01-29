@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DownloadsComponent } from './pages/files/downloads.component'
+import { DownloadsComponent } from './pages/files/files.component'
 import { CryptoComponent } from './pages/crypto/crypto.component'
 
 const routes: Routes = [

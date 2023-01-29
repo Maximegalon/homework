@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule  } from '@angular/common/http/testing';
 import { of } from 'rxjs';
 import { FilesService } from './files.service';
-import { File, FileStatus } from '../interfaces/file';
+import { File, FileStatus } from '../../interfaces/file';
 
 describe('FilesService', () => {
   let service: FilesService;

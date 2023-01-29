@@ -3,10 +3,10 @@ import { Store } from '@ngrx/store';
 
 import { selectCurrencyPortfolio, selectCurrencies } from '../../state/currencies.selectors';
 import { CurrencyActions, CurrenciesApiActions } from '../../state/currencies.actions';
-import { CurrencyService } from '../../services/currency.service';
+import { CurrencyService } from '../../services/currency/currency.service';
 
 @Component({
-  selector: 'app-crypto',
+  selector: 'page-crypto',
   templateUrl: './crypto.component.html'
 })
 export class CryptoComponent implements OnInit {

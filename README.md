@@ -30,3 +30,4 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 9. Better favicon
 10. More unit tests
 11. Improve linting - consider AirBnB, custom rules, strickNullChecks, avoid exceptions, more restrictive perhaps
+12. Barrel comps and services and perhaps put in other modules

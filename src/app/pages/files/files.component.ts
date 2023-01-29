@@ -1,13 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { FilesService } from '../../services/files.service';
+import { FilesService } from '../../services/files/files.service';
 import { File, FileStatus } from '../../interfaces/file';
 import { MultiCheckboxState } from '../../components/checkbox/checkbox.model';
 
 @Component({
-  selector: 'app-downloads',
-  templateUrl: './downloads.component.html',
-  styleUrls: ['./downloads.component.scss']
+  selector: 'page-downloads',
+  templateUrl: './files.component.html',
+  styleUrls: ['./files.component.scss']
 })
 export class DownloadsComponent implements OnDestroy, OnInit {
   filesService: FilesService;

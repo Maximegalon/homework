@@ -11,11 +11,11 @@ import { TableModule } from 'primeng/table';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CheckboxComponent } from './components/checkbox/checkbox.component';
-import { StatusIndicatorComponent } from './components/status-indicator/downloads-status.component';
-import { AddCurrencyComponent } from './pages/crypto/add-currency/add-currency.component';
+import { StatusIndicatorComponent } from './components/status-indicator/status-indicator.component';
+import { CryptoSelectorComponent } from './pages/crypto/crypto-selector/crypto-selector.component';
 import { CryptoPortfolioComponent } from './pages/crypto/crypto-portfolio/crypto-portfolio.component';
 import { CryptoComponent } from './pages/crypto/crypto.component';
-import { DownloadsComponent } from './pages/files/downloads.component';
+import { DownloadsComponent } from './pages/files/files.component';
 import { currencyReducer } from './state/currencies.reducer';
 import { portfolioReducer } from './state/portfolio.reducer';
 
@@ -25,8 +25,7 @@ import { portfolioReducer } from './state/portfolio.reducer';
     CheckboxComponent,
     DownloadsComponent,
     StatusIndicatorComponent,
-    AddCurrencyComponent,
-    AddCurrencyComponent,
+    CryptoSelectorComponent,
     CryptoPortfolioComponent,
     CryptoComponent
   ],

@@ -3,9 +3,9 @@
 
     <h2>Available Cryptocurrencies</h2>
 
-    <app-add-currency [currencies]="(currencies$ | async)!" (add)="onAdd($event)"></app-add-currency>
+    <home-crypto-selector [currencies]="(currencies$ | async)!" (add)="onAdd($event)"></home-crypto-selector>
 
     <h2>Portfolio</h2>
 
-    <app-crypto-portfolio [currencies]="(currencyPortfolio$ | async)!" (remove)="onRemove($event)"></app-crypto-portfolio>
+    <home-crypto-portfolio [currencies]="(currencyPortfolio$ | async)!" (remove)="onRemove($event)"></home-crypto-portfolio>
 </div>

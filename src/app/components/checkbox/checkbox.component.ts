@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MultiCheckboxState } from './checkbox.model';
 
 @Component({
-  selector: 'app-checkbox',
+  selector: 'home-checkbox',
   templateUrl: './checkbox.component.html',
   styleUrls: ['./checkbox.component.scss']
 })

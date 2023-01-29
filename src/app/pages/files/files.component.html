@@ -2,7 +2,7 @@
     <p-table [value]="files" selectionMode="multiple" [(selection)]="selectedFiles">
         <ng-template pTemplate="caption">
             <div>
-                <app-checkbox [state]="tableState" (stateChanged)="handleSelectionClick($event)"></app-checkbox>
+                <home-checkbox [state]="tableState" (stateChanged)="handleSelectionClick($event)"></home-checkbox>
                 <label *ngIf="!selectedFileCount">None Selected</label>
                 <label *ngIf="selectedFileCount">Selected {{ selectedFileCount }}</label>
                 <div *ngIf="selectedFileCount" class="download" (click)="handleDialogDisplay(true)"><img src="assets/svgs/download.svg" alt="Download selected files" />Download Selected</div>
@@ -32,7 +32,7 @@
                     {{ file.path }}
                 </td>
                 <td>
-                    <app-downloads-status [status]=file.status></app-downloads-status>
+                    <home-status-indicator [status]=file.status></home-status-indicator>
                 </td>
             </tr>
         </ng-template>

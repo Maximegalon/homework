@@ -218,8 +218,8 @@
     "injectables": [
         {
             "name": "CurrencyService",
-            "id": "injectable-CurrencyService-0d4feb15c22a291b1949934d8d4d5b8f4a4ff9d9a8d457a948e6b8729932fb5d4e80ee707d331aa287b301af649672bddf937a687fdfc4c0aa8ac8a920a8ffcf",
-            "file": "src/app/services/currency.service.ts",
+            "id": "injectable-CurrencyService-195b4e57cdb412312479a8fe895d21d0a6aa415c4e31b8853a1109f45112a867c44de06dcc30300cc61b3d3f847713a5a11abd60be4b9ca392a4545f9d0cf1dd",
+            "file": "src/app/services/currency/currency.service.ts",
             "properties": [],
             "methods": [
                 {
@@ -257,7 +257,7 @@
             "deprecationMessage": "",
             "description": "",
             "rawdescription": "\n",
-            "sourceCode": "import { HttpClient } from '@angular/common/http';\r\nimport { Injectable } from '@angular/core';\r\nimport { Observable } from 'rxjs';\r\nimport { map } from 'rxjs/operators';\r\nimport { Currency } from '../interfaces/currency.model';\r\n\r\n@Injectable({ providedIn: 'root' })\r\nexport class CurrencyService {\r\n  constructor(private http: HttpClient) {}\r\n\r\n  getCurrencies(searchTerm = \"\"): Observable<Array<Currency>> {\r\n    return this.http\r\n      .get<{ data: Currency[] }>(`https://api.coincap.io/v2/assets?search=${searchTerm}`)\r\n      .pipe(map((currencies) => currencies.data || []));\r\n  }\r\n}",
+            "sourceCode": "import { HttpClient } from '@angular/common/http';\r\nimport { Injectable } from '@angular/core';\r\nimport { Observable } from 'rxjs';\r\nimport { map } from 'rxjs/operators';\r\nimport { Currency } from '../../interfaces/currency.model';\r\n\r\n@Injectable({ providedIn: 'root' })\r\nexport class CurrencyService {\r\n  constructor(private http: HttpClient) {}\r\n\r\n  getCurrencies(searchTerm = \"\"): Observable<Array<Currency>> {\r\n    return this.http\r\n      .get<{ data: Currency[] }>(`https://api.coincap.io/v2/assets?search=${searchTerm}`)\r\n      .pipe(map((currencies) => currencies.data || []));\r\n  }\r\n}",
             "constructorObj": {
                 "name": "constructor",
                 "description": "",
@@ -288,8 +288,8 @@
         },
         {
             "name": "FilesService",
-            "id": "injectable-FilesService-08d2f9dd65aec27f3c0151a2072e09d2c9eebd6594f80a28170d1b048ce0e8796bfa607e281ef1e017963962cfbd5fb75c9d334f433f5754a18e0ce83038e8f1",
-            "file": "src/app/services/files.service.ts",
+            "id": "injectable-FilesService-77c86e2bb9b75406874dd5635645aa9ff58ef00907823dbf646c1eaecda19c3606c2b176226289405d76393c660f85a6ebc48e43735e7bff19c838cc8e5377b9",
+            "file": "src/app/services/files/files.service.ts",
             "properties": [],
             "methods": [
                 {
@@ -310,7 +310,7 @@
             "deprecationMessage": "",
             "description": "",
             "rawdescription": "\n",
-            "sourceCode": "import { Injectable } from '@angular/core';\r\nimport { HttpClient } from '@angular/common/http';\r\nimport { map, Observable } from 'rxjs';\r\nimport { DataResponse } from '../interfaces/data-response';\r\nimport { File } from '../interfaces/file';\r\n\r\n@Injectable({\r\n  providedIn: 'root'\r\n})\r\nexport class FilesService {\r\n  constructor(private http: HttpClient) { }\r\n\r\n  public getFiles(): Observable<File[]>\r\n  {\r\n    const url = '/assets/data/files.json';\r\n\r\n    // @TODO: Should have error handling\r\n    return this.http.get<DataResponse>(url).pipe(map((res: DataResponse) => {return res.data}));\r\n  }\r\n}\r\n",
+            "sourceCode": "import { Injectable } from '@angular/core';\r\nimport { HttpClient } from '@angular/common/http';\r\nimport { map, Observable } from 'rxjs';\r\nimport { DataResponse } from '../../interfaces/data-response';\r\nimport { File } from '../../interfaces/file';\r\n\r\n@Injectable({\r\n  providedIn: 'root'\r\n})\r\nexport class FilesService {\r\n  constructor(private http: HttpClient) { }\r\n\r\n  public getFiles(): Observable<File[]>\r\n  {\r\n    const url = '/assets/data/files.json';\r\n\r\n    // @TODO: Should have error handling\r\n    return this.http.get<DataResponse>(url).pipe(map((res: DataResponse) => {return res.data}));\r\n  }\r\n}\r\n",
             "constructorObj": {
                 "name": "constructor",
                 "description": "",
@@ -346,19 +346,368 @@
     "directives": [],
     "components": [
         {
-            "name": "AddCurrencyComponent",
-            "id": "component-AddCurrencyComponent-4fd6b539de291ecce3e0b12d0451b43519d9323609fa2400f9a56e46aafd67d3bc26662c383229951f9a7a1db69093ba82437cf0a063ec29ee2c7d3ed21e3df5",
-            "file": "src/app/pages/crypto/add-currency/add-currency.component.ts",
+            "name": "AppComponent",
+            "id": "component-AppComponent-6cae814ffc31bfc56ecc5df1ef20c498918406d11bb8aafd9cdbb2c4a46aab5006800f9975c9b07eb465e1b599aec6399f4bb58d43e374f8fc1b1935f89a3d33",
+            "file": "src/app/app.component.ts",
             "encapsulation": [],
             "entryComponents": [],
             "inputs": [],
             "outputs": [],
             "providers": [],
-            "selector": "app-add-currency",
+            "selector": "app-root",
             "styleUrls": [],
             "styles": [],
             "templateUrl": [
-                "./add-currency.component.html"
+                "app.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'app-root',\r\n  templateUrl: 'app.component.html',\r\n})\r\nexport class AppComponent {\r\n}",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "",
+            "templateData": "<style>\r\n  .content {\r\n    display: flex;\r\n    margin: 82px auto 32px;\r\n    padding: 0 16px;\r\n    max-width: 960px;\r\n    flex-direction: column;\r\n    align-items: center;\r\n  }\r\n\r\n  .toolbar {\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\r\n    right: 0;\r\n    height: 60px;\r\n    display: flex;\r\n    align-items: center;\r\n    background-color: #1976d2;\r\n    color: white;\r\n    font-weight: 600;\r\n    justify-content: center;\r\n    align-items: center;\r\n    font-size: 1rem;\r\n  }\r\n\r\n  footer {\r\n    margin-top: 8px;\r\n    display: flex;\r\n    align-items: center;\r\n    line-height: 20px;\r\n  }\r\n\r\n  img#clouds {\r\n    position: fixed;\r\n    bottom: -160px;\r\n    left: -230px;\r\n    z-index: -10;\r\n    width: 1920px;\r\n  }\r\n</style>\r\n\r\n<div class=\"content\">\r\n  <div class=\"toolbar\" role=\"banner\">\r\n      <h1>Homework Web Site</h1>\r\n  </div>\r\n\r\n  <router-outlet></router-outlet>\r\n\r\n  <footer></footer>\r\n\r\n  <img id=\"clouds\" src=\"assets/svgs/clouds.svg\" alt=\"\" />\r\n</div>\r\n\r\n"
+        },
+        {
+            "name": "CheckboxComponent",
+            "id": "component-CheckboxComponent-61175254144b00d5c0bac2565c4f029ababb972d914a3de364473c8c5388eb5d620e729248db0667eff794ca2a439faeffcc5f097ee7dfb43404ebbfc64af136",
+            "file": "src/app/components/checkbox/checkbox.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "home-checkbox",
+            "styleUrls": [
+                "./checkbox.component.scss"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./checkbox.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [
+                {
+                    "name": "state",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 10,
+                    "type": "MultiCheckboxState",
+                    "decorators": []
+                }
+            ],
+            "outputsClass": [
+                {
+                    "name": "stateChanged",
+                    "defaultValue": "new EventEmitter<MultiCheckboxState>()",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 11,
+                    "type": "EventEmitter"
+                }
+            ],
+            "propertiesClass": [],
+            "methodsClass": [
+                {
+                    "name": "changeState",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 25,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n\nFires when the state of the checkbox is changed\n\n",
+                    "description": "<p>Fires when the state of the checkbox is changed</p>\n",
+                    "jsdoctags": [
+                        {
+                            "tagName": {
+                                "pos": 618,
+                                "end": 625,
+                                "flags": 4227072,
+                                "modifierFlagsCache": 0,
+                                "transformFlags": 0,
+                                "kind": 79,
+                                "escapedText": "returns"
+                            },
+                            "comment": "",
+                            "returnType": "void"
+                        }
+                    ]
+                },
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 13,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';\r\nimport { MultiCheckboxState } from './checkbox.model';\r\n\r\n@Component({\r\n  selector: 'home-checkbox',\r\n  templateUrl: './checkbox.component.html',\r\n  styleUrls: ['./checkbox.component.scss']\r\n})\r\nexport class CheckboxComponent implements OnInit {\r\n  @Input() state!: MultiCheckboxState;\r\n  @Output() stateChanged = new EventEmitter<MultiCheckboxState>();\r\n\r\n  ngOnInit() {\r\n    if (this.state == null) {\r\n      this.state = MultiCheckboxState.Empty;\r\n    }\r\n  }\r\n\r\n  /**\r\n   * Fires when the state of the checkbox is changed\r\n   *\r\n   * @returns {void}\r\n   * @memberof CheckboxComponent\r\n   */\r\n   changeState(): void {\r\n    this.stateChanged.emit(this.state);\r\n  }\r\n}\r\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "@import '../../styles/styles.scss';\r\n\r\n:host {\r\n    .full, .partial, .empty {\r\n        cursor: pointer;\r\n        height: 20px;\r\n        width: 20px;\r\n        box-shadow: 0 2px 4px 0 rgba(173,181,189,0.23);\r\n        border-radius: 50%;\r\n    }\r\n\r\n    .full {\r\n        background: $app-color-primary;\r\n    }\r\n\r\n    .partial {\r\n        border-width: 3px;\r\n        border-color: $app-color-primary;\r\n        border-style: solid;\r\n    }\r\n\r\n    .empty {\r\n        border-width: 3px;\r\n        border-color: gray;\r\n        border-style: solid;\r\n    }\r\n}",
+                    "styleUrl": "./checkbox.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "implements": [
+                "OnInit"
+            ],
+            "templateData": "<div [class]=\"state\" (click)=\"changeState()\"></div>"
+        },
+        {
+            "name": "CryptoComponent",
+            "id": "component-CryptoComponent-dfb791e500fb6e71fb02022a12af480f5d2d434c58d5b0207a011705681683d18cf875331f207a03e26df17ff12c40c2da0d835717edc80777de0d06d38a78ed",
+            "file": "src/app/pages/crypto/crypto.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "page-crypto",
+            "styleUrls": [],
+            "styles": [],
+            "templateUrl": [
+                "./crypto.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "currencies$",
+                    "defaultValue": "this.store.select(selectCurrencies)",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 13
+                },
+                {
+                    "name": "currencyPortfolio$",
+                    "defaultValue": "this.store.select(selectCurrencyPortfolio)",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 14
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 26,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "onAdd",
+                    "args": [
+                        {
+                            "name": "currencyId",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 18,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "currencyId",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "onRemove",
+                    "args": [
+                        {
+                            "name": "currencyId",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 22,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "currencyId",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component, OnInit } from '@angular/core';\r\nimport { Store } from '@ngrx/store';\r\n\r\nimport { selectCurrencyPortfolio, selectCurrencies } from '../../state/currencies.selectors';\r\nimport { CurrencyActions, CurrenciesApiActions } from '../../state/currencies.actions';\r\nimport { CurrencyService } from '../../services/currency/currency.service';\r\n\r\n@Component({\r\n  selector: 'page-crypto',\r\n  templateUrl: './crypto.component.html'\r\n})\r\nexport class CryptoComponent implements OnInit {\r\n    currencies$ = this.store.select(selectCurrencies);\r\n    currencyPortfolio$ = this.store.select(selectCurrencyPortfolio);\r\n\r\n    constructor(private currencyService: CurrencyService, private store: Store) {}\r\n\r\n    onAdd(currencyId: string) {\r\n      this.store.dispatch(CurrencyActions.addCurrency({ currencyId }));\r\n    }\r\n\r\n    onRemove(currencyId: string) {\r\n      this.store.dispatch(CurrencyActions.removeCurrency({ currencyId }));\r\n    }\r\n\r\n    ngOnInit() {\r\n      this.currencyService\r\n        .getCurrencies()\r\n        .subscribe((currencies) =>\r\n          this.store.dispatch(CurrenciesApiActions.retrievedCurrencies({ currencies }))\r\n        );\r\n    }\r\n}\r\n",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [
+                    {
+                        "name": "currencyService",
+                        "type": "CurrencyService",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    },
+                    {
+                        "name": "store",
+                        "type": "Store",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "line": 14,
+                "jsdoctags": [
+                    {
+                        "name": "currencyService",
+                        "type": "CurrencyService",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "store",
+                        "type": "Store",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "implements": [
+                "OnInit"
+            ],
+            "templateData": "<div>\r\n    <div>Crypto Tracker</div>\r\n\r\n    <h2>Available Cryptocurrencies</h2>\r\n\r\n    <home-crypto-selector [currencies]=\"(currencies$ | async)!\" (add)=\"onAdd($event)\"></home-crypto-selector>\r\n\r\n    <h2>Portfolio</h2>\r\n\r\n    <home-crypto-portfolio [currencies]=\"(currencyPortfolio$ | async)!\" (remove)=\"onRemove($event)\"></home-crypto-portfolio>\r\n</div>"
+        },
+        {
+            "name": "CryptoPortfolioComponent",
+            "id": "component-CryptoPortfolioComponent-2d6f461a928af4543ef3597362e227fd77a4982f7ef786e316e95591e09a8cfa8ef6cd04bc07340bd4d3d80b07cf84a18cd4904b0bbdf549c15dfaaaa016c0f1",
+            "file": "src/app/pages/crypto/crypto-portfolio/crypto-portfolio.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "home-crypto-portfolio",
+            "styleUrls": [],
+            "styles": [],
+            "templateUrl": [
+                "./crypto-portfolio.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [
+                {
+                    "name": "currencies",
+                    "defaultValue": "[]",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 9,
+                    "type": "ReadonlyArray<Currency>",
+                    "decorators": []
+                }
+            ],
+            "outputsClass": [
+                {
+                    "name": "remove",
+                    "defaultValue": "new EventEmitter<string>()",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 10,
+                    "type": "EventEmitter"
+                }
+            ],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component, EventEmitter, Input, Output } from '@angular/core';\r\nimport { Currency } from '../../../interfaces/currency.model';\r\n\r\n@Component({\r\n  selector: 'home-crypto-portfolio',\r\n  templateUrl: './crypto-portfolio.component.html',\r\n})\r\nexport class CryptoPortfolioComponent {\r\n  @Input() currencies: ReadonlyArray<Currency> = [];\r\n  @Output() remove = new EventEmitter<string>();\r\n}",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "",
+            "templateData": "<div *ngFor=\"let currency of currencies\">\r\n  <p>{{currency.id}}</p>\r\n  <button (click)=\"remove.emit(currency.id)\" data-test=\"remove-button\">Remove from portfolio</button>\r\n</div>"
+        },
+        {
+            "name": "CryptoSelectorComponent",
+            "id": "component-CryptoSelectorComponent-930a238136d28cd3e93bf619c193b8dc01bc1a83ea7121b4ec349a99762ef1522f2080f1485388a84720cb77320600a814b4aa4305e3c20e422e43f39b3c9338",
+            "file": "src/app/pages/crypto/crypto-selector/crypto-selector.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "home-crypto-selector",
+            "styleUrls": [],
+            "styles": [],
+            "templateUrl": [
+                "./crypto-selector.component.html"
             ],
             "viewProviders": [],
             "inputsClass": [
@@ -478,7 +827,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CurrencyService } from '../../../services/currency.service'\r\nimport { Component, EventEmitter, Input, Output } from '@angular/core';\r\nimport { Currency } from '../../../interfaces/currency.model';\r\n\r\n@Component({\r\n  selector: 'app-add-currency',\r\n  templateUrl: './add-currency.component.html'\r\n})\r\nexport class AddCurrencyComponent {\r\n  @Input() currencies: ReadonlyArray<Currency> = [];\r\n  @Output() add = new EventEmitter<string>();\r\n\r\n  text: any = \"\";\r\n  results: Currency[] = [];\r\n  currencyService: CurrencyService;\r\n\r\n  constructor(currencyService: CurrencyService) {\r\n    this.currencyService = currencyService;\r\n   }\r\n\r\n  // NOTE: This is just a demo assignment, probably would make more sense to preload currencies initially and client side filter here. Not like new currencies added real time usually.\r\n  search(event: any) {\r\n    const entityApiCall = this.currencyService.getCurrencies(event.query)\r\n\r\n    entityApiCall.subscribe((response: Currency[]) => {\r\n      this.results = response\r\n    }, (error: any) => {\r\n      console.error(error);\r\n    });\r\n  }\r\n\r\n  addCurrency(e: any) {\r\n    this.text = \"\"\r\n    this.add.emit(e.id)\r\n  }\r\n}\r\n",
+            "sourceCode": "import { CurrencyService } from '../../../services/currency/currency.service'\r\nimport { Component, EventEmitter, Input, Output } from '@angular/core';\r\nimport { Currency } from '../../../interfaces/currency.model';\r\n\r\n@Component({\r\n  selector: 'home-crypto-selector',\r\n  templateUrl: './crypto-selector.component.html'\r\n})\r\nexport class CryptoSelectorComponent {\r\n  @Input() currencies: ReadonlyArray<Currency> = [];\r\n  @Output() add = new EventEmitter<string>();\r\n\r\n  text: any = \"\";\r\n  results: Currency[] = [];\r\n  currencyService: CurrencyService;\r\n\r\n  constructor(currencyService: CurrencyService) {\r\n    this.currencyService = currencyService;\r\n   }\r\n\r\n  // NOTE: This is just a demo assignment, probably would make more sense to preload currencies initially and client side filter here. Not like new currencies added real time usually.\r\n  search(event: any) {\r\n    const entityApiCall = this.currencyService.getCurrencies(event.query)\r\n\r\n    entityApiCall.subscribe((response: Currency[]) => {\r\n      this.results = response\r\n    }, (error: any) => {\r\n      console.error(error);\r\n    });\r\n  }\r\n\r\n  addCurrency(e: any) {\r\n    this.text = \"\"\r\n    this.add.emit(e.id)\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -511,370 +860,21 @@
             "templateData": "<div>\r\n    <div>\r\n        <p-autoComplete\r\n            [(ngModel)]=\"text\" [suggestions]=\"results\"\r\n            (onSelect)=\"addCurrency($event)\"\r\n            (completeMethod)=\"search($event)\" field=\"name\" placeholder=\"Search for a cryptocurrency\">\r\n        </p-autoComplete>\r\n    </div>\r\n</div>"
         },
         {
-            "name": "AppComponent",
-            "id": "component-AppComponent-6cae814ffc31bfc56ecc5df1ef20c498918406d11bb8aafd9cdbb2c4a46aab5006800f9975c9b07eb465e1b599aec6399f4bb58d43e374f8fc1b1935f89a3d33",
-            "file": "src/app/app.component.ts",
-            "encapsulation": [],
-            "entryComponents": [],
-            "inputs": [],
-            "outputs": [],
-            "providers": [],
-            "selector": "app-root",
-            "styleUrls": [],
-            "styles": [],
-            "templateUrl": [
-                "app.component.html"
-            ],
-            "viewProviders": [],
-            "inputsClass": [],
-            "outputsClass": [],
-            "propertiesClass": [],
-            "methodsClass": [],
-            "deprecated": false,
-            "deprecationMessage": "",
-            "hostBindings": [],
-            "hostListeners": [],
-            "description": "",
-            "rawdescription": "\n",
-            "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'app-root',\r\n  templateUrl: 'app.component.html',\r\n})\r\nexport class AppComponent {\r\n}",
-            "assetsDirs": [],
-            "styleUrlsData": "",
-            "stylesData": "",
-            "templateData": "<style>\r\n  .content {\r\n    display: flex;\r\n    margin: 82px auto 32px;\r\n    padding: 0 16px;\r\n    max-width: 960px;\r\n    flex-direction: column;\r\n    align-items: center;\r\n  }\r\n\r\n  .toolbar {\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\r\n    right: 0;\r\n    height: 60px;\r\n    display: flex;\r\n    align-items: center;\r\n    background-color: #1976d2;\r\n    color: white;\r\n    font-weight: 600;\r\n    justify-content: center;\r\n    align-items: center;\r\n    font-size: 1rem;\r\n  }\r\n\r\n  footer {\r\n    margin-top: 8px;\r\n    display: flex;\r\n    align-items: center;\r\n    line-height: 20px;\r\n  }\r\n\r\n  img#clouds {\r\n    position: fixed;\r\n    bottom: -160px;\r\n    left: -230px;\r\n    z-index: -10;\r\n    width: 1920px;\r\n  }\r\n</style>\r\n\r\n<div class=\"content\">\r\n  <div class=\"toolbar\" role=\"banner\">\r\n      <h1>Homework Web Site</h1>\r\n  </div>\r\n\r\n  <router-outlet></router-outlet>\r\n\r\n  <footer></footer>\r\n\r\n  <img id=\"clouds\" src=\"assets/svgs/clouds.svg\" alt=\"\" />\r\n</div>\r\n\r\n"
-        },
-        {
-            "name": "CheckboxComponent",
-            "id": "component-CheckboxComponent-cff00b341a0a59a23dd849a31a70150f0895a1f6b967ace4ea348197ca7a7d7206b9f7af230f1ade5b23695cd75a534a6580ed483504ae1e211f791648dee93b",
-            "file": "src/app/components/checkbox/checkbox.component.ts",
-            "encapsulation": [],
-            "entryComponents": [],
-            "inputs": [],
-            "outputs": [],
-            "providers": [],
-            "selector": "app-checkbox",
-            "styleUrls": [
-                "./checkbox.component.scss"
-            ],
-            "styles": [],
-            "templateUrl": [
-                "./checkbox.component.html"
-            ],
-            "viewProviders": [],
-            "inputsClass": [
-                {
-                    "name": "state",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "line": 10,
-                    "type": "MultiCheckboxState",
-                    "decorators": []
-                }
-            ],
-            "outputsClass": [
-                {
-                    "name": "stateChanged",
-                    "defaultValue": "new EventEmitter<MultiCheckboxState>()",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "line": 11,
-                    "type": "EventEmitter"
-                }
-            ],
-            "propertiesClass": [],
-            "methodsClass": [
-                {
-                    "name": "changeState",
-                    "args": [],
-                    "optional": false,
-                    "returnType": "void",
-                    "typeParameters": [],
-                    "line": 25,
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "rawdescription": "\n\nFires when the state of the checkbox is changed\n\n",
-                    "description": "<p>Fires when the state of the checkbox is changed</p>\n",
-                    "jsdoctags": [
-                        {
-                            "tagName": {
-                                "pos": 617,
-                                "end": 624,
-                                "flags": 4227072,
-                                "modifierFlagsCache": 0,
-                                "transformFlags": 0,
-                                "kind": 79,
-                                "escapedText": "returns"
-                            },
-                            "comment": "",
-                            "returnType": "void"
-                        }
-                    ]
-                },
-                {
-                    "name": "ngOnInit",
-                    "args": [],
-                    "optional": false,
-                    "returnType": "void",
-                    "typeParameters": [],
-                    "line": 13,
-                    "deprecated": false,
-                    "deprecationMessage": ""
-                }
-            ],
-            "deprecated": false,
-            "deprecationMessage": "",
-            "hostBindings": [],
-            "hostListeners": [],
-            "description": "",
-            "rawdescription": "\n",
-            "type": "component",
-            "sourceCode": "import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';\r\nimport { MultiCheckboxState } from './checkbox.model';\r\n\r\n@Component({\r\n  selector: 'app-checkbox',\r\n  templateUrl: './checkbox.component.html',\r\n  styleUrls: ['./checkbox.component.scss']\r\n})\r\nexport class CheckboxComponent implements OnInit {\r\n  @Input() state!: MultiCheckboxState;\r\n  @Output() stateChanged = new EventEmitter<MultiCheckboxState>();\r\n\r\n  ngOnInit() {\r\n    if (this.state == null) {\r\n      this.state = MultiCheckboxState.Empty;\r\n    }\r\n  }\r\n\r\n  /**\r\n   * Fires when the state of the checkbox is changed\r\n   *\r\n   * @returns {void}\r\n   * @memberof CheckboxComponent\r\n   */\r\n   changeState(): void {\r\n    this.stateChanged.emit(this.state);\r\n  }\r\n}\r\n",
-            "assetsDirs": [],
-            "styleUrlsData": [
-                {
-                    "data": "@import '../../styles/styles.scss';\r\n\r\n:host {\r\n    .full, .partial, .empty {\r\n        cursor: pointer;\r\n        height: 20px;\r\n        width: 20px;\r\n        box-shadow: 0 2px 4px 0 rgba(173,181,189,0.23);\r\n        border-radius: 50%;\r\n    }\r\n\r\n    .full {\r\n        background: $app-color-primary;\r\n    }\r\n\r\n    .partial {\r\n        border-width: 3px;\r\n        border-color: $app-color-primary;\r\n        border-style: solid;\r\n    }\r\n\r\n    .empty {\r\n        border-width: 3px;\r\n        border-color: gray;\r\n        border-style: solid;\r\n    }\r\n}",
-                    "styleUrl": "./checkbox.component.scss"
-                }
-            ],
-            "stylesData": "",
-            "implements": [
-                "OnInit"
-            ],
-            "templateData": "<div [class]=\"state\" (click)=\"changeState()\"></div>"
-        },
-        {
-            "name": "CryptoComponent",
-            "id": "component-CryptoComponent-362d6bc27a15ffb453a5aab5cbffd3a37315986c42a9ad292e83369f7e35ce194fa66edca6de8aaf315b61114cac3cb6a0067cf8c7e93dc47255ea22fc0be931",
-            "file": "src/app/pages/crypto/crypto.component.ts",
-            "encapsulation": [],
-            "entryComponents": [],
-            "inputs": [],
-            "outputs": [],
-            "providers": [],
-            "selector": "app-crypto",
-            "styleUrls": [],
-            "styles": [],
-            "templateUrl": [
-                "./crypto.component.html"
-            ],
-            "viewProviders": [],
-            "inputsClass": [],
-            "outputsClass": [],
-            "propertiesClass": [
-                {
-                    "name": "currencies$",
-                    "defaultValue": "this.store.select(selectCurrencies)",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "optional": false,
-                    "description": "",
-                    "line": 13
-                },
-                {
-                    "name": "currencyPortfolio$",
-                    "defaultValue": "this.store.select(selectCurrencyPortfolio)",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "optional": false,
-                    "description": "",
-                    "line": 14
-                }
-            ],
-            "methodsClass": [
-                {
-                    "name": "ngOnInit",
-                    "args": [],
-                    "optional": false,
-                    "returnType": "void",
-                    "typeParameters": [],
-                    "line": 26,
-                    "deprecated": false,
-                    "deprecationMessage": ""
-                },
-                {
-                    "name": "onAdd",
-                    "args": [
-                        {
-                            "name": "currencyId",
-                            "type": "string",
-                            "deprecated": false,
-                            "deprecationMessage": ""
-                        }
-                    ],
-                    "optional": false,
-                    "returnType": "void",
-                    "typeParameters": [],
-                    "line": 18,
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "jsdoctags": [
-                        {
-                            "name": "currencyId",
-                            "type": "string",
-                            "deprecated": false,
-                            "deprecationMessage": "",
-                            "tagName": {
-                                "text": "param"
-                            }
-                        }
-                    ]
-                },
-                {
-                    "name": "onRemove",
-                    "args": [
-                        {
-                            "name": "currencyId",
-                            "type": "string",
-                            "deprecated": false,
-                            "deprecationMessage": ""
-                        }
-                    ],
-                    "optional": false,
-                    "returnType": "void",
-                    "typeParameters": [],
-                    "line": 22,
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "jsdoctags": [
-                        {
-                            "name": "currencyId",
-                            "type": "string",
-                            "deprecated": false,
-                            "deprecationMessage": "",
-                            "tagName": {
-                                "text": "param"
-                            }
-                        }
-                    ]
-                }
-            ],
-            "deprecated": false,
-            "deprecationMessage": "",
-            "hostBindings": [],
-            "hostListeners": [],
-            "description": "",
-            "rawdescription": "\n",
-            "type": "component",
-            "sourceCode": "import { Component, OnInit } from '@angular/core';\r\nimport { Store } from '@ngrx/store';\r\n\r\nimport { selectCurrencyPortfolio, selectCurrencies } from '../../state/currencies.selectors';\r\nimport { CurrencyActions, CurrenciesApiActions } from '../../state/currencies.actions';\r\nimport { CurrencyService } from '../../services/currency.service';\r\n\r\n@Component({\r\n  selector: 'app-crypto',\r\n  templateUrl: './crypto.component.html'\r\n})\r\nexport class CryptoComponent implements OnInit {\r\n    currencies$ = this.store.select(selectCurrencies);\r\n    currencyPortfolio$ = this.store.select(selectCurrencyPortfolio);\r\n\r\n    constructor(private currencyService: CurrencyService, private store: Store) {}\r\n\r\n    onAdd(currencyId: string) {\r\n      this.store.dispatch(CurrencyActions.addCurrency({ currencyId }));\r\n    }\r\n\r\n    onRemove(currencyId: string) {\r\n      this.store.dispatch(CurrencyActions.removeCurrency({ currencyId }));\r\n    }\r\n\r\n    ngOnInit() {\r\n      this.currencyService\r\n        .getCurrencies()\r\n        .subscribe((currencies) =>\r\n          this.store.dispatch(CurrenciesApiActions.retrievedCurrencies({ currencies }))\r\n        );\r\n    }\r\n}\r\n",
-            "assetsDirs": [],
-            "styleUrlsData": "",
-            "stylesData": "",
-            "constructorObj": {
-                "name": "constructor",
-                "description": "",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "args": [
-                    {
-                        "name": "currencyService",
-                        "type": "CurrencyService",
-                        "deprecated": false,
-                        "deprecationMessage": ""
-                    },
-                    {
-                        "name": "store",
-                        "type": "Store",
-                        "deprecated": false,
-                        "deprecationMessage": ""
-                    }
-                ],
-                "line": 14,
-                "jsdoctags": [
-                    {
-                        "name": "currencyService",
-                        "type": "CurrencyService",
-                        "deprecated": false,
-                        "deprecationMessage": "",
-                        "tagName": {
-                            "text": "param"
-                        }
-                    },
-                    {
-                        "name": "store",
-                        "type": "Store",
-                        "deprecated": false,
-                        "deprecationMessage": "",
-                        "tagName": {
-                            "text": "param"
-                        }
-                    }
-                ]
-            },
-            "implements": [
-                "OnInit"
-            ],
-            "templateData": "<div>\r\n    <div>Crypto Tracker</div>\r\n\r\n    <h2>Available Cryptocurrencies</h2>\r\n\r\n    <app-add-currency [currencies]=\"(currencies$ | async)!\" (add)=\"onAdd($event)\"></app-add-currency>\r\n\r\n    <h2>Portfolio</h2>\r\n\r\n    <app-crypto-portfolio [currencies]=\"(currencyPortfolio$ | async)!\" (remove)=\"onRemove($event)\"></app-crypto-portfolio>\r\n</div>"
-        },
-        {
-            "name": "CryptoPortfolioComponent",
-            "id": "component-CryptoPortfolioComponent-68c1079a031824bacd20c594596a48f060d3b1f2086b88b9a503a73df8f8eaba98387497e8016c5d89ea4e1526fb11dd508fab00f577983a4c6913edd7ed0843",
-            "file": "src/app/pages/crypto/crypto-portfolio/crypto-portfolio.component.ts",
-            "encapsulation": [],
-            "entryComponents": [],
-            "inputs": [],
-            "outputs": [],
-            "providers": [],
-            "selector": "app-crypto-portfolio",
-            "styleUrls": [],
-            "styles": [],
-            "templateUrl": [
-                "./crypto-portfolio.component.html"
-            ],
-            "viewProviders": [],
-            "inputsClass": [
-                {
-                    "name": "currencies",
-                    "defaultValue": "[]",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "line": 9,
-                    "type": "ReadonlyArray<Currency>",
-                    "decorators": []
-                }
-            ],
-            "outputsClass": [
-                {
-                    "name": "remove",
-                    "defaultValue": "new EventEmitter<string>()",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "line": 10,
-                    "type": "EventEmitter"
-                }
-            ],
-            "propertiesClass": [],
-            "methodsClass": [],
-            "deprecated": false,
-            "deprecationMessage": "",
-            "hostBindings": [],
-            "hostListeners": [],
-            "description": "",
-            "rawdescription": "\n",
-            "type": "component",
-            "sourceCode": "import { Component, EventEmitter, Input, Output } from '@angular/core';\r\nimport { Currency } from '../../../interfaces/currency.model';\r\n\r\n@Component({\r\n  selector: 'app-crypto-portfolio',\r\n  templateUrl: './crypto-portfolio.component.html',\r\n})\r\nexport class CryptoPortfolioComponent {\r\n  @Input() currencies: ReadonlyArray<Currency> = [];\r\n  @Output() remove = new EventEmitter<string>();\r\n}",
-            "assetsDirs": [],
-            "styleUrlsData": "",
-            "stylesData": "",
-            "templateData": "<div *ngFor=\"let currency of currencies\">\r\n  <p>{{currency.id}}</p>\r\n  <button (click)=\"remove.emit(currency.id)\" data-test=\"remove-button\">Remove from portfolio</button>\r\n</div>"
-        },
-        {
             "name": "DownloadsComponent",
-            "id": "component-DownloadsComponent-cf549cef1a8a8d711eff5dcbe66e237085281ae87a9ce91927fb3de32aac96529ef515497cb1d7c7ae4faf5fcd0c2c44c13b454973f318bff8ab8153f3804c5f",
-            "file": "src/app/pages/files/downloads.component.ts",
+            "id": "component-DownloadsComponent-d6d289c7eef9f4129281fd6f7402e431efae60961474a23993a24da886070d552c8d41a9e7f7045fd1ea555367e0842d0d0bf58b01a78eb5e1c3c02ae152a3ac",
+            "file": "src/app/pages/files/files.component.ts",
             "encapsulation": [],
             "entryComponents": [],
             "inputs": [],
             "outputs": [],
             "providers": [],
-            "selector": "app-downloads",
+            "selector": "page-downloads",
             "styleUrls": [
-                "./downloads.component.scss"
+                "./files.component.scss"
             ],
             "styles": [],
             "templateUrl": [
-                "./downloads.component.html"
+                "./files.component.html"
             ],
             "viewProviders": [],
             "inputsClass": [],
@@ -971,8 +971,8 @@
                         },
                         {
                             "tagName": {
-                                "pos": 1528,
-                                "end": 1535,
+                                "pos": 1527,
+                                "end": 1534,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -1014,8 +1014,8 @@
                         },
                         {
                             "tagName": {
-                                "pos": 1163,
-                                "end": 1170,
+                                "pos": 1162,
+                                "end": 1169,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -1055,12 +1055,12 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, OnDestroy, OnInit } from '@angular/core';\r\nimport { Subscription } from 'rxjs';\r\nimport { FilesService } from '../../services/files.service';\r\nimport { File, FileStatus } from '../../interfaces/file';\r\nimport { MultiCheckboxState } from '../../components/checkbox/checkbox.model';\r\n\r\n@Component({\r\n  selector: 'app-downloads',\r\n  templateUrl: './downloads.component.html',\r\n  styleUrls: ['./downloads.component.scss']\r\n})\r\nexport class DownloadsComponent implements OnDestroy, OnInit {\r\n  filesService: FilesService;\r\n  files: File[] = [];\r\n  subscriptions: Subscription[] = [];\r\n  selectedFiles: File[] = [];\r\n  fileSubscription: Subscription = new Subscription;\r\n  showModal = false;\r\n\r\n  constructor(filesService: FilesService) {\r\n    this.filesService = filesService;\r\n  }\r\n\r\n  ngOnInit(): void {\r\n    this.fileSubscription = this.filesService.getFiles().subscribe(response => {\r\n      this.files = response;\r\n    })\r\n\r\n    this.subscriptions.push(this.fileSubscription);\r\n  }\r\n\r\n  ngOnDestroy(): void {\r\n    this.subscriptions.forEach(sub => sub.unsubscribe());\r\n  }\r\n\r\n  /**\r\n   * Fires when multistatte checkbox is clicked\r\n   *\r\n   * @returns {void}\r\n   * @memberof DownloadsComponent\r\n   */\r\n  handleSelectionClick(e: MultiCheckboxState): void {\r\n    if (e === MultiCheckboxState.Empty || e === MultiCheckboxState.Partial) {\r\n      this.selectedFiles = this.files;\r\n    } else {\r\n      this.selectedFiles = [];\r\n    }\r\n  }\r\n\r\n  /**\r\n   * Fires when clicking to display the modal dialog\r\n   *\r\n   * @returns {void}\r\n   * @memberof DownloadsComponent\r\n   */\r\n  handleDialogDisplay(display: boolean): void {\r\n    this.showModal = display;\r\n  }\r\n\r\n  /**\r\n   * The row selection state of the table\r\n   *\r\n   * @returns {MultiCheckboxState}\r\n   * @memberof DownloadsComponent\r\n   */\r\n  get tableState(): MultiCheckboxState {\r\n    if (this.selectedFiles.length === 0) {\r\n      return MultiCheckboxState.Empty;\r\n    }\r\n\r\n    if (this.selectedFiles.length === this.files.length) {\r\n      return MultiCheckboxState.Full;\r\n    }\r\n\r\n    return MultiCheckboxState.Partial;\r\n  }\r\n\r\n  /**\r\n   * The number of files currently selected\r\n   *\r\n   * @returns {number}\r\n   * @memberof DownloadsComponent\r\n   */\r\n  get selectedFileCount(): number {\r\n    return this.selectedFiles.length;\r\n  }\r\n\r\n  /**\r\n   * The number of files currently selected that are not available\r\n   *\r\n   * @returns {number}\r\n   * @memberof DownloadsComponent\r\n   */\r\n   get selectedUnavailableFileCount(): number {\r\n    return this.selectedFiles.filter(f => f.status !== FileStatus.Available).length;\r\n  }\r\n}\r\n",
+            "sourceCode": "import { Component, OnDestroy, OnInit } from '@angular/core';\r\nimport { Subscription } from 'rxjs';\r\nimport { FilesService } from '../../services/files/files.service';\r\nimport { File, FileStatus } from '../../interfaces/file';\r\nimport { MultiCheckboxState } from '../../components/checkbox/checkbox.model';\r\n\r\n@Component({\r\n  selector: 'page-downloads',\r\n  templateUrl: './files.component.html',\r\n  styleUrls: ['./files.component.scss']\r\n})\r\nexport class DownloadsComponent implements OnDestroy, OnInit {\r\n  filesService: FilesService;\r\n  files: File[] = [];\r\n  subscriptions: Subscription[] = [];\r\n  selectedFiles: File[] = [];\r\n  fileSubscription: Subscription = new Subscription;\r\n  showModal = false;\r\n\r\n  constructor(filesService: FilesService) {\r\n    this.filesService = filesService;\r\n  }\r\n\r\n  ngOnInit(): void {\r\n    this.fileSubscription = this.filesService.getFiles().subscribe(response => {\r\n      this.files = response;\r\n    })\r\n\r\n    this.subscriptions.push(this.fileSubscription);\r\n  }\r\n\r\n  ngOnDestroy(): void {\r\n    this.subscriptions.forEach(sub => sub.unsubscribe());\r\n  }\r\n\r\n  /**\r\n   * Fires when multistatte checkbox is clicked\r\n   *\r\n   * @returns {void}\r\n   * @memberof DownloadsComponent\r\n   */\r\n  handleSelectionClick(e: MultiCheckboxState): void {\r\n    if (e === MultiCheckboxState.Empty || e === MultiCheckboxState.Partial) {\r\n      this.selectedFiles = this.files;\r\n    } else {\r\n      this.selectedFiles = [];\r\n    }\r\n  }\r\n\r\n  /**\r\n   * Fires when clicking to display the modal dialog\r\n   *\r\n   * @returns {void}\r\n   * @memberof DownloadsComponent\r\n   */\r\n  handleDialogDisplay(display: boolean): void {\r\n    this.showModal = display;\r\n  }\r\n\r\n  /**\r\n   * The row selection state of the table\r\n   *\r\n   * @returns {MultiCheckboxState}\r\n   * @memberof DownloadsComponent\r\n   */\r\n  get tableState(): MultiCheckboxState {\r\n    if (this.selectedFiles.length === 0) {\r\n      return MultiCheckboxState.Empty;\r\n    }\r\n\r\n    if (this.selectedFiles.length === this.files.length) {\r\n      return MultiCheckboxState.Full;\r\n    }\r\n\r\n    return MultiCheckboxState.Partial;\r\n  }\r\n\r\n  /**\r\n   * The number of files currently selected\r\n   *\r\n   * @returns {number}\r\n   * @memberof DownloadsComponent\r\n   */\r\n  get selectedFileCount(): number {\r\n    return this.selectedFiles.length;\r\n  }\r\n\r\n  /**\r\n   * The number of files currently selected that are not available\r\n   *\r\n   * @returns {number}\r\n   * @memberof DownloadsComponent\r\n   */\r\n   get selectedUnavailableFileCount(): number {\r\n    return this.selectedFiles.filter(f => f.status !== FileStatus.Available).length;\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
                     "data": "@import '../../styles/overrides.scss';\r\n\r\n:host {\r\n    width: 100%;\r\n\r\n    ::ng-deep .p-datatable-header > div {\r\n        display: flex;\r\n        align-items: center;\r\n\r\n        > label {\r\n            margin-left: 1rem;\r\n        }\r\n\r\n        > div.download {\r\n            display: flex;\r\n            justify-content: center;\r\n\r\n            img {\r\n                width: 1rem;\r\n            }\r\n        }\r\n\r\n        > div {\r\n            margin-left: 2rem;\r\n            cursor: pointer;\r\n        }\r\n    }\r\n\r\n    // @NOTE: Dialog classes, should be kept seperate\r\n    .message {\r\n        font-size: small;\r\n        margin-bottom: 1rem;\r\n    }\r\n\r\n    .notavailable {\r\n        color: $app-color-warning;\r\n        cursor: default !important;\r\n    }\r\n\r\n    .downloads {\r\n        display: grid;\r\n        grid-template-columns: 25% 75%;\r\n        gap: 5px;\r\n\r\n        div {\r\n            text-overflow: ellipsis;\r\n            overflow: hidden;\r\n            white-space: nowrap;\r\n            cursor: pointer;\r\n        }\r\n    }\r\n}\r\n",
-                    "styleUrl": "./downloads.component.scss"
+                    "styleUrl": "./files.component.scss"
                 }
             ],
             "stylesData": "",
@@ -1106,15 +1106,15 @@
                         "description": "<p>The row selection state of the table</p>\n",
                         "jsdoctags": [
                             {
-                                "pos": 1734,
-                                "end": 1770,
+                                "pos": 1733,
+                                "end": 1769,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
                                 "kind": 339,
                                 "tagName": {
-                                    "pos": 1735,
-                                    "end": 1742,
+                                    "pos": 1734,
+                                    "end": 1741,
                                     "flags": 4227072,
                                     "modifierFlagsCache": 0,
                                     "transformFlags": 0,
@@ -1123,22 +1123,22 @@
                                 },
                                 "comment": "",
                                 "typeExpression": {
-                                    "pos": 1743,
-                                    "end": 1763,
+                                    "pos": 1742,
+                                    "end": 1762,
                                     "flags": 4227072,
                                     "modifierFlagsCache": 0,
                                     "transformFlags": 0,
                                     "kind": 307,
                                     "type": {
-                                        "pos": 1744,
-                                        "end": 1762,
+                                        "pos": 1743,
+                                        "end": 1761,
                                         "flags": 4194304,
                                         "modifierFlagsCache": 0,
                                         "transformFlags": 1,
                                         "kind": 177,
                                         "typeName": {
-                                            "pos": 1744,
-                                            "end": 1762,
+                                            "pos": 1743,
+                                            "end": 1761,
                                             "flags": 4194304,
                                             "modifierFlagsCache": 0,
                                             "transformFlags": 0,
@@ -1149,15 +1149,15 @@
                                 }
                             },
                             {
-                                "pos": 1770,
-                                "end": 1803,
+                                "pos": 1769,
+                                "end": 1802,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
                                 "kind": 325,
                                 "tagName": {
-                                    "pos": 1771,
-                                    "end": 1779,
+                                    "pos": 1770,
+                                    "end": 1778,
                                     "flags": 4227072,
                                     "modifierFlagsCache": 0,
                                     "transformFlags": 0,
@@ -1180,15 +1180,15 @@
                         "description": "<p>The number of files currently selected</p>\n",
                         "jsdoctags": [
                             {
-                                "pos": 2160,
-                                "end": 2184,
+                                "pos": 2159,
+                                "end": 2183,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
                                 "kind": 339,
                                 "tagName": {
-                                    "pos": 2161,
-                                    "end": 2168,
+                                    "pos": 2160,
+                                    "end": 2167,
                                     "flags": 4227072,
                                     "modifierFlagsCache": 0,
                                     "transformFlags": 0,
@@ -1197,15 +1197,15 @@
                                 },
                                 "comment": "",
                                 "typeExpression": {
-                                    "pos": 2169,
-                                    "end": 2177,
+                                    "pos": 2168,
+                                    "end": 2176,
                                     "flags": 4227072,
                                     "modifierFlagsCache": 0,
                                     "transformFlags": 0,
                                     "kind": 307,
                                     "type": {
-                                        "pos": 2170,
-                                        "end": 2176,
+                                        "pos": 2169,
+                                        "end": 2175,
                                         "flags": 4194304,
                                         "modifierFlagsCache": 0,
                                         "transformFlags": 1,
@@ -1214,15 +1214,15 @@
                                 }
                             },
                             {
-                                "pos": 2184,
-                                "end": 2217,
+                                "pos": 2183,
+                                "end": 2216,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
                                 "kind": 325,
                                 "tagName": {
-                                    "pos": 2185,
-                                    "end": 2193,
+                                    "pos": 2184,
+                                    "end": 2192,
                                     "flags": 4227072,
                                     "modifierFlagsCache": 0,
                                     "transformFlags": 0,
@@ -1245,15 +1245,15 @@
                         "description": "<p>The number of files currently selected that are not available</p>\n",
                         "jsdoctags": [
                             {
-                                "pos": 2390,
-                                "end": 2414,
+                                "pos": 2389,
+                                "end": 2413,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
                                 "kind": 339,
                                 "tagName": {
-                                    "pos": 2391,
-                                    "end": 2398,
+                                    "pos": 2390,
+                                    "end": 2397,
                                     "flags": 4227072,
                                     "modifierFlagsCache": 0,
                                     "transformFlags": 0,
@@ -1262,15 +1262,15 @@
                                 },
                                 "comment": "",
                                 "typeExpression": {
-                                    "pos": 2399,
-                                    "end": 2407,
+                                    "pos": 2398,
+                                    "end": 2406,
                                     "flags": 4227072,
                                     "modifierFlagsCache": 0,
                                     "transformFlags": 0,
                                     "kind": 307,
                                     "type": {
-                                        "pos": 2400,
-                                        "end": 2406,
+                                        "pos": 2399,
+                                        "end": 2405,
                                         "flags": 4194304,
                                         "modifierFlagsCache": 0,
                                         "transformFlags": 1,
@@ -1279,15 +1279,15 @@
                                 }
                             },
                             {
-                                "pos": 2414,
-                                "end": 2447,
+                                "pos": 2413,
+                                "end": 2446,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
                                 "kind": 325,
                                 "tagName": {
-                                    "pos": 2415,
-                                    "end": 2423,
+                                    "pos": 2414,
+                                    "end": 2422,
                                     "flags": 4227072,
                                     "modifierFlagsCache": 0,
                                     "transformFlags": 0,
@@ -1300,24 +1300,24 @@
                     }
                 }
             },
-            "templateData": "<div>\r\n    <p-table [value]=\"files\" selectionMode=\"multiple\" [(selection)]=\"selectedFiles\">\r\n        <ng-template pTemplate=\"caption\">\r\n            <div>\r\n                <app-checkbox [state]=\"tableState\" (stateChanged)=\"handleSelectionClick($event)\"></app-checkbox>\r\n                <label *ngIf=\"!selectedFileCount\">None Selected</label>\r\n                <label *ngIf=\"selectedFileCount\">Selected {{ selectedFileCount }}</label>\r\n                <div *ngIf=\"selectedFileCount\" class=\"download\" (click)=\"handleDialogDisplay(true)\"><img src=\"assets/svgs/download.svg\" alt=\"Download selected files\" />Download Selected</div>\r\n            </div>\r\n        </ng-template>\r\n        <ng-template pTemplate=\"header\">\r\n            <tr>\r\n                <th></th>\r\n                <th>Name</th>\r\n                <th>Device</th>\r\n                <th>Path</th>\r\n                <th>Status</th>\r\n            </tr>\r\n        </ng-template>\r\n        <ng-template pTemplate=\"body\" let-file>\r\n            <tr [pSelectableRow]=\"file\">\r\n                <td>\r\n                    <p-tableCheckbox [value]=\"file\" (click)=\"$event.stopPropagation()\"></p-tableCheckbox>\r\n                </td>\r\n                <td>\r\n                    {{ file.name }}\r\n                </td>\r\n                <td>\r\n                    {{ file.device }}\r\n                </td>\r\n                <td>\r\n                    {{ file.path }}\r\n                </td>\r\n                <td>\r\n                    <app-downloads-status [status]=file.status></app-downloads-status>\r\n                </td>\r\n            </tr>\r\n        </ng-template>\r\n    </p-table>\r\n\r\n    <!-- @TODO: Make a component that wraps this for reusability -->\r\n    <p-dialog header=\"File Downloads\" [(visible)]=\"showModal\" [style]=\"{width: '50vw'}\" [modal]=\"true\" [draggable]=\"false\">\r\n        <!-- BUSINESSRULE: Only those that have a status of \"available\" are currently able to be downloaded. Your implementation should manage this. -->\r\n        <div  *ngIf=\"selectedUnavailableFileCount\" class=\"message\">File(s) in <span class=\"notavailable\">red</span> are not available to be downloaded.</div>\r\n\r\n        <div class=\"downloads\">\r\n            <ng-container *ngFor=\"let file of selectedFiles\">\r\n                <div title=\"{{ file.device }}\" [ngClass]=\"{'notavailable': file.status !== 'available'}\">{{ file.device }}</div>\r\n                <div *ngIf=\"file.status !== 'available'\" title=\"{{ file.path }}\" class=\"notavailable\">{{ file.path }}</div>\r\n                <div *ngIf=\"file.status === 'available'\" title=\"{{ file.path }}\"><a>{{ file.path }}</a></div>\r\n            </ng-container>\r\n        </div>\r\n        <ng-template pTemplate=\"footer\">\r\n            <p-button label=\"Close\" styleClass=\"p-button-text\" (click)=\"handleDialogDisplay(false)\"></p-button>\r\n        </ng-template>\r\n    </p-dialog>\r\n</div>\r\n"
+            "templateData": "<div>\r\n    <p-table [value]=\"files\" selectionMode=\"multiple\" [(selection)]=\"selectedFiles\">\r\n        <ng-template pTemplate=\"caption\">\r\n            <div>\r\n                <home-checkbox [state]=\"tableState\" (stateChanged)=\"handleSelectionClick($event)\"></home-checkbox>\r\n                <label *ngIf=\"!selectedFileCount\">None Selected</label>\r\n                <label *ngIf=\"selectedFileCount\">Selected {{ selectedFileCount }}</label>\r\n                <div *ngIf=\"selectedFileCount\" class=\"download\" (click)=\"handleDialogDisplay(true)\"><img src=\"assets/svgs/download.svg\" alt=\"Download selected files\" />Download Selected</div>\r\n            </div>\r\n        </ng-template>\r\n        <ng-template pTemplate=\"header\">\r\n            <tr>\r\n                <th></th>\r\n                <th>Name</th>\r\n                <th>Device</th>\r\n                <th>Path</th>\r\n                <th>Status</th>\r\n            </tr>\r\n        </ng-template>\r\n        <ng-template pTemplate=\"body\" let-file>\r\n            <tr [pSelectableRow]=\"file\">\r\n                <td>\r\n                    <p-tableCheckbox [value]=\"file\" (click)=\"$event.stopPropagation()\"></p-tableCheckbox>\r\n                </td>\r\n                <td>\r\n                    {{ file.name }}\r\n                </td>\r\n                <td>\r\n                    {{ file.device }}\r\n                </td>\r\n                <td>\r\n                    {{ file.path }}\r\n                </td>\r\n                <td>\r\n                    <home-status-indicator [status]=file.status></home-status-indicator>\r\n                </td>\r\n            </tr>\r\n        </ng-template>\r\n    </p-table>\r\n\r\n    <!-- @TODO: Make a component that wraps this for reusability -->\r\n    <p-dialog header=\"File Downloads\" [(visible)]=\"showModal\" [style]=\"{width: '50vw'}\" [modal]=\"true\" [draggable]=\"false\">\r\n        <!-- BUSINESSRULE: Only those that have a status of \"available\" are currently able to be downloaded. Your implementation should manage this. -->\r\n        <div  *ngIf=\"selectedUnavailableFileCount\" class=\"message\">File(s) in <span class=\"notavailable\">red</span> are not available to be downloaded.</div>\r\n\r\n        <div class=\"downloads\">\r\n            <ng-container *ngFor=\"let file of selectedFiles\">\r\n                <div title=\"{{ file.device }}\" [ngClass]=\"{'notavailable': file.status !== 'available'}\">{{ file.device }}</div>\r\n                <div *ngIf=\"file.status !== 'available'\" title=\"{{ file.path }}\" class=\"notavailable\">{{ file.path }}</div>\r\n                <div *ngIf=\"file.status === 'available'\" title=\"{{ file.path }}\"><a>{{ file.path }}</a></div>\r\n            </ng-container>\r\n        </div>\r\n        <ng-template pTemplate=\"footer\">\r\n            <p-button label=\"Close\" styleClass=\"p-button-text\" (click)=\"handleDialogDisplay(false)\"></p-button>\r\n        </ng-template>\r\n    </p-dialog>\r\n</div>\r\n"
         },
         {
             "name": "StatusIndicatorComponent",
-            "id": "component-StatusIndicatorComponent-11be52f1ea8405878bc664797be17c8cf905464d587a036a6ff31821fff6e4073f019d17ad62515d1857073ff7a1d711dcb647d805ff6af000fb7d550a3bb99c",
-            "file": "src/app/components/status-indicator/downloads-status.component.ts",
+            "id": "component-StatusIndicatorComponent-2a001662d5dc0d45fbcc20ce28c0d2c46fec16f3d655fba159319bbc963254581ff081462c4a927b1b455b106b3dae34ff358492c156f2b9eacebce5f9f3b068",
+            "file": "src/app/components/status-indicator/status-indicator.component.ts",
             "encapsulation": [],
             "entryComponents": [],
             "inputs": [],
             "outputs": [],
             "providers": [],
-            "selector": "app-downloads-status",
+            "selector": "home-status-indicator",
             "styleUrls": [
-                "./downloads-status.component.scss"
+                "./status-indicator.component.scss"
             ],
             "styles": [],
             "templateUrl": [
-                "./downloads-status.component.html"
+                "./status-indicator.component.html"
             ],
             "viewProviders": [],
             "inputsClass": [
@@ -1341,12 +1341,12 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, Input } from '@angular/core';\r\nimport { FileStatus } from '../../interfaces/file';\r\n\r\n@Component({\r\n  selector: 'app-downloads-status',\r\n  templateUrl: './downloads-status.component.html',\r\n  styleUrls: ['./downloads-status.component.scss']\r\n})\r\nexport class StatusIndicatorComponent {\r\n  @Input() status: FileStatus = FileStatus.Unknown;\r\n}\r\n",
+            "sourceCode": "import { Component, Input } from '@angular/core';\r\nimport { FileStatus } from '../../interfaces/file';\r\n\r\n@Component({\r\n  selector: 'home-status-indicator',\r\n  templateUrl: './status-indicator.component.html',\r\n  styleUrls: ['./status-indicator.component.scss']\r\n})\r\nexport class StatusIndicatorComponent {\r\n  @Input() status: FileStatus = FileStatus.Unknown;\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
                     "data": "@import '../../styles/styles.scss';\r\n\r\n:host {\r\n    .status-indicator {\r\n        text-transform: capitalize;\r\n        display: flex;\r\n        flex-direction: row;\r\n\r\n        .indicator {\r\n            min-height: 20px;\r\n            min-width: 20px;\r\n\r\n            &.available {\r\n                background-color: $app-color-status-good;\r\n                border-radius: 50%;\r\n                display: inline-block;\r\n            }\r\n        }\r\n\r\n        label {\r\n            padding-left: 1rem;\r\n        }\r\n    }\r\n}",
-                    "styleUrl": "./downloads-status.component.scss"
+                    "styleUrl": "./status-indicator.component.scss"
                 }
             ],
             "stylesData": "",
@@ -1356,13 +1356,13 @@
     "modules": [
         {
             "name": "AppModule",
-            "id": "module-AppModule-bb4b5e5671b7a8a746d3db7a1120b6cc1e60010ba4b2780929bad75a7b8347d620d8188b8ed18d2083938fbbf94a964b49b0dd6fba0b53453a964f3661268b99",
+            "id": "module-AppModule-5c019607e064a6639b296724d96ba736704040df86bf0429addebb6099355772ee7c673c94da0c3cd48cd63036c4c4bc6f63dd7ecc7037ec971a3ce05e5bfc79",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "src/app/app.module.ts",
             "methods": [],
-            "sourceCode": "import { HttpClientModule } from '@angular/common/http';\r\nimport { NgModule } from '@angular/core';\r\nimport { FormsModule } from '@angular/forms';\r\nimport { BrowserModule } from '@angular/platform-browser';\r\nimport { BrowserAnimationsModule } from '@angular/platform-browser/animations';\r\nimport { StoreModule } from '@ngrx/store';\r\nimport { AutoCompleteModule } from 'primeng/autocomplete';\r\nimport { ButtonModule } from 'primeng/button';\r\nimport { DialogModule } from 'primeng/dialog';\r\nimport { TableModule } from 'primeng/table';\r\nimport { AppRoutingModule } from './app-routing.module';\r\nimport { AppComponent } from './app.component';\r\nimport { CheckboxComponent } from './components/checkbox/checkbox.component';\r\nimport { StatusIndicatorComponent } from './components/status-indicator/downloads-status.component';\r\nimport { AddCurrencyComponent } from './pages/crypto/add-currency/add-currency.component';\r\nimport { CryptoPortfolioComponent } from './pages/crypto/crypto-portfolio/crypto-portfolio.component';\r\nimport { CryptoComponent } from './pages/crypto/crypto.component';\r\nimport { DownloadsComponent } from './pages/files/downloads.component';\r\nimport { currencyReducer } from './state/currencies.reducer';\r\nimport { portfolioReducer } from './state/portfolio.reducer';\r\n\r\n@NgModule({\r\n  declarations: [\r\n    AppComponent,\r\n    CheckboxComponent,\r\n    DownloadsComponent,\r\n    StatusIndicatorComponent,\r\n    AddCurrencyComponent,\r\n    AddCurrencyComponent,\r\n    CryptoPortfolioComponent,\r\n    CryptoComponent\r\n  ],\r\n  imports: [\r\n    AppRoutingModule,\r\n    FormsModule,\r\n    BrowserModule,\r\n    BrowserAnimationsModule,\r\n    ButtonModule,\r\n    DialogModule,\r\n    HttpClientModule,\r\n    TableModule,\r\n    AutoCompleteModule,\r\n    StoreModule.forRoot({ currencies: currencyReducer, portfolio: portfolioReducer }),\r\n  ],\r\n  providers: [],\r\n  bootstrap: [AppComponent]\r\n})\r\nexport class AppModule { }\r\n",
+            "sourceCode": "import { HttpClientModule } from '@angular/common/http';\r\nimport { NgModule } from '@angular/core';\r\nimport { FormsModule } from '@angular/forms';\r\nimport { BrowserModule } from '@angular/platform-browser';\r\nimport { BrowserAnimationsModule } from '@angular/platform-browser/animations';\r\nimport { StoreModule } from '@ngrx/store';\r\nimport { AutoCompleteModule } from 'primeng/autocomplete';\r\nimport { ButtonModule } from 'primeng/button';\r\nimport { DialogModule } from 'primeng/dialog';\r\nimport { TableModule } from 'primeng/table';\r\nimport { AppRoutingModule } from './app-routing.module';\r\nimport { AppComponent } from './app.component';\r\nimport { CheckboxComponent } from './components/checkbox/checkbox.component';\r\nimport { StatusIndicatorComponent } from './components/status-indicator/status-indicator.component';\r\nimport { CryptoSelectorComponent } from './pages/crypto/crypto-selector/crypto-selector.component';\r\nimport { CryptoPortfolioComponent } from './pages/crypto/crypto-portfolio/crypto-portfolio.component';\r\nimport { CryptoComponent } from './pages/crypto/crypto.component';\r\nimport { DownloadsComponent } from './pages/files/files.component';\r\nimport { currencyReducer } from './state/currencies.reducer';\r\nimport { portfolioReducer } from './state/portfolio.reducer';\r\n\r\n@NgModule({\r\n  declarations: [\r\n    AppComponent,\r\n    CheckboxComponent,\r\n    DownloadsComponent,\r\n    StatusIndicatorComponent,\r\n    CryptoSelectorComponent,\r\n    CryptoPortfolioComponent,\r\n    CryptoComponent\r\n  ],\r\n  imports: [\r\n    AppRoutingModule,\r\n    FormsModule,\r\n    BrowserModule,\r\n    BrowserAnimationsModule,\r\n    ButtonModule,\r\n    DialogModule,\r\n    HttpClientModule,\r\n    TableModule,\r\n    AutoCompleteModule,\r\n    StoreModule.forRoot({ currencies: currencyReducer, portfolio: portfolioReducer }),\r\n  ],\r\n  providers: [],\r\n  bootstrap: [AppComponent]\r\n})\r\nexport class AppModule { }\r\n",
             "children": [
                 {
                     "type": "providers",
@@ -1371,12 +1371,6 @@
                 {
                     "type": "declarations",
                     "elements": [
-                        {
-                            "name": "AddCurrencyComponent"
-                        },
-                        {
-                            "name": "AddCurrencyComponent"
-                        },
                         {
                             "name": "AppComponent"
                         },
@@ -1388,6 +1382,9 @@
                         },
                         {
                             "name": "CryptoPortfolioComponent"
+                        },
+                        {
+                            "name": "CryptoSelectorComponent"
                         },
                         {
                             "name": "DownloadsComponent"
@@ -1425,13 +1422,13 @@
         },
         {
             "name": "AppRoutingModule",
-            "id": "module-AppRoutingModule-e6bd7e39ea8f4905ea6722fed42e0e4dab1c1bfb9fe33833f09a1721097087b2c481390fc9c37ad63a2705ce3d277e5173cd3e75a3a26dfe41e16af9859707ab",
+            "id": "module-AppRoutingModule-8b5d59a1a9a93ce91ce5c464b3aad9dbbf62a0a7a268ee4286ca2af3920e51a4607fb997dffeff703d95117fea075a53b660a417d40f2bf591a15a3afd513466",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "src/app/app-routing.module.ts",
             "methods": [],
-            "sourceCode": "import { NgModule } from '@angular/core';\nimport { RouterModule, Routes } from '@angular/router';\nimport { DownloadsComponent } from './pages/files/downloads.component'\nimport { CryptoComponent } from './pages/crypto/crypto.component'\n\nconst routes: Routes = [\n  {\n    path: '',\n    component: DownloadsComponent,\n    pathMatch: 'full'\n  },\n  {\n    path: 'crypto',\n    component: CryptoComponent,\n    data: {\n      title: 'R4 | Error'\n    },\n  }\n]\n\n@NgModule({\n  imports: [RouterModule.forRoot(routes)],\n  exports: [RouterModule]\n})\nexport class AppRoutingModule { }",
+            "sourceCode": "import { NgModule } from '@angular/core';\nimport { RouterModule, Routes } from '@angular/router';\nimport { DownloadsComponent } from './pages/files/files.component'\nimport { CryptoComponent } from './pages/crypto/crypto.component'\n\nconst routes: Routes = [\n  {\n    path: '',\n    component: DownloadsComponent,\n    pathMatch: 'full'\n  },\n  {\n    path: 'crypto',\n    component: CryptoComponent,\n    data: {\n      title: 'R4 | Error'\n    },\n  }\n]\n\n@NgModule({\n  imports: [RouterModule.forRoot(routes)],\n  exports: [RouterModule]\n})\nexport class AppRoutingModule { }",
             "children": [
                 {
                     "type": "providers",
@@ -2010,7 +2007,7 @@
                 "status": "low"
             },
             {
-                "filePath": "src/app/components/status-indicator/downloads-status.component.ts",
+                "filePath": "src/app/components/status-indicator/status-indicator.component.ts",
                 "type": "component",
                 "linktype": "component",
                 "name": "StatusIndicatorComponent",
@@ -2046,21 +2043,21 @@
                 "status": "low"
             },
             {
-                "filePath": "src/app/pages/crypto/add-currency/add-currency.component.ts",
-                "type": "component",
-                "linktype": "component",
-                "name": "AddCurrencyComponent",
-                "coveragePercent": 0,
-                "coverageCount": "0/9",
-                "status": "low"
-            },
-            {
                 "filePath": "src/app/pages/crypto/crypto-portfolio/crypto-portfolio.component.ts",
                 "type": "component",
                 "linktype": "component",
                 "name": "CryptoPortfolioComponent",
                 "coveragePercent": 0,
                 "coverageCount": "0/3",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/pages/crypto/crypto-selector/crypto-selector.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "CryptoSelectorComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/9",
                 "status": "low"
             },
             {
@@ -2073,7 +2070,7 @@
                 "status": "low"
             },
             {
-                "filePath": "src/app/pages/files/downloads.component.ts",
+                "filePath": "src/app/pages/files/files.component.ts",
                 "type": "component",
                 "linktype": "component",
                 "name": "DownloadsComponent",
@@ -2082,7 +2079,7 @@
                 "status": "low"
             },
             {
-                "filePath": "src/app/services/currency.service.ts",
+                "filePath": "src/app/services/currency/currency.service.ts",
                 "type": "injectable",
                 "linktype": "injectable",
                 "name": "CurrencyService",
@@ -2091,7 +2088,7 @@
                 "status": "low"
             },
             {
-                "filePath": "src/app/services/files.service.ts",
+                "filePath": "src/app/services/files/files.service.ts",
                 "type": "injectable",
                 "linktype": "injectable",
                 "name": "FilesService",

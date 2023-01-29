@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Currency } from '../interfaces/currency.model';
+import { Currency } from '../../interfaces/currency.model';
 
 @Injectable({ providedIn: 'root' })
 export class CurrencyService {

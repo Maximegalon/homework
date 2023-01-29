@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Currency } from '../../../interfaces/currency.model';
 
 @Component({
-  selector: 'app-crypto-portfolio',
+  selector: 'home-crypto-portfolio',
   templateUrl: './crypto-portfolio.component.html',
 })
 export class CryptoPortfolioComponent {
