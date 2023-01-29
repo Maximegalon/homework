@@ -17,12 +17,16 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 5. npm run docs:json    // Succesfully generates the documentation output
 5. npm run storybook    // Runs the storybook server to see components working outside the application
 
-# TODO
+## TODO
+
 1. Inject services the new way
 2. Add class/method documentation
-3. Use storybook
+3. e2e tests
 4. Put in a docker container
 5. Style guide
 6. Make design/component library
 7. Create case for lazy loading, do it
 8. Pipeline build to demo online via Gitlab or such
+9. Better favicon
+10. More unit tests
+11. Improve linting - consider AirBnB, custom rules, strickNullChecks, avoid exceptions, more restrictive perhaps
