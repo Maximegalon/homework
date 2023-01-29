@@ -20,16 +20,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'filedownloads'`, () => {
+  it(`should have as title 'homework'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('filedownloads');
+    expect(app.title).toEqual('Homework Web Site');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.toolbar h1')?.textContent).toContain('File Downloader 3000!!!');
+    expect(compiled.querySelector('.toolbar h1')?.textContent).toContain('Homework Web Site');
   });
 });

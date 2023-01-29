@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DownloadsComponent } from './pages/files/files.component'
+import { FilesComponent } from './pages/files/files.component'
 import { CryptoComponent } from './pages/crypto/crypto.component'
 
 const routes: Routes = [
   {
     path: '',
-    component: DownloadsComponent,
+    component: FilesComponent,
     pathMatch: 'full'
   },
   {

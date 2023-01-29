@@ -347,7 +347,7 @@
     "components": [
         {
             "name": "AppComponent",
-            "id": "component-AppComponent-6cae814ffc31bfc56ecc5df1ef20c498918406d11bb8aafd9cdbb2c4a46aab5006800f9975c9b07eb465e1b599aec6399f4bb58d43e374f8fc1b1935f89a3d33",
+            "id": "component-AppComponent-c8a3aca2568c4adfa3d02458e1d70fb438d8ec61bba5230a5c8a5368862fc629c87e3aa4191118ddb374a4de6a78207cf13fd5f17d41237de99a08d8d0e25a23",
             "file": "src/app/app.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -363,7 +363,18 @@
             "viewProviders": [],
             "inputsClass": [],
             "outputsClass": [],
-            "propertiesClass": [],
+            "propertiesClass": [
+                {
+                    "name": "title",
+                    "defaultValue": "'Homework Web Site'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 8
+                }
+            ],
             "methodsClass": [],
             "deprecated": false,
             "deprecationMessage": "",
@@ -372,11 +383,11 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'app-root',\r\n  templateUrl: 'app.component.html',\r\n})\r\nexport class AppComponent {\r\n}",
+            "sourceCode": "import { Component } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'app-root',\r\n  templateUrl: 'app.component.html',\r\n})\r\nexport class AppComponent {\r\n  title = 'Homework Web Site';\r\n}",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
-            "templateData": "<style>\r\n  .content {\r\n    display: flex;\r\n    margin: 82px auto 32px;\r\n    padding: 0 16px;\r\n    max-width: 960px;\r\n    flex-direction: column;\r\n    align-items: center;\r\n  }\r\n\r\n  .toolbar {\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\r\n    right: 0;\r\n    height: 60px;\r\n    display: flex;\r\n    align-items: center;\r\n    background-color: #1976d2;\r\n    color: white;\r\n    font-weight: 600;\r\n    justify-content: center;\r\n    align-items: center;\r\n    font-size: 1rem;\r\n  }\r\n\r\n  footer {\r\n    margin-top: 8px;\r\n    display: flex;\r\n    align-items: center;\r\n    line-height: 20px;\r\n  }\r\n\r\n  img#clouds {\r\n    position: fixed;\r\n    bottom: -160px;\r\n    left: -230px;\r\n    z-index: -10;\r\n    width: 1920px;\r\n  }\r\n</style>\r\n\r\n<div class=\"content\">\r\n  <div class=\"toolbar\" role=\"banner\">\r\n      <h1>Homework Web Site</h1>\r\n  </div>\r\n\r\n  <router-outlet></router-outlet>\r\n\r\n  <footer></footer>\r\n\r\n  <img id=\"clouds\" src=\"assets/svgs/clouds.svg\" alt=\"\" />\r\n</div>\r\n\r\n"
+            "templateData": "<style>\r\n  .content {\r\n    display: flex;\r\n    margin: 82px auto 32px;\r\n    padding: 0 16px;\r\n    max-width: 960px;\r\n    flex-direction: column;\r\n    align-items: center;\r\n  }\r\n\r\n  .toolbar {\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\r\n    right: 0;\r\n    height: 60px;\r\n    display: flex;\r\n    align-items: center;\r\n    background-color: #1976d2;\r\n    color: white;\r\n    font-weight: 600;\r\n    justify-content: center;\r\n    align-items: center;\r\n    font-size: 1rem;\r\n  }\r\n\r\n  footer {\r\n    margin-top: 8px;\r\n    display: flex;\r\n    align-items: center;\r\n    line-height: 20px;\r\n  }\r\n\r\n  img#clouds {\r\n    position: fixed;\r\n    bottom: -160px;\r\n    left: -230px;\r\n    z-index: -10;\r\n    width: 1920px;\r\n  }\r\n</style>\r\n\r\n<div class=\"content\">\r\n  <div class=\"toolbar\" role=\"banner\">\r\n      <h1>{{ title }}</h1>\r\n  </div>\r\n\r\n  <router-outlet></router-outlet>\r\n\r\n  <footer></footer>\r\n\r\n  <img id=\"clouds\" src=\"assets/svgs/clouds.svg\" alt=\"\" />\r\n</div>\r\n\r\n"
         },
         {
             "name": "CheckboxComponent",
@@ -860,8 +871,8 @@
             "templateData": "<div>\r\n    <div>\r\n        <p-autoComplete\r\n            [(ngModel)]=\"text\" [suggestions]=\"results\"\r\n            (onSelect)=\"addCurrency($event)\"\r\n            (completeMethod)=\"search($event)\" field=\"name\" placeholder=\"Search for a cryptocurrency\">\r\n        </p-autoComplete>\r\n    </div>\r\n</div>"
         },
         {
-            "name": "DownloadsComponent",
-            "id": "component-DownloadsComponent-d6d289c7eef9f4129281fd6f7402e431efae60961474a23993a24da886070d552c8d41a9e7f7045fd1ea555367e0842d0d0bf58b01a78eb5e1c3c02ae152a3ac",
+            "name": "FilesComponent",
+            "id": "component-FilesComponent-6cec83afe0b9c70ce59a14b55311e76a84ef135436bd9be07b5f68fef486015dfbd20b80618c2faa3f05681cb2372423252b83396ff25b9c2059ba04c416a0f3",
             "file": "src/app/pages/files/files.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -971,8 +982,8 @@
                         },
                         {
                             "tagName": {
-                                "pos": 1527,
-                                "end": 1534,
+                                "pos": 1519,
+                                "end": 1526,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -1014,8 +1025,8 @@
                         },
                         {
                             "tagName": {
-                                "pos": 1162,
-                                "end": 1169,
+                                "pos": 1158,
+                                "end": 1165,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -1055,7 +1066,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, OnDestroy, OnInit } from '@angular/core';\r\nimport { Subscription } from 'rxjs';\r\nimport { FilesService } from '../../services/files/files.service';\r\nimport { File, FileStatus } from '../../interfaces/file';\r\nimport { MultiCheckboxState } from '../../components/checkbox/checkbox.model';\r\n\r\n@Component({\r\n  selector: 'page-downloads',\r\n  templateUrl: './files.component.html',\r\n  styleUrls: ['./files.component.scss']\r\n})\r\nexport class DownloadsComponent implements OnDestroy, OnInit {\r\n  filesService: FilesService;\r\n  files: File[] = [];\r\n  subscriptions: Subscription[] = [];\r\n  selectedFiles: File[] = [];\r\n  fileSubscription: Subscription = new Subscription;\r\n  showModal = false;\r\n\r\n  constructor(filesService: FilesService) {\r\n    this.filesService = filesService;\r\n  }\r\n\r\n  ngOnInit(): void {\r\n    this.fileSubscription = this.filesService.getFiles().subscribe(response => {\r\n      this.files = response;\r\n    })\r\n\r\n    this.subscriptions.push(this.fileSubscription);\r\n  }\r\n\r\n  ngOnDestroy(): void {\r\n    this.subscriptions.forEach(sub => sub.unsubscribe());\r\n  }\r\n\r\n  /**\r\n   * Fires when multistatte checkbox is clicked\r\n   *\r\n   * @returns {void}\r\n   * @memberof DownloadsComponent\r\n   */\r\n  handleSelectionClick(e: MultiCheckboxState): void {\r\n    if (e === MultiCheckboxState.Empty || e === MultiCheckboxState.Partial) {\r\n      this.selectedFiles = this.files;\r\n    } else {\r\n      this.selectedFiles = [];\r\n    }\r\n  }\r\n\r\n  /**\r\n   * Fires when clicking to display the modal dialog\r\n   *\r\n   * @returns {void}\r\n   * @memberof DownloadsComponent\r\n   */\r\n  handleDialogDisplay(display: boolean): void {\r\n    this.showModal = display;\r\n  }\r\n\r\n  /**\r\n   * The row selection state of the table\r\n   *\r\n   * @returns {MultiCheckboxState}\r\n   * @memberof DownloadsComponent\r\n   */\r\n  get tableState(): MultiCheckboxState {\r\n    if (this.selectedFiles.length === 0) {\r\n      return MultiCheckboxState.Empty;\r\n    }\r\n\r\n    if (this.selectedFiles.length === this.files.length) {\r\n      return MultiCheckboxState.Full;\r\n    }\r\n\r\n    return MultiCheckboxState.Partial;\r\n  }\r\n\r\n  /**\r\n   * The number of files currently selected\r\n   *\r\n   * @returns {number}\r\n   * @memberof DownloadsComponent\r\n   */\r\n  get selectedFileCount(): number {\r\n    return this.selectedFiles.length;\r\n  }\r\n\r\n  /**\r\n   * The number of files currently selected that are not available\r\n   *\r\n   * @returns {number}\r\n   * @memberof DownloadsComponent\r\n   */\r\n   get selectedUnavailableFileCount(): number {\r\n    return this.selectedFiles.filter(f => f.status !== FileStatus.Available).length;\r\n  }\r\n}\r\n",
+            "sourceCode": "import { Component, OnDestroy, OnInit } from '@angular/core';\r\nimport { Subscription } from 'rxjs';\r\nimport { FilesService } from '../../services/files/files.service';\r\nimport { File, FileStatus } from '../../interfaces/file';\r\nimport { MultiCheckboxState } from '../../components/checkbox/checkbox.model';\r\n\r\n@Component({\r\n  selector: 'page-downloads',\r\n  templateUrl: './files.component.html',\r\n  styleUrls: ['./files.component.scss']\r\n})\r\nexport class FilesComponent implements OnDestroy, OnInit {\r\n  filesService: FilesService;\r\n  files: File[] = [];\r\n  subscriptions: Subscription[] = [];\r\n  selectedFiles: File[] = [];\r\n  fileSubscription: Subscription = new Subscription;\r\n  showModal = false;\r\n\r\n  constructor(filesService: FilesService) {\r\n    this.filesService = filesService;\r\n  }\r\n\r\n  ngOnInit(): void {\r\n    this.fileSubscription = this.filesService.getFiles().subscribe(response => {\r\n      this.files = response;\r\n    })\r\n\r\n    this.subscriptions.push(this.fileSubscription);\r\n  }\r\n\r\n  ngOnDestroy(): void {\r\n    this.subscriptions.forEach(sub => sub.unsubscribe());\r\n  }\r\n\r\n  /**\r\n   * Fires when multistatte checkbox is clicked\r\n   *\r\n   * @returns {void}\r\n   * @memberof FilesComponent\r\n   */\r\n  handleSelectionClick(e: MultiCheckboxState): void {\r\n    if (e === MultiCheckboxState.Empty || e === MultiCheckboxState.Partial) {\r\n      this.selectedFiles = this.files;\r\n    } else {\r\n      this.selectedFiles = [];\r\n    }\r\n  }\r\n\r\n  /**\r\n   * Fires when clicking to display the modal dialog\r\n   *\r\n   * @returns {void}\r\n   * @memberof FilesComponent\r\n   */\r\n  handleDialogDisplay(display: boolean): void {\r\n    this.showModal = display;\r\n  }\r\n\r\n  /**\r\n   * The row selection state of the table\r\n   *\r\n   * @returns {MultiCheckboxState}\r\n   * @memberof FilesComponent\r\n   */\r\n  get tableState(): MultiCheckboxState {\r\n    if (this.selectedFiles.length === 0) {\r\n      return MultiCheckboxState.Empty;\r\n    }\r\n\r\n    if (this.selectedFiles.length === this.files.length) {\r\n      return MultiCheckboxState.Full;\r\n    }\r\n\r\n    return MultiCheckboxState.Partial;\r\n  }\r\n\r\n  /**\r\n   * The number of files currently selected\r\n   *\r\n   * @returns {number}\r\n   * @memberof FilesComponent\r\n   */\r\n  get selectedFileCount(): number {\r\n    return this.selectedFiles.length;\r\n  }\r\n\r\n  /**\r\n   * The number of files currently selected that are not available\r\n   *\r\n   * @returns {number}\r\n   * @memberof FilesComponent\r\n   */\r\n   get selectedUnavailableFileCount(): number {\r\n    return this.selectedFiles.filter(f => f.status !== FileStatus.Available).length;\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -1106,15 +1117,15 @@
                         "description": "<p>The row selection state of the table</p>\n",
                         "jsdoctags": [
                             {
-                                "pos": 1733,
-                                "end": 1769,
+                                "pos": 1721,
+                                "end": 1757,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
                                 "kind": 339,
                                 "tagName": {
-                                    "pos": 1734,
-                                    "end": 1741,
+                                    "pos": 1722,
+                                    "end": 1729,
                                     "flags": 4227072,
                                     "modifierFlagsCache": 0,
                                     "transformFlags": 0,
@@ -1123,22 +1134,22 @@
                                 },
                                 "comment": "",
                                 "typeExpression": {
-                                    "pos": 1742,
-                                    "end": 1762,
+                                    "pos": 1730,
+                                    "end": 1750,
                                     "flags": 4227072,
                                     "modifierFlagsCache": 0,
                                     "transformFlags": 0,
                                     "kind": 307,
                                     "type": {
-                                        "pos": 1743,
-                                        "end": 1761,
+                                        "pos": 1731,
+                                        "end": 1749,
                                         "flags": 4194304,
                                         "modifierFlagsCache": 0,
                                         "transformFlags": 1,
                                         "kind": 177,
                                         "typeName": {
-                                            "pos": 1743,
-                                            "end": 1761,
+                                            "pos": 1731,
+                                            "end": 1749,
                                             "flags": 4194304,
                                             "modifierFlagsCache": 0,
                                             "transformFlags": 0,
@@ -1149,22 +1160,22 @@
                                 }
                             },
                             {
-                                "pos": 1769,
-                                "end": 1802,
+                                "pos": 1757,
+                                "end": 1786,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
                                 "kind": 325,
                                 "tagName": {
-                                    "pos": 1770,
-                                    "end": 1778,
+                                    "pos": 1758,
+                                    "end": 1766,
                                     "flags": 4227072,
                                     "modifierFlagsCache": 0,
                                     "transformFlags": 0,
                                     "kind": 79,
                                     "escapedText": "memberof"
                                 },
-                                "comment": "<p>DownloadsComponent</p>\n"
+                                "comment": "<p>FilesComponent</p>\n"
                             }
                         ]
                     }
@@ -1180,15 +1191,15 @@
                         "description": "<p>The number of files currently selected</p>\n",
                         "jsdoctags": [
                             {
-                                "pos": 2159,
-                                "end": 2183,
+                                "pos": 2143,
+                                "end": 2167,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
                                 "kind": 339,
                                 "tagName": {
-                                    "pos": 2160,
-                                    "end": 2167,
+                                    "pos": 2144,
+                                    "end": 2151,
                                     "flags": 4227072,
                                     "modifierFlagsCache": 0,
                                     "transformFlags": 0,
@@ -1197,15 +1208,15 @@
                                 },
                                 "comment": "",
                                 "typeExpression": {
-                                    "pos": 2168,
-                                    "end": 2176,
+                                    "pos": 2152,
+                                    "end": 2160,
                                     "flags": 4227072,
                                     "modifierFlagsCache": 0,
                                     "transformFlags": 0,
                                     "kind": 307,
                                     "type": {
-                                        "pos": 2169,
-                                        "end": 2175,
+                                        "pos": 2153,
+                                        "end": 2159,
                                         "flags": 4194304,
                                         "modifierFlagsCache": 0,
                                         "transformFlags": 1,
@@ -1214,22 +1225,22 @@
                                 }
                             },
                             {
-                                "pos": 2183,
-                                "end": 2216,
+                                "pos": 2167,
+                                "end": 2196,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
                                 "kind": 325,
                                 "tagName": {
-                                    "pos": 2184,
-                                    "end": 2192,
+                                    "pos": 2168,
+                                    "end": 2176,
                                     "flags": 4227072,
                                     "modifierFlagsCache": 0,
                                     "transformFlags": 0,
                                     "kind": 79,
                                     "escapedText": "memberof"
                                 },
-                                "comment": "<p>DownloadsComponent</p>\n"
+                                "comment": "<p>FilesComponent</p>\n"
                             }
                         ]
                     }
@@ -1245,15 +1256,15 @@
                         "description": "<p>The number of files currently selected that are not available</p>\n",
                         "jsdoctags": [
                             {
-                                "pos": 2389,
-                                "end": 2413,
+                                "pos": 2369,
+                                "end": 2393,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
                                 "kind": 339,
                                 "tagName": {
-                                    "pos": 2390,
-                                    "end": 2397,
+                                    "pos": 2370,
+                                    "end": 2377,
                                     "flags": 4227072,
                                     "modifierFlagsCache": 0,
                                     "transformFlags": 0,
@@ -1262,15 +1273,15 @@
                                 },
                                 "comment": "",
                                 "typeExpression": {
-                                    "pos": 2398,
-                                    "end": 2406,
+                                    "pos": 2378,
+                                    "end": 2386,
                                     "flags": 4227072,
                                     "modifierFlagsCache": 0,
                                     "transformFlags": 0,
                                     "kind": 307,
                                     "type": {
-                                        "pos": 2399,
-                                        "end": 2405,
+                                        "pos": 2379,
+                                        "end": 2385,
                                         "flags": 4194304,
                                         "modifierFlagsCache": 0,
                                         "transformFlags": 1,
@@ -1279,22 +1290,22 @@
                                 }
                             },
                             {
-                                "pos": 2413,
-                                "end": 2446,
+                                "pos": 2393,
+                                "end": 2422,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
                                 "kind": 325,
                                 "tagName": {
-                                    "pos": 2414,
-                                    "end": 2422,
+                                    "pos": 2394,
+                                    "end": 2402,
                                     "flags": 4227072,
                                     "modifierFlagsCache": 0,
                                     "transformFlags": 0,
                                     "kind": 79,
                                     "escapedText": "memberof"
                                 },
-                                "comment": "<p>DownloadsComponent</p>\n"
+                                "comment": "<p>FilesComponent</p>\n"
                             }
                         ]
                     }
@@ -1356,13 +1367,13 @@
     "modules": [
         {
             "name": "AppModule",
-            "id": "module-AppModule-5c019607e064a6639b296724d96ba736704040df86bf0429addebb6099355772ee7c673c94da0c3cd48cd63036c4c4bc6f63dd7ecc7037ec971a3ce05e5bfc79",
+            "id": "module-AppModule-ec91ca715b5221a9c0ec43b2b98c363dbc0f53efa849b2f0917311bfe63426c0a5c0e6b0aa14c5b6759a1ab6b1ebfc844e2f39e1a5ec6f2509fd1e5914272f77",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "src/app/app.module.ts",
             "methods": [],
-            "sourceCode": "import { HttpClientModule } from '@angular/common/http';\r\nimport { NgModule } from '@angular/core';\r\nimport { FormsModule } from '@angular/forms';\r\nimport { BrowserModule } from '@angular/platform-browser';\r\nimport { BrowserAnimationsModule } from '@angular/platform-browser/animations';\r\nimport { StoreModule } from '@ngrx/store';\r\nimport { AutoCompleteModule } from 'primeng/autocomplete';\r\nimport { ButtonModule } from 'primeng/button';\r\nimport { DialogModule } from 'primeng/dialog';\r\nimport { TableModule } from 'primeng/table';\r\nimport { AppRoutingModule } from './app-routing.module';\r\nimport { AppComponent } from './app.component';\r\nimport { CheckboxComponent } from './components/checkbox/checkbox.component';\r\nimport { StatusIndicatorComponent } from './components/status-indicator/status-indicator.component';\r\nimport { CryptoSelectorComponent } from './pages/crypto/crypto-selector/crypto-selector.component';\r\nimport { CryptoPortfolioComponent } from './pages/crypto/crypto-portfolio/crypto-portfolio.component';\r\nimport { CryptoComponent } from './pages/crypto/crypto.component';\r\nimport { DownloadsComponent } from './pages/files/files.component';\r\nimport { currencyReducer } from './state/currencies.reducer';\r\nimport { portfolioReducer } from './state/portfolio.reducer';\r\n\r\n@NgModule({\r\n  declarations: [\r\n    AppComponent,\r\n    CheckboxComponent,\r\n    DownloadsComponent,\r\n    StatusIndicatorComponent,\r\n    CryptoSelectorComponent,\r\n    CryptoPortfolioComponent,\r\n    CryptoComponent\r\n  ],\r\n  imports: [\r\n    AppRoutingModule,\r\n    FormsModule,\r\n    BrowserModule,\r\n    BrowserAnimationsModule,\r\n    ButtonModule,\r\n    DialogModule,\r\n    HttpClientModule,\r\n    TableModule,\r\n    AutoCompleteModule,\r\n    StoreModule.forRoot({ currencies: currencyReducer, portfolio: portfolioReducer }),\r\n  ],\r\n  providers: [],\r\n  bootstrap: [AppComponent]\r\n})\r\nexport class AppModule { }\r\n",
+            "sourceCode": "import { HttpClientModule } from '@angular/common/http';\r\nimport { NgModule } from '@angular/core';\r\nimport { FormsModule } from '@angular/forms';\r\nimport { BrowserModule } from '@angular/platform-browser';\r\nimport { BrowserAnimationsModule } from '@angular/platform-browser/animations';\r\nimport { StoreModule } from '@ngrx/store';\r\nimport { AutoCompleteModule } from 'primeng/autocomplete';\r\nimport { ButtonModule } from 'primeng/button';\r\nimport { DialogModule } from 'primeng/dialog';\r\nimport { TableModule } from 'primeng/table';\r\nimport { AppRoutingModule } from './app-routing.module';\r\nimport { AppComponent } from './app.component';\r\nimport { CheckboxComponent } from './components/checkbox/checkbox.component';\r\nimport { StatusIndicatorComponent } from './components/status-indicator/status-indicator.component';\r\nimport { CryptoSelectorComponent } from './pages/crypto/crypto-selector/crypto-selector.component';\r\nimport { CryptoPortfolioComponent } from './pages/crypto/crypto-portfolio/crypto-portfolio.component';\r\nimport { CryptoComponent } from './pages/crypto/crypto.component';\r\nimport { FilesComponent } from './pages/files/files.component';\r\nimport { currencyReducer } from './state/currencies.reducer';\r\nimport { portfolioReducer } from './state/portfolio.reducer';\r\n\r\n@NgModule({\r\n  declarations: [\r\n    AppComponent,\r\n    CheckboxComponent,\r\n    FilesComponent,\r\n    StatusIndicatorComponent,\r\n    CryptoSelectorComponent,\r\n    CryptoPortfolioComponent,\r\n    CryptoComponent\r\n  ],\r\n  imports: [\r\n    AppRoutingModule,\r\n    FormsModule,\r\n    BrowserModule,\r\n    BrowserAnimationsModule,\r\n    ButtonModule,\r\n    DialogModule,\r\n    HttpClientModule,\r\n    TableModule,\r\n    AutoCompleteModule,\r\n    StoreModule.forRoot({ currencies: currencyReducer, portfolio: portfolioReducer }),\r\n  ],\r\n  providers: [],\r\n  bootstrap: [AppComponent]\r\n})\r\nexport class AppModule { }\r\n",
             "children": [
                 {
                     "type": "providers",
@@ -1387,7 +1398,7 @@
                             "name": "CryptoSelectorComponent"
                         },
                         {
-                            "name": "DownloadsComponent"
+                            "name": "FilesComponent"
                         },
                         {
                             "name": "StatusIndicatorComponent"
@@ -1422,13 +1433,13 @@
         },
         {
             "name": "AppRoutingModule",
-            "id": "module-AppRoutingModule-8b5d59a1a9a93ce91ce5c464b3aad9dbbf62a0a7a268ee4286ca2af3920e51a4607fb997dffeff703d95117fea075a53b660a417d40f2bf591a15a3afd513466",
+            "id": "module-AppRoutingModule-6669ee1ab76270f093cf5cc0dcc224b8f463b1a309efe7cf27fb58b28ca2244244992dbb10ccffa8d4a510dcbeeebd53e2e92698e9ae0e63775ad7a31da91a84",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "src/app/app-routing.module.ts",
             "methods": [],
-            "sourceCode": "import { NgModule } from '@angular/core';\nimport { RouterModule, Routes } from '@angular/router';\nimport { DownloadsComponent } from './pages/files/files.component'\nimport { CryptoComponent } from './pages/crypto/crypto.component'\n\nconst routes: Routes = [\n  {\n    path: '',\n    component: DownloadsComponent,\n    pathMatch: 'full'\n  },\n  {\n    path: 'crypto',\n    component: CryptoComponent,\n    data: {\n      title: 'R4 | Error'\n    },\n  }\n]\n\n@NgModule({\n  imports: [RouterModule.forRoot(routes)],\n  exports: [RouterModule]\n})\nexport class AppRoutingModule { }",
+            "sourceCode": "import { NgModule } from '@angular/core';\nimport { RouterModule, Routes } from '@angular/router';\nimport { FilesComponent } from './pages/files/files.component'\nimport { CryptoComponent } from './pages/crypto/crypto.component'\n\nconst routes: Routes = [\n  {\n    path: '',\n    component: FilesComponent,\n    pathMatch: 'full'\n  },\n  {\n    path: 'crypto',\n    component: CryptoComponent,\n    data: {\n      title: 'R4 | Error'\n    },\n  }\n]\n\n@NgModule({\n  imports: [RouterModule.forRoot(routes)],\n  exports: [RouterModule]\n})\nexport class AppRoutingModule { }",
             "children": [
                 {
                     "type": "providers",
@@ -1929,7 +1940,7 @@
                 "children": [
                     {
                         "path": "",
-                        "component": "DownloadsComponent",
+                        "component": "FilesComponent",
                         "pathMatch": "full"
                     },
                     {
@@ -1954,7 +1965,7 @@
                 "linktype": "component",
                 "name": "AppComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/1",
+                "coverageCount": "0/2",
                 "status": "low"
             },
             {
@@ -2073,7 +2084,7 @@
                 "filePath": "src/app/pages/files/files.component.ts",
                 "type": "component",
                 "linktype": "component",
-                "name": "DownloadsComponent",
+                "name": "FilesComponent",
                 "coveragePercent": 16,
                 "coverageCount": "2/12",
                 "status": "low"

@@ -31,3 +31,5 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 10. More unit tests
 11. Improve linting - consider AirBnB, custom rules, strickNullChecks, avoid exceptions, more restrictive perhaps
 12. Barrel comps and services and perhaps put in other modules
+13. Use something like husky or gitcommitizen
+14. Tie into SonarQube

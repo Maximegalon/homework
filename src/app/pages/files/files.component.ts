@@ -9,7 +9,7 @@ import { MultiCheckboxState } from '../../components/checkbox/checkbox.model';
   templateUrl: './files.component.html',
   styleUrls: ['./files.component.scss']
 })
-export class DownloadsComponent implements OnDestroy, OnInit {
+export class FilesComponent implements OnDestroy, OnInit {
   filesService: FilesService;
   files: File[] = [];
   subscriptions: Subscription[] = [];
@@ -37,7 +37,7 @@ export class DownloadsComponent implements OnDestroy, OnInit {
    * Fires when multistatte checkbox is clicked
    *
    * @returns {void}
-   * @memberof DownloadsComponent
+   * @memberof FilesComponent
    */
   handleSelectionClick(e: MultiCheckboxState): void {
     if (e === MultiCheckboxState.Empty || e === MultiCheckboxState.Partial) {
@@ -51,7 +51,7 @@ export class DownloadsComponent implements OnDestroy, OnInit {
    * Fires when clicking to display the modal dialog
    *
    * @returns {void}
-   * @memberof DownloadsComponent
+   * @memberof FilesComponent
    */
   handleDialogDisplay(display: boolean): void {
     this.showModal = display;
@@ -61,7 +61,7 @@ export class DownloadsComponent implements OnDestroy, OnInit {
    * The row selection state of the table
    *
    * @returns {MultiCheckboxState}
-   * @memberof DownloadsComponent
+   * @memberof FilesComponent
    */
   get tableState(): MultiCheckboxState {
     if (this.selectedFiles.length === 0) {
@@ -79,7 +79,7 @@ export class DownloadsComponent implements OnDestroy, OnInit {
    * The number of files currently selected
    *
    * @returns {number}
-   * @memberof DownloadsComponent
+   * @memberof FilesComponent
    */
   get selectedFileCount(): number {
     return this.selectedFiles.length;
@@ -89,7 +89,7 @@ export class DownloadsComponent implements OnDestroy, OnInit {
    * The number of files currently selected that are not available
    *
    * @returns {number}
-   * @memberof DownloadsComponent
+   * @memberof FilesComponent
    */
    get selectedUnavailableFileCount(): number {
     return this.selectedFiles.filter(f => f.status !== FileStatus.Available).length;
