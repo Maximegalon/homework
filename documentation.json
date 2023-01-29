@@ -387,7 +387,7 @@
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
-            "templateData": "<style>\r\n  .content {\r\n    display: flex;\r\n    margin: 82px auto 32px;\r\n    padding: 0 16px;\r\n    max-width: 960px;\r\n    flex-direction: column;\r\n    align-items: center;\r\n  }\r\n\r\n  .toolbar {\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\r\n    right: 0;\r\n    height: 60px;\r\n    display: flex;\r\n    align-items: center;\r\n    background-color: #1976d2;\r\n    color: white;\r\n    font-weight: 600;\r\n    justify-content: center;\r\n    align-items: center;\r\n    font-size: 1rem;\r\n  }\r\n\r\n  footer {\r\n    margin-top: 8px;\r\n    display: flex;\r\n    align-items: center;\r\n    line-height: 20px;\r\n  }\r\n\r\n  img#clouds {\r\n    position: fixed;\r\n    bottom: -160px;\r\n    left: -230px;\r\n    z-index: -10;\r\n    width: 1920px;\r\n  }\r\n</style>\r\n\r\n<div class=\"content\">\r\n  <div class=\"toolbar\" role=\"banner\">\r\n      <h1>{{ title }}</h1>\r\n  </div>\r\n\r\n  <router-outlet></router-outlet>\r\n\r\n  <footer></footer>\r\n\r\n  <img id=\"clouds\" src=\"assets/svgs/clouds.svg\" alt=\"\" />\r\n</div>\r\n\r\n"
+            "templateData": "<style>\r\n  .content {\r\n    display: flex;\r\n    margin: 82px auto 32px;\r\n    padding: 0 16px;\r\n    max-width: 960px;\r\n    flex-direction: column;\r\n    align-items: center;\r\n  }\r\n\r\n  .toolbar {\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\r\n    right: 0;\r\n    height: 60px;\r\n    display: flex;\r\n    align-items: center;\r\n    background-color: #1976d2;\r\n    color: white;\r\n    font-weight: 600;\r\n    justify-content: center;\r\n    align-items: center;\r\n    font-size: 1rem;\r\n  }\r\n\r\n  footer {\r\n    margin-top: 8px;\r\n    display: flex;\r\n    align-items: center;\r\n    line-height: 20px;\r\n  }\r\n\r\n  img#clouds {\r\n    position: fixed;\r\n    bottom: -160px;\r\n    left: -230px;\r\n    z-index: -10;\r\n    width: 1920px;\r\n  }\r\n</style>\r\n\r\n<div class=\"content\">\r\n  <div class=\"toolbar\" role=\"banner\">\r\n      <div><a [routerLink]=\"['/files']\">File Downloads</a></div>\r\n      <h1>{{ title }}</h1>\r\n      <div><a [routerLink]=\"['/crypto']\">Cryto Portfolio</a></div>\r\n  </div>\r\n\r\n  <router-outlet></router-outlet>\r\n\r\n  <footer></footer>\r\n\r\n  <img id=\"clouds\" src=\"assets/svgs/clouds.svg\" alt=\"\" />\r\n</div>\r\n\r\n"
         },
         {
             "name": "CheckboxComponent",
@@ -1433,13 +1433,13 @@
         },
         {
             "name": "AppRoutingModule",
-            "id": "module-AppRoutingModule-6669ee1ab76270f093cf5cc0dcc224b8f463b1a309efe7cf27fb58b28ca2244244992dbb10ccffa8d4a510dcbeeebd53e2e92698e9ae0e63775ad7a31da91a84",
+            "id": "module-AppRoutingModule-969831c67951db2d19786e4c177a8af7c562f570fa6b7f0fe29cd33e6e3053b6af750646b8be882fd5a77741d3e3275b755a117843e994532114ef8d1b97527a",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "src/app/app-routing.module.ts",
             "methods": [],
-            "sourceCode": "import { NgModule } from '@angular/core';\nimport { RouterModule, Routes } from '@angular/router';\nimport { FilesComponent } from './pages/files/files.component'\nimport { CryptoComponent } from './pages/crypto/crypto.component'\n\nconst routes: Routes = [\n  {\n    path: '',\n    component: FilesComponent,\n    pathMatch: 'full'\n  },\n  {\n    path: 'crypto',\n    component: CryptoComponent,\n    data: {\n      title: 'R4 | Error'\n    },\n  }\n]\n\n@NgModule({\n  imports: [RouterModule.forRoot(routes)],\n  exports: [RouterModule]\n})\nexport class AppRoutingModule { }",
+            "sourceCode": "import { NgModule } from '@angular/core';\nimport { RouterModule, Routes } from '@angular/router';\nimport { FilesComponent } from './pages/files/files.component'\nimport { CryptoComponent } from './pages/crypto/crypto.component'\n\nconst routes: Routes = [\n  { path: '', redirectTo: '/crypto', pathMatch: 'full' },\n  {\n    path: 'crypto',\n    component: CryptoComponent,\n    pathMatch: 'full'\n  },\n  {\n    path: 'files',\n    component: FilesComponent,\n    pathMatch: 'full'\n  },\n]\n\n@NgModule({\n  imports: [RouterModule.forRoot(routes)],\n  exports: [RouterModule]\n})\nexport class AppRoutingModule { }",
             "children": [
                 {
                     "type": "providers",
@@ -1940,15 +1940,18 @@
                 "children": [
                     {
                         "path": "",
-                        "component": "FilesComponent",
+                        "redirectTo": "/crypto",
                         "pathMatch": "full"
                     },
                     {
                         "path": "crypto",
                         "component": "CryptoComponent",
-                        "data": {
-                            "title": "R4|Error"
-                        }
+                        "pathMatch": "full"
+                    },
+                    {
+                        "path": "files",
+                        "component": "FilesComponent",
+                        "pathMatch": "full"
                     }
                 ],
                 "kind": "module"

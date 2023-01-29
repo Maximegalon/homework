@@ -4,18 +4,17 @@ import { FilesComponent } from './pages/files/files.component'
 import { CryptoComponent } from './pages/crypto/crypto.component'
 
 const routes: Routes = [
-  {
-    path: '',
-    component: FilesComponent,
-    pathMatch: 'full'
-  },
+  { path: '', redirectTo: '/crypto', pathMatch: 'full' },
   {
     path: 'crypto',
     component: CryptoComponent,
-    data: {
-      title: 'R4 | Error'
-    },
-  }
+    pathMatch: 'full'
+  },
+  {
+    path: 'files',
+    component: FilesComponent,
+    pathMatch: 'full'
+  },
 ]
 
 @NgModule({

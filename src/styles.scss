@@ -1,1 +1,24 @@
 /* You can add global styles to this file, and also import other style files */
+a:link {
+    color: white;
+    background-color: transparent;
+    text-decoration: none;
+  }
+
+// a:visited {
+//     color: grey;
+//     background-color: transparent;
+//     text-decoration: none;
+// }
+
+a:hover {
+    color: grey;
+    background-color: transparent;
+    text-decoration: underline;
+}
+
+// a:active {
+//     color: purple;
+//     background-color: transparent;
+//     text-decoration: underline;
+// }

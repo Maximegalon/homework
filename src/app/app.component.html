@@ -41,8 +41,10 @@
 </style>
 
 <div class="content">
-  <div class="toolbar" role="banner">
+  <div class="toolbar" role="banner" style="display: flex; justify-content: space-between; padding: 1rem; color: white;">
+      <div><a [routerLink]="['/files']">File Downloads</a></div>
       <h1>{{ title }}</h1>
+      <div><a [routerLink]="['/crypto']">Crypto Portfolio</a></div>
   </div>
 
   <router-outlet></router-outlet>
