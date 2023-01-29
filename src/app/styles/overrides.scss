@@ -1,0 +1,18 @@
+@import 'styles.scss';
+
+// @NOTE: These are items we probably want for ever table we ever create, so place them here
+// @NOTE: If a primeng style wasn't used, these would do a hover/highlight. Just added for review purposes. Basis of a custom theme below.
+::ng-deep {
+    .p-datatable-thead {
+        text-align: left;
+    }
+}
+
+::ng-deep .p-datatable-tbody > tr:hover {
+    cursor: pointer;
+    background-color: $app-color-focus !important;
+}
+
+::ng-deep .p-datatable-tbody > tr.p-highlight {
+    background-color: $app-color-selected;
+}

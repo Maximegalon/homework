@@ -1,0 +1,24 @@
+@import '../../styles/styles.scss';
+
+:host {
+    .status-indicator {
+        text-transform: capitalize;
+        display: flex;
+        flex-direction: row;
+
+        .indicator {
+            min-height: 20px;
+            min-width: 20px;
+
+            &.available {
+                background-color: $app-color-status-good;
+                border-radius: 50%;
+                display: inline-block;
+            }
+        }
+
+        label {
+            padding-left: 1rem;
+        }
+    }
+}

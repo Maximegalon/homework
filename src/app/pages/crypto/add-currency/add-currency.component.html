@@ -1,0 +1,9 @@
+<div>
+    <div>
+        <p-autoComplete
+            [(ngModel)]="text" [suggestions]="results"
+            (onSelect)="addCurrency($event)"
+            (completeMethod)="search($event)" field="name" placeholder="Search for a cryptocurrency">
+        </p-autoComplete>
+    </div>
+</div>

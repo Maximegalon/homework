@@ -1,27 +1,28 @@
-# Homework
+# Homework application
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.1.3.
+For your consideration
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.1.3. No seed project used.
 
-## Development server
+## Setup
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+1. Install node and npm (latest version as of 1/28/23)
+2. npm i
 
-## Code scaffolding
+## Commands that can be run
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+1. npm run start        // Runs the application
+2. npm run build        // Runs the production build without errors
+3. npm run test         // Runs all the unit tests successfully
+4. npm run lint         // Lints the code successfully
+5. npm run docs:json    // Succesfully generates the documentation output
+5. npm run storybook    // Runs the storybook server to see components working outside the application
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+# TODO
+1. Inject services the new way
+2. Add class/method documentation
+3. Use storybook
+4. Put in a docker container
+5. Style guide
+6. Make design/component library
+7. Create case for lazy loading, do it
+8. Pipeline build to demo online via Gitlab or such

@@ -1,0 +1,11 @@
+<div>
+    <div>Crypto Tracker</div>
+
+    <h2>Available Cryptocurrencies</h2>
+
+    <app-add-currency [currencies]="(currencies$ | async)!" (add)="onAdd($event)"></app-add-currency>
+
+    <h2>Portfolio</h2>
+
+    <app-crypto-portfolio [currencies]="(currencyPortfolio$ | async)!" (remove)="onRemove($event)"></app-crypto-portfolio>
+</div>

@@ -1,0 +1,27 @@
+@import '../../styles/styles.scss';
+
+:host {
+    .full, .partial, .empty {
+        cursor: pointer;
+        height: 20px;
+        width: 20px;
+        box-shadow: 0 2px 4px 0 rgba(173,181,189,0.23);
+        border-radius: 50%;
+    }
+
+    .full {
+        background: $app-color-primary;
+    }
+
+    .partial {
+        border-width: 3px;
+        border-color: $app-color-primary;
+        border-style: solid;
+    }
+
+    .empty {
+        border-width: 3px;
+        border-color: gray;
+        border-style: solid;
+    }
+}

@@ -1,0 +1,4 @@
+<div *ngFor="let currency of currencies">
+  <p>{{currency.id}}</p>
+  <button (click)="remove.emit(currency.id)" data-test="remove-button">Remove from portfolio</button>
+</div>

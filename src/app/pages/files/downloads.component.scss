@@ -1,0 +1,52 @@
+@import '../../styles/overrides.scss';
+
+:host {
+    width: 100%;
+
+    ::ng-deep .p-datatable-header > div {
+        display: flex;
+        align-items: center;
+
+        > label {
+            margin-left: 1rem;
+        }
+
+        > div.download {
+            display: flex;
+            justify-content: center;
+
+            img {
+                width: 1rem;
+            }
+        }
+
+        > div {
+            margin-left: 2rem;
+            cursor: pointer;
+        }
+    }
+
+    // @NOTE: Dialog classes, should be kept seperate
+    .message {
+        font-size: small;
+        margin-bottom: 1rem;
+    }
+
+    .notavailable {
+        color: $app-color-warning;
+        cursor: default !important;
+    }
+
+    .downloads {
+        display: grid;
+        grid-template-columns: 25% 75%;
+        gap: 5px;
+
+        div {
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            cursor: pointer;
+        }
+    }
+}
