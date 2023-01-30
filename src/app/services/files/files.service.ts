@@ -12,7 +12,7 @@ export class FilesService {
 
   public getFiles(): Observable<File[]>
   {
-    const url = '/assets/data/files.json';
+    const url = '../../assets/data/files.json';
 
     // @TODO: Should have error handling
     return this.http.get<DataResponse>(url).pipe(map((res: DataResponse) => {return res.data}));
