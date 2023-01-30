@@ -35,3 +35,4 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 14. Tie into SonarQube
 15. Cosmetics are a mess, and remove inline styles
 16. Add component documentation
+17. Make the page responsive
