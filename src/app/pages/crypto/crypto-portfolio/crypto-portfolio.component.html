@@ -1,4 +1,29 @@
-<div *ngFor="let currency of currencies">
-  <p>{{currency.id}}</p>
-  <button (click)="remove.emit(currency.id)" data-test="remove-button">Remove from portfolio</button>
+<div>
+  <div *ngIf="currencies.length === 0">
+    You have no cryptocurrencies in your portfolio<br/><br/>
+    <span style="font-size: .75rem">(the idea was to have another observable update the values of the cryptos selected)</span>
+  </div>
+
+  <ngx-datatable *ngIf="currencies.length > 0" [rows]="currencies" class="material light">
+    <ngx-datatable-column name="Id">
+      <ng-template let-row="row" ngx-datatable-cell-template>
+          <div>{{row.id}}</div>
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Name">
+      <ng-template let-row="row" ngx-datatable-cell-template>
+          <div>{{row.name}}</div>
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Symbol">
+      <ng-template let-row="row" ngx-datatable-cell-template>
+          <div>{{row.symbol}}</div>
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Remove">
+      <ng-template let-row="row" ngx-datatable-cell-template>
+          <div (click)="remove.emit(row)" style="cursor: pointer;">X</div>
+      </ng-template>
+    </ngx-datatable-column>
+  </ngx-datatable>
 </div>

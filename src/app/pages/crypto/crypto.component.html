@@ -1,11 +1,23 @@
 <div>
-    <div>Crypto Tracker</div>
+    <h1>Crypto Tracker</h1>
 
-    <h2>Available Cryptocurrencies</h2>
+    <div class="crypto-table">
+        <div>
+            <div>Available Cryptocurrencies</div>
 
-    <home-crypto-selector [currencies]="(currencies$ | async)!" (add)="onAdd($event)"></home-crypto-selector>
+            <home-crypto-selector [currencies]="(currencies$ | async)!" (add)="onAdd($event)"></home-crypto-selector>
+        </div>
 
-    <h2>Portfolio</h2>
+        <div>
+            <div>Portfolio</div>
 
-    <home-crypto-portfolio [currencies]="(currencyPortfolio$ | async)!" (remove)="onRemove($event)"></home-crypto-portfolio>
+            <home-crypto-portfolio [currencies]="(currencyPortfolio$ | async)!" (remove)="onRemove($event)"></home-crypto-portfolio>
+        </div>
+
+        <div>
+            <div>Random Cryptocurrency</div>
+
+            <home-crypto-randomizer></home-crypto-randomizer>
+        </div>
+    </div>
 </div>

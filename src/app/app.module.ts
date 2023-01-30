@@ -18,6 +18,8 @@ import { CryptoComponent } from './pages/crypto/crypto.component';
 import { FilesComponent } from './pages/files/files.component';
 import { currencyReducer } from './state/currencies.reducer';
 import { portfolioReducer } from './state/portfolio.reducer';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { CryptoRandomizerComponent } from './pages/crypto/crypto-randomizer/crypto-randomizer.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,8 @@ import { portfolioReducer } from './state/portfolio.reducer';
     StatusIndicatorComponent,
     CryptoSelectorComponent,
     CryptoPortfolioComponent,
-    CryptoComponent
+    CryptoComponent,
+    CryptoRandomizerComponent
   ],
   imports: [
     AppRoutingModule,
@@ -39,6 +42,7 @@ import { portfolioReducer } from './state/portfolio.reducer';
     HttpClientModule,
     TableModule,
     AutoCompleteModule,
+    NgxDatatableModule,
     StoreModule.forRoot({ currencies: currencyReducer, portfolio: portfolioReducer }),
   ],
   providers: [],

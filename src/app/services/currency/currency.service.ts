@@ -10,7 +10,7 @@ export class CurrencyService {
 
   getCurrencies(searchTerm = ""): Observable<Array<Currency>> {
     return this.http
-      .get<{ data: Currency[] }>(`https://api.coincap.io/v2/assets?search=${searchTerm}`)
+      .get<{ data: Currency[] }>(`https://api.coincap.io/v2/assets?search=${searchTerm}&limit=2000`)
       .pipe(map((currencies) => currencies.data || []));
   }
 }

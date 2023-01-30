@@ -8,7 +8,8 @@ describe('FilesService', () => {
   let service: FilesService;
 
   beforeEach(() => {
-    jasmine.DEFAULT_TIMEOUT_INTERVAL = 1000 * 5; // @NOTE: 5 seconds, just in case but not really needed
+    // NOTE: 5 seconds, just in case but not really needed
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = 1000 * 5;
 
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],

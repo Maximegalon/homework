@@ -3,19 +3,19 @@
     "interfaces": [
         {
             "name": "Currency",
-            "id": "interface-Currency-20427f9fc2ecbaa108b0e7296eaf8aa38e9930f369c8cd5a39ddc71531a0d6ed09c87a241be2e6f63f8d1733abd83214530e74348692bf4c9bb719b4538086af",
+            "id": "interface-Currency-34264e8ddb2ca13fa96fb8888d4071a6dbd95e386e62b5caeaafa882c5a63b4740f2d8ef491597e15b9e7dbbb58477fa2fba1b2eb9b6efa3756759d56e4cbbb2",
             "file": "src/app/interfaces/currency.model.ts",
             "deprecated": false,
             "deprecationMessage": "",
             "type": "interface",
-            "sourceCode": "export interface Currency {\r\n    id: string\r\n    rank: string;\r\n    symbol: string;\r\n    name: string;\r\n    supply: string;\r\n    maxSupply: string;\r\n    marketCapUsd: string;\r\n    volumeUsd24Hr: string;\r\n    priceUsd: string;\r\n    changePercent24Hr: string;\r\n    vwap24Hr: string;\r\n    explorer: string;\r\n}\r\n",
+            "sourceCode": "export interface Currency {\r\n    id: string\r\n    rank: string;\r\n    symbol: string;\r\n    name: string;\r\n    supply: string;\r\n    maxSupply: string;\r\n    marketCapUsd?: string;\r\n    volumeUsd24Hr?: string;\r\n    priceUsd?: string;\r\n    changePercent24Hr?: string;\r\n    vwap24Hr?: string;\r\n    explorer?: string;\r\n}\r\n",
             "properties": [
                 {
                     "name": "changePercent24Hr",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "string",
-                    "optional": false,
+                    "optional": true,
                     "description": "",
                     "line": 11
                 },
@@ -24,7 +24,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "string",
-                    "optional": false,
+                    "optional": true,
                     "description": "",
                     "line": 13
                 },
@@ -42,7 +42,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "string",
-                    "optional": false,
+                    "optional": true,
                     "description": "",
                     "line": 8
                 },
@@ -69,7 +69,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "string",
-                    "optional": false,
+                    "optional": true,
                     "description": "",
                     "line": 10
                 },
@@ -105,7 +105,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "string",
-                    "optional": false,
+                    "optional": true,
                     "description": "",
                     "line": 9
                 },
@@ -114,7 +114,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "string",
-                    "optional": false,
+                    "optional": true,
                     "description": "",
                     "line": 12
                 }
@@ -218,7 +218,7 @@
     "injectables": [
         {
             "name": "CurrencyService",
-            "id": "injectable-CurrencyService-195b4e57cdb412312479a8fe895d21d0a6aa415c4e31b8853a1109f45112a867c44de06dcc30300cc61b3d3f847713a5a11abd60be4b9ca392a4545f9d0cf1dd",
+            "id": "injectable-CurrencyService-ccfb389f4142b803f1234f489605589ba7ebf0d46ea1a0f884851c5cd13b6caef05c7107924247da1808d66121d10a62ac89273daef2ee4c707ac35bff078660",
             "file": "src/app/services/currency/currency.service.ts",
             "properties": [],
             "methods": [
@@ -257,7 +257,7 @@
             "deprecationMessage": "",
             "description": "",
             "rawdescription": "\n",
-            "sourceCode": "import { HttpClient } from '@angular/common/http';\r\nimport { Injectable } from '@angular/core';\r\nimport { Observable } from 'rxjs';\r\nimport { map } from 'rxjs/operators';\r\nimport { Currency } from '../../interfaces/currency.model';\r\n\r\n@Injectable({ providedIn: 'root' })\r\nexport class CurrencyService {\r\n  constructor(private http: HttpClient) {}\r\n\r\n  getCurrencies(searchTerm = \"\"): Observable<Array<Currency>> {\r\n    return this.http\r\n      .get<{ data: Currency[] }>(`https://api.coincap.io/v2/assets?search=${searchTerm}`)\r\n      .pipe(map((currencies) => currencies.data || []));\r\n  }\r\n}",
+            "sourceCode": "import { HttpClient } from '@angular/common/http';\r\nimport { Injectable } from '@angular/core';\r\nimport { Observable } from 'rxjs';\r\nimport { map } from 'rxjs/operators';\r\nimport { Currency } from '../../interfaces/currency.model';\r\n\r\n@Injectable({ providedIn: 'root' })\r\nexport class CurrencyService {\r\n  constructor(private http: HttpClient) {}\r\n\r\n  getCurrencies(searchTerm = \"\"): Observable<Array<Currency>> {\r\n    return this.http\r\n      .get<{ data: Currency[] }>(`https://api.coincap.io/v2/assets?search=${searchTerm}&limit=2000`)\r\n      .pipe(map((currencies) => currencies.data || []));\r\n  }\r\n}",
             "constructorObj": {
                 "name": "constructor",
                 "description": "",
@@ -387,7 +387,7 @@
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
-            "templateData": "<style>\r\n  .content {\r\n    display: flex;\r\n    margin: 82px auto 32px;\r\n    padding: 0 16px;\r\n    max-width: 960px;\r\n    flex-direction: column;\r\n    align-items: center;\r\n  }\r\n\r\n  .toolbar {\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\r\n    right: 0;\r\n    height: 60px;\r\n    display: flex;\r\n    align-items: center;\r\n    background-color: #1976d2;\r\n    color: white;\r\n    font-weight: 600;\r\n    justify-content: center;\r\n    align-items: center;\r\n    font-size: 1rem;\r\n  }\r\n\r\n  footer {\r\n    margin-top: 8px;\r\n    display: flex;\r\n    align-items: center;\r\n    line-height: 20px;\r\n  }\r\n\r\n  img#clouds {\r\n    position: fixed;\r\n    bottom: -160px;\r\n    left: -230px;\r\n    z-index: -10;\r\n    width: 1920px;\r\n  }\r\n</style>\r\n\r\n<div class=\"content\">\r\n  <div class=\"toolbar\" role=\"banner\">\r\n      <div><a [routerLink]=\"['/files']\">File Downloads</a></div>\r\n      <h1>{{ title }}</h1>\r\n      <div><a [routerLink]=\"['/crypto']\">Cryto Portfolio</a></div>\r\n  </div>\r\n\r\n  <router-outlet></router-outlet>\r\n\r\n  <footer></footer>\r\n\r\n  <img id=\"clouds\" src=\"assets/svgs/clouds.svg\" alt=\"\" />\r\n</div>\r\n\r\n"
+            "templateData": "<style>\r\n  .content {\r\n    display: flex;\r\n    margin: 82px auto 32px;\r\n    padding: 0 16px;\r\n    max-width: 960px;\r\n    flex-direction: column;\r\n    align-items: center;\r\n  }\r\n\r\n  .toolbar {\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\r\n    right: 0;\r\n    height: 60px;\r\n    display: flex;\r\n    align-items: center;\r\n    background-color: #1976d2;\r\n    color: white;\r\n    font-weight: 600;\r\n    justify-content: center;\r\n    align-items: center;\r\n    font-size: 1rem;\r\n  }\r\n\r\n  footer {\r\n    margin-top: 8px;\r\n    display: flex;\r\n    align-items: center;\r\n    line-height: 20px;\r\n  }\r\n\r\n  img#clouds {\r\n    position: fixed;\r\n    bottom: -160px;\r\n    left: -230px;\r\n    z-index: -10;\r\n    width: 1920px;\r\n  }\r\n</style>\r\n\r\n<div class=\"content\">\r\n  <div class=\"toolbar\" role=\"banner\" style=\"display: flex; justify-content: space-between; padding: 1rem; color: white;\">\r\n      <div><a [routerLink]=\"['/files']\">File Downloads</a></div>\r\n      <h1>{{ title }}</h1>\r\n      <div><a [routerLink]=\"['/crypto']\">Crypto Portfolio</a></div>\r\n  </div>\r\n\r\n  <router-outlet></router-outlet>\r\n\r\n  <img id=\"clouds\" src=\"assets/svgs/clouds.svg\" alt=\"\" />\r\n</div>\r\n"
         },
         {
             "name": "CheckboxComponent",
@@ -490,7 +490,7 @@
         },
         {
             "name": "CryptoComponent",
-            "id": "component-CryptoComponent-dfb791e500fb6e71fb02022a12af480f5d2d434c58d5b0207a011705681683d18cf875331f207a03e26df17ff12c40c2da0d835717edc80777de0d06d38a78ed",
+            "id": "component-CryptoComponent-08497e059f0e61e2772af5649c731deffbd11e3d8dd9a592d950466c102d7e52b0cf06f05553f7d1ed7fbefac0f33a3ad2758306baa299324bafffb224628561",
             "file": "src/app/pages/crypto/crypto.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -498,7 +498,9 @@
             "outputs": [],
             "providers": [],
             "selector": "page-crypto",
-            "styleUrls": [],
+            "styleUrls": [
+                "./crypto.component.scss"
+            ],
             "styles": [],
             "templateUrl": [
                 "./crypto.component.html"
@@ -508,6 +510,16 @@
             "outputsClass": [],
             "propertiesClass": [
                 {
+                    "name": "allCryptosSubscription",
+                    "defaultValue": "new Subscription",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Subscription",
+                    "optional": false,
+                    "description": "",
+                    "line": 16
+                },
+                {
                     "name": "currencies$",
                     "defaultValue": "this.store.select(selectCurrencies)",
                     "deprecated": false,
@@ -515,27 +527,47 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 13
+                    "line": 18
                 },
                 {
                     "name": "currencyPortfolio$",
-                    "defaultValue": "this.store.select(selectCurrencyPortfolio)",
+                    "defaultValue": "this.store.select(selectPortfolio)",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 14
+                    "line": 19
+                },
+                {
+                    "name": "subscriptions",
+                    "defaultValue": "[]",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Subscription[]",
+                    "optional": false,
+                    "description": "",
+                    "line": 15
                 }
             ],
             "methodsClass": [
+                {
+                    "name": "ngOnDestroy",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 39,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
                 {
                     "name": "ngOnInit",
                     "args": [],
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 26,
+                    "line": 23,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -543,8 +575,8 @@
                     "name": "onAdd",
                     "args": [
                         {
-                            "name": "currencyId",
-                            "type": "string",
+                            "name": "currency",
+                            "type": "Currency",
                             "deprecated": false,
                             "deprecationMessage": ""
                         }
@@ -552,13 +584,13 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 18,
+                    "line": 43,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
                         {
-                            "name": "currencyId",
-                            "type": "string",
+                            "name": "currency",
+                            "type": "Currency",
                             "deprecated": false,
                             "deprecationMessage": "",
                             "tagName": {
@@ -571,8 +603,8 @@
                     "name": "onRemove",
                     "args": [
                         {
-                            "name": "currencyId",
-                            "type": "string",
+                            "name": "currency",
+                            "type": "Currency",
                             "deprecated": false,
                             "deprecationMessage": ""
                         }
@@ -580,13 +612,13 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 22,
+                    "line": 47,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
                         {
-                            "name": "currencyId",
-                            "type": "string",
+                            "name": "currency",
+                            "type": "Currency",
                             "deprecated": false,
                             "deprecationMessage": "",
                             "tagName": {
@@ -603,9 +635,14 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, OnInit } from '@angular/core';\r\nimport { Store } from '@ngrx/store';\r\n\r\nimport { selectCurrencyPortfolio, selectCurrencies } from '../../state/currencies.selectors';\r\nimport { CurrencyActions, CurrenciesApiActions } from '../../state/currencies.actions';\r\nimport { CurrencyService } from '../../services/currency/currency.service';\r\n\r\n@Component({\r\n  selector: 'page-crypto',\r\n  templateUrl: './crypto.component.html'\r\n})\r\nexport class CryptoComponent implements OnInit {\r\n    currencies$ = this.store.select(selectCurrencies);\r\n    currencyPortfolio$ = this.store.select(selectCurrencyPortfolio);\r\n\r\n    constructor(private currencyService: CurrencyService, private store: Store) {}\r\n\r\n    onAdd(currencyId: string) {\r\n      this.store.dispatch(CurrencyActions.addCurrency({ currencyId }));\r\n    }\r\n\r\n    onRemove(currencyId: string) {\r\n      this.store.dispatch(CurrencyActions.removeCurrency({ currencyId }));\r\n    }\r\n\r\n    ngOnInit() {\r\n      this.currencyService\r\n        .getCurrencies()\r\n        .subscribe((currencies) =>\r\n          this.store.dispatch(CurrenciesApiActions.retrievedCurrencies({ currencies }))\r\n        );\r\n    }\r\n}\r\n",
+            "sourceCode": "import { Component, OnInit, OnDestroy } from '@angular/core';\r\nimport { Store } from '@ngrx/store';\r\nimport { Subscription } from 'rxjs';\r\nimport { Currency } from 'src/app/interfaces/currency.model';\r\nimport { CurrencyService } from '../../services/currency/currency.service';\r\nimport { CurrenciesApiActions, CurrencyActions } from '../../state/currencies.actions';\r\nimport { selectCurrencies, selectPortfolio } from '../../state/currencies.selectors';\r\n\r\n@Component({\r\n  selector: 'page-crypto',\r\n  templateUrl: './crypto.component.html',\r\n  styleUrls: ['./crypto.component.scss']\r\n})\r\nexport class CryptoComponent implements OnInit, OnDestroy {\r\n    subscriptions: Subscription[] = [];\r\n    allCryptosSubscription: Subscription = new Subscription;\r\n\r\n    currencies$ = this.store.select(selectCurrencies);\r\n    currencyPortfolio$ = this.store.select(selectPortfolio);\r\n\r\n    constructor(private currencyService: CurrencyService, private store: Store) {}\r\n\r\n    ngOnInit() {\r\n      this.allCryptosSubscription = this.currencyService\r\n        .getCurrencies()\r\n        .subscribe((currencies) => {\r\n            currencies = currencies.sort((a, b) => (a.name > b.name) ? 1 : -1)\r\n\r\n            this.store.dispatch(CurrenciesApiActions.retrievedCurrencies({ currencies }))\r\n          },\r\n          error => {\r\n            console.error('CryptoComponent - ngOnInit: ', error);\r\n          }\r\n        );\r\n\r\n      this.subscriptions.push(this.allCryptosSubscription);\r\n    }\r\n\r\n    ngOnDestroy() {\r\n      this.subscriptions.forEach(sub => sub.unsubscribe());\r\n    }\r\n\r\n    onAdd(currency: Currency) {\r\n      this.store.dispatch(CurrencyActions.addCurrency({ currency }));\r\n    }\r\n\r\n    onRemove(currency: Currency) {\r\n      this.store.dispatch(CurrencyActions.removeCurrency({ currency }));\r\n    }\r\n}\r\n",
             "assetsDirs": [],
-            "styleUrlsData": "",
+            "styleUrlsData": [
+                {
+                    "data": "@import '../../styles/overrides.scss';\r\n\r\n:host {\r\n    width: 100%;\r\n\r\n    .crypto-table {\r\n        display: flex;\r\n        flex-direction: row;\r\n        justify-content: space-between;\r\n        width: 100%;\r\n\r\n        div {\r\n            padding: 1rem;\r\n\r\n            div {\r\n                padding-top: .25rem;\r\n            }\r\n        }\r\n    }\r\n}\r\n",
+                    "styleUrl": "./crypto.component.scss"
+                }
+            ],
             "stylesData": "",
             "constructorObj": {
                 "name": "constructor",
@@ -626,7 +663,7 @@
                         "deprecationMessage": ""
                     }
                 ],
-                "line": 14,
+                "line": 19,
                 "jsdoctags": [
                     {
                         "name": "currencyService",
@@ -649,13 +686,14 @@
                 ]
             },
             "implements": [
-                "OnInit"
+                "OnInit",
+                "OnDestroy"
             ],
-            "templateData": "<div>\r\n    <div>Crypto Tracker</div>\r\n\r\n    <h2>Available Cryptocurrencies</h2>\r\n\r\n    <home-crypto-selector [currencies]=\"(currencies$ | async)!\" (add)=\"onAdd($event)\"></home-crypto-selector>\r\n\r\n    <h2>Portfolio</h2>\r\n\r\n    <home-crypto-portfolio [currencies]=\"(currencyPortfolio$ | async)!\" (remove)=\"onRemove($event)\"></home-crypto-portfolio>\r\n</div>"
+            "templateData": "<div>\r\n    <h1>Crypto Tracker</h1>\r\n\r\n    <div class=\"crypto-table\">\r\n        <div>\r\n            <div>Available Cryptocurrencies</div>\r\n\r\n            <home-crypto-selector [currencies]=\"(currencies$ | async)!\" (add)=\"onAdd($event)\"></home-crypto-selector>\r\n        </div>\r\n\r\n        <div>\r\n            <div>Portfolio</div>\r\n\r\n            <home-crypto-portfolio [currencies]=\"(currencyPortfolio$ | async)!\" (remove)=\"onRemove($event)\"></home-crypto-portfolio>\r\n        </div>\r\n\r\n        <div>\r\n            <div>Random Cryptocurrency</div>\r\n\r\n            <home-crypto-randomizer></home-crypto-randomizer>\r\n        </div>\r\n    </div>\r\n</div>"
         },
         {
             "name": "CryptoPortfolioComponent",
-            "id": "component-CryptoPortfolioComponent-2d6f461a928af4543ef3597362e227fd77a4982f7ef786e316e95591e09a8cfa8ef6cd04bc07340bd4d3d80b07cf84a18cd4904b0bbdf549c15dfaaaa016c0f1",
+            "id": "component-CryptoPortfolioComponent-81a5285514c82cd8a705ae700c44ed4626d28024c09f74ac58fa2e7163fcd83edad21c9926402ee32ab96d3935de02664a24cb82fb1baa48e0454880a9eaf713",
             "file": "src/app/pages/crypto/crypto-portfolio/crypto-portfolio.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -683,7 +721,7 @@
             "outputsClass": [
                 {
                     "name": "remove",
-                    "defaultValue": "new EventEmitter<string>()",
+                    "defaultValue": "new EventEmitter<Currency>()",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "line": 10,
@@ -699,15 +737,55 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, EventEmitter, Input, Output } from '@angular/core';\r\nimport { Currency } from '../../../interfaces/currency.model';\r\n\r\n@Component({\r\n  selector: 'home-crypto-portfolio',\r\n  templateUrl: './crypto-portfolio.component.html',\r\n})\r\nexport class CryptoPortfolioComponent {\r\n  @Input() currencies: ReadonlyArray<Currency> = [];\r\n  @Output() remove = new EventEmitter<string>();\r\n}",
+            "sourceCode": "import { Component, EventEmitter, Input, Output } from '@angular/core';\r\nimport { Currency } from 'src/app/interfaces/currency.model';\r\n\r\n@Component({\r\n  selector: 'home-crypto-portfolio',\r\n  templateUrl: './crypto-portfolio.component.html',\r\n})\r\nexport class CryptoPortfolioComponent {\r\n  @Input() currencies: ReadonlyArray<Currency> = [];\r\n  @Output() remove = new EventEmitter<Currency>();\r\n}",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
-            "templateData": "<div *ngFor=\"let currency of currencies\">\r\n  <p>{{currency.id}}</p>\r\n  <button (click)=\"remove.emit(currency.id)\" data-test=\"remove-button\">Remove from portfolio</button>\r\n</div>"
+            "templateData": "<div>\r\n  <div *ngIf=\"currencies.length === 0\">\r\n    You have no cryptocurrencies in your portfolio<br/><br/>\r\n    <span style=\"font-size: .75rem\">(the idea was to have another observable update the values of the cryptos selected)</span>\r\n  </div>\r\n\r\n  <ngx-datatable *ngIf=\"currencies.length > 0\" [rows]=\"currencies\" class=\"material light\">\r\n    <ngx-datatable-column name=\"Id\">\r\n      <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n          <div>{{row.id}}</div>\r\n      </ng-template>\r\n    </ngx-datatable-column>\r\n    <ngx-datatable-column name=\"Name\">\r\n      <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n          <div>{{row.name}}</div>\r\n      </ng-template>\r\n    </ngx-datatable-column>\r\n    <ngx-datatable-column name=\"Symbol\">\r\n      <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n          <div>{{row.symbol}}</div>\r\n      </ng-template>\r\n    </ngx-datatable-column>\r\n    <ngx-datatable-column name=\"Remove\">\r\n      <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n          <div (click)=\"remove.emit(row)\" style=\"cursor: pointer;\">X</div>\r\n      </ng-template>\r\n    </ngx-datatable-column>\r\n  </ngx-datatable>\r\n</div>"
+        },
+        {
+            "name": "CryptoRandomizerComponent",
+            "id": "component-CryptoRandomizerComponent-b7bb30174189619ea099c0448ac0a01a6c8463da2b5b5d4aec8d117f0389331b6b7db44d83659d350d7dc3dec10c5df96f12bf3fa8bdbfa7fa9f51f0b84998f2",
+            "file": "src/app/pages/crypto/crypto-randomizer/crypto-randomizer.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "home-crypto-randomizer",
+            "styleUrls": [
+                "./crypto-randomizer.component.scss"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./crypto-randomizer.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component } from '@angular/core';\n\n@Component({\n  selector: 'home-crypto-randomizer',\n  templateUrl: './crypto-randomizer.component.html',\n  styleUrls: ['./crypto-randomizer.component.scss']\n})\nexport class CryptoRandomizerComponent {\n\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "",
+                    "styleUrl": "./crypto-randomizer.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "templateData": "<div>\n    This would have been a component that uses an observable on a set duration to pull a random crypto from the store, and display the other fields that table does not.\n</div>\n"
         },
         {
             "name": "CryptoSelectorComponent",
-            "id": "component-CryptoSelectorComponent-930a238136d28cd3e93bf619c193b8dc01bc1a83ea7121b4ec349a99762ef1522f2080f1485388a84720cb77320600a814b4aa4305e3c20e422e43f39b3c9338",
+            "id": "component-CryptoSelectorComponent-69c095ab6b19967a2dce6df2ddc666c657d14da08e81f49b82b2498e2cd8a24529c0a5ce9e95361615c60cf75f5e277175f75da29563beec660d881989199328",
             "file": "src/app/pages/crypto/crypto-selector/crypto-selector.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -727,7 +805,7 @@
                     "defaultValue": "[]",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 12,
+                    "line": 14,
                     "type": "ReadonlyArray<Currency>",
                     "decorators": []
                 }
@@ -735,19 +813,30 @@
             "outputsClass": [
                 {
                     "name": "add",
-                    "defaultValue": "new EventEmitter<string>()",
+                    "defaultValue": "new EventEmitter<Currency>()",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 13,
+                    "line": 15,
                     "type": "EventEmitter"
                 }
             ],
             "propertiesClass": [
                 {
-                    "name": "currencyService",
+                    "name": "cryptoIdsInPortfolio",
+                    "defaultValue": "[]",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "type": "CurrencyService",
+                    "type": "string[]",
+                    "optional": false,
+                    "description": "",
+                    "line": 22
+                },
+                {
+                    "name": "currencyPortfolio$",
+                    "defaultValue": "this.store.select(selectPortfolio)",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
                     "optional": false,
                     "description": "",
                     "line": 17
@@ -760,7 +849,27 @@
                     "type": "Currency[]",
                     "optional": false,
                     "description": "",
-                    "line": 16
+                    "line": 25
+                },
+                {
+                    "name": "selectedCryptosSubscription",
+                    "defaultValue": "new Subscription",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Subscription",
+                    "optional": false,
+                    "description": "",
+                    "line": 20
+                },
+                {
+                    "name": "subscriptions",
+                    "defaultValue": "[]",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Subscription[]",
+                    "optional": false,
+                    "description": "",
+                    "line": 19
                 },
                 {
                     "name": "text",
@@ -770,7 +879,7 @@
                     "type": "any",
                     "optional": false,
                     "description": "",
-                    "line": 15
+                    "line": 24
                 }
             ],
             "methodsClass": [
@@ -779,7 +888,7 @@
                     "args": [
                         {
                             "name": "e",
-                            "type": "any",
+                            "type": "Currency",
                             "deprecated": false,
                             "deprecationMessage": ""
                         }
@@ -787,13 +896,13 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 34,
+                    "line": 54,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
                         {
                             "name": "e",
-                            "type": "any",
+                            "type": "Currency",
                             "deprecated": false,
                             "deprecationMessage": "",
                             "tagName": {
@@ -801,6 +910,26 @@
                             }
                         }
                     ]
+                },
+                {
+                    "name": "ngOnDestroy",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 37,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 29,
+                    "deprecated": false,
+                    "deprecationMessage": ""
                 },
                 {
                     "name": "search",
@@ -815,7 +944,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 24,
+                    "line": 41,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -838,7 +967,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CurrencyService } from '../../../services/currency/currency.service'\r\nimport { Component, EventEmitter, Input, Output } from '@angular/core';\r\nimport { Currency } from '../../../interfaces/currency.model';\r\n\r\n@Component({\r\n  selector: 'home-crypto-selector',\r\n  templateUrl: './crypto-selector.component.html'\r\n})\r\nexport class CryptoSelectorComponent {\r\n  @Input() currencies: ReadonlyArray<Currency> = [];\r\n  @Output() add = new EventEmitter<string>();\r\n\r\n  text: any = \"\";\r\n  results: Currency[] = [];\r\n  currencyService: CurrencyService;\r\n\r\n  constructor(currencyService: CurrencyService) {\r\n    this.currencyService = currencyService;\r\n   }\r\n\r\n  // NOTE: This is just a demo assignment, probably would make more sense to preload currencies initially and client side filter here. Not like new currencies added real time usually.\r\n  search(event: any) {\r\n    const entityApiCall = this.currencyService.getCurrencies(event.query)\r\n\r\n    entityApiCall.subscribe((response: Currency[]) => {\r\n      this.results = response\r\n    }, (error: any) => {\r\n      console.error(error);\r\n    });\r\n  }\r\n\r\n  addCurrency(e: any) {\r\n    this.text = \"\"\r\n    this.add.emit(e.id)\r\n  }\r\n}\r\n",
+            "sourceCode": "import { OnDestroy, OnInit } from '@angular/core';\r\nimport { Component, EventEmitter, Input, Output } from '@angular/core';\r\nimport { Currency } from '../../../interfaces/currency.model';\r\nimport { Store } from '@ngrx/store';\r\nimport { Subscription } from 'rxjs';\r\nimport { selectPortfolio } from '../../../state/currencies.selectors';\r\n\r\n@Component({\r\n  selector: 'home-crypto-selector',\r\n  templateUrl: './crypto-selector.component.html'\r\n})\r\nexport class CryptoSelectorComponent implements OnDestroy, OnInit {\r\n  @Input() currencies: ReadonlyArray<Currency> = [];\r\n  @Output() add = new EventEmitter<Currency>();\r\n\r\n  currencyPortfolio$ = this.store.select(selectPortfolio);\r\n\r\n  subscriptions: Subscription[] = [];\r\n  selectedCryptosSubscription: Subscription = new Subscription;\r\n\r\n  cryptoIdsInPortfolio: string[] = []\r\n\r\n  text: any = \"\";\r\n  results: Currency[] = [];\r\n\r\n  constructor(private store: Store) {}\r\n\r\n  ngOnInit() {\r\n    this.selectedCryptosSubscription = this.currencyPortfolio$.subscribe(cc => {\r\n      this.cryptoIdsInPortfolio = cc.map(c => c.id)\r\n    })\r\n\r\n    this.subscriptions.push(this.selectedCryptosSubscription);\r\n  }\r\n\r\n  ngOnDestroy() {\r\n    this.subscriptions.forEach(sub => sub.unsubscribe());\r\n  }\r\n\r\n  search(event: any) {\r\n    const searchTerm = event.query.trim().toLowerCase()\r\n\r\n    // NOTE: Could filter off more fields with \"keys\", but id, name and symbol more or less cover it\r\n    this.results = this.currencies.filter(c => {\r\n      return (\r\n        (\r\n          c.id.toLowerCase().indexOf(searchTerm) > -1 || c.name.toLowerCase().indexOf(searchTerm) > -1 || c.symbol.toLowerCase().indexOf(searchTerm) > -1) &&\r\n          this.cryptoIdsInPortfolio.indexOf(c.id) === -1\r\n        )\r\n    })\r\n  }\r\n\r\n  addCurrency(e: Currency) {\r\n    this.text = \"\"\r\n    this.add.emit(e)\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -849,17 +978,17 @@
                 "deprecationMessage": "",
                 "args": [
                     {
-                        "name": "currencyService",
-                        "type": "CurrencyService",
+                        "name": "store",
+                        "type": "Store",
                         "deprecated": false,
                         "deprecationMessage": ""
                     }
                 ],
-                "line": 17,
+                "line": 25,
                 "jsdoctags": [
                     {
-                        "name": "currencyService",
-                        "type": "CurrencyService",
+                        "name": "store",
+                        "type": "Store",
                         "deprecated": false,
                         "deprecationMessage": "",
                         "tagName": {
@@ -868,11 +997,15 @@
                     }
                 ]
             },
+            "implements": [
+                "OnDestroy",
+                "OnInit"
+            ],
             "templateData": "<div>\r\n    <div>\r\n        <p-autoComplete\r\n            [(ngModel)]=\"text\" [suggestions]=\"results\"\r\n            (onSelect)=\"addCurrency($event)\"\r\n            (completeMethod)=\"search($event)\" field=\"name\" placeholder=\"Search for a cryptocurrency\">\r\n        </p-autoComplete>\r\n    </div>\r\n</div>"
         },
         {
             "name": "FilesComponent",
-            "id": "component-FilesComponent-6cec83afe0b9c70ce59a14b55311e76a84ef135436bd9be07b5f68fef486015dfbd20b80618c2faa3f05681cb2372423252b83396ff25b9c2059ba04c416a0f3",
+            "id": "component-FilesComponent-da91e937cd4f7574e91441db5525857d8c9d6954ea08c3fef8065de1cba353cad5ce40a4cd2948454f0c42ff2b964409c928dee691e0d0c5570132504d7725a1",
             "file": "src/app/pages/files/files.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -899,7 +1032,7 @@
                     "type": "File[]",
                     "optional": false,
                     "description": "",
-                    "line": 14
+                    "line": 17
                 },
                 {
                     "name": "filesService",
@@ -908,7 +1041,7 @@
                     "type": "FilesService",
                     "optional": false,
                     "description": "",
-                    "line": 13
+                    "line": 16
                 },
                 {
                     "name": "fileSubscription",
@@ -918,7 +1051,7 @@
                     "type": "Subscription",
                     "optional": false,
                     "description": "",
-                    "line": 17
+                    "line": 14
                 },
                 {
                     "name": "selectedFiles",
@@ -928,7 +1061,7 @@
                     "type": "File[]",
                     "optional": false,
                     "description": "",
-                    "line": 16
+                    "line": 18
                 },
                 {
                     "name": "showModal",
@@ -938,7 +1071,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 18
+                    "line": 19
                 },
                 {
                     "name": "subscriptions",
@@ -948,7 +1081,7 @@
                     "type": "Subscription[]",
                     "optional": false,
                     "description": "",
-                    "line": 15
+                    "line": 13
                 }
             ],
             "methodsClass": [
@@ -965,7 +1098,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 56,
+                    "line": 57,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "rawdescription": "\n\nFires when clicking to display the modal dialog\n\n",
@@ -982,8 +1115,8 @@
                         },
                         {
                             "tagName": {
-                                "pos": 1519,
-                                "end": 1526,
+                                "pos": 1521,
+                                "end": 1528,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -1008,7 +1141,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 42,
+                    "line": 43,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "rawdescription": "\n\nFires when multistatte checkbox is clicked\n\n",
@@ -1025,8 +1158,8 @@
                         },
                         {
                             "tagName": {
-                                "pos": 1158,
-                                "end": 1165,
+                                "pos": 1160,
+                                "end": 1167,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
@@ -1044,7 +1177,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 32,
+                    "line": 33,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -1054,7 +1187,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 24,
+                    "line": 25,
                     "deprecated": false,
                     "deprecationMessage": ""
                 }
@@ -1066,11 +1199,11 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, OnDestroy, OnInit } from '@angular/core';\r\nimport { Subscription } from 'rxjs';\r\nimport { FilesService } from '../../services/files/files.service';\r\nimport { File, FileStatus } from '../../interfaces/file';\r\nimport { MultiCheckboxState } from '../../components/checkbox/checkbox.model';\r\n\r\n@Component({\r\n  selector: 'page-downloads',\r\n  templateUrl: './files.component.html',\r\n  styleUrls: ['./files.component.scss']\r\n})\r\nexport class FilesComponent implements OnDestroy, OnInit {\r\n  filesService: FilesService;\r\n  files: File[] = [];\r\n  subscriptions: Subscription[] = [];\r\n  selectedFiles: File[] = [];\r\n  fileSubscription: Subscription = new Subscription;\r\n  showModal = false;\r\n\r\n  constructor(filesService: FilesService) {\r\n    this.filesService = filesService;\r\n  }\r\n\r\n  ngOnInit(): void {\r\n    this.fileSubscription = this.filesService.getFiles().subscribe(response => {\r\n      this.files = response;\r\n    })\r\n\r\n    this.subscriptions.push(this.fileSubscription);\r\n  }\r\n\r\n  ngOnDestroy(): void {\r\n    this.subscriptions.forEach(sub => sub.unsubscribe());\r\n  }\r\n\r\n  /**\r\n   * Fires when multistatte checkbox is clicked\r\n   *\r\n   * @returns {void}\r\n   * @memberof FilesComponent\r\n   */\r\n  handleSelectionClick(e: MultiCheckboxState): void {\r\n    if (e === MultiCheckboxState.Empty || e === MultiCheckboxState.Partial) {\r\n      this.selectedFiles = this.files;\r\n    } else {\r\n      this.selectedFiles = [];\r\n    }\r\n  }\r\n\r\n  /**\r\n   * Fires when clicking to display the modal dialog\r\n   *\r\n   * @returns {void}\r\n   * @memberof FilesComponent\r\n   */\r\n  handleDialogDisplay(display: boolean): void {\r\n    this.showModal = display;\r\n  }\r\n\r\n  /**\r\n   * The row selection state of the table\r\n   *\r\n   * @returns {MultiCheckboxState}\r\n   * @memberof FilesComponent\r\n   */\r\n  get tableState(): MultiCheckboxState {\r\n    if (this.selectedFiles.length === 0) {\r\n      return MultiCheckboxState.Empty;\r\n    }\r\n\r\n    if (this.selectedFiles.length === this.files.length) {\r\n      return MultiCheckboxState.Full;\r\n    }\r\n\r\n    return MultiCheckboxState.Partial;\r\n  }\r\n\r\n  /**\r\n   * The number of files currently selected\r\n   *\r\n   * @returns {number}\r\n   * @memberof FilesComponent\r\n   */\r\n  get selectedFileCount(): number {\r\n    return this.selectedFiles.length;\r\n  }\r\n\r\n  /**\r\n   * The number of files currently selected that are not available\r\n   *\r\n   * @returns {number}\r\n   * @memberof FilesComponent\r\n   */\r\n   get selectedUnavailableFileCount(): number {\r\n    return this.selectedFiles.filter(f => f.status !== FileStatus.Available).length;\r\n  }\r\n}\r\n",
+            "sourceCode": "import { Component, OnDestroy, OnInit } from '@angular/core';\r\nimport { Subscription } from 'rxjs';\r\nimport { FilesService } from '../../services/files/files.service';\r\nimport { File, FileStatus } from '../../interfaces/file';\r\nimport { MultiCheckboxState } from '../../components/checkbox/checkbox.model';\r\n\r\n@Component({\r\n  selector: 'page-downloads',\r\n  templateUrl: './files.component.html',\r\n  styleUrls: ['./files.component.scss']\r\n})\r\nexport class FilesComponent implements OnDestroy, OnInit {\r\n  subscriptions: Subscription[] = [];\r\n  fileSubscription: Subscription = new Subscription;\r\n\r\n  filesService: FilesService;\r\n  files: File[] = [];\r\n  selectedFiles: File[] = [];\r\n  showModal = false;\r\n\r\n  constructor(filesService: FilesService) {\r\n    this.filesService = filesService;\r\n  }\r\n\r\n  ngOnInit(): void {\r\n    this.fileSubscription = this.filesService.getFiles().subscribe(response => {\r\n      this.files = response;\r\n    })\r\n\r\n    this.subscriptions.push(this.fileSubscription);\r\n  }\r\n\r\n  ngOnDestroy(): void {\r\n    this.subscriptions.forEach(sub => sub.unsubscribe());\r\n  }\r\n\r\n  /**\r\n   * Fires when multistatte checkbox is clicked\r\n   *\r\n   * @returns {void}\r\n   * @memberof FilesComponent\r\n   */\r\n  handleSelectionClick(e: MultiCheckboxState): void {\r\n    if (e === MultiCheckboxState.Empty || e === MultiCheckboxState.Partial) {\r\n      this.selectedFiles = this.files;\r\n    } else {\r\n      this.selectedFiles = [];\r\n    }\r\n  }\r\n\r\n  /**\r\n   * Fires when clicking to display the modal dialog\r\n   *\r\n   * @returns {void}\r\n   * @memberof FilesComponent\r\n   */\r\n  handleDialogDisplay(display: boolean): void {\r\n    this.showModal = display;\r\n  }\r\n\r\n  /**\r\n   * The row selection state of the table\r\n   *\r\n   * @returns {MultiCheckboxState}\r\n   * @memberof FilesComponent\r\n   */\r\n  get tableState(): MultiCheckboxState {\r\n    if (this.selectedFiles.length === 0) {\r\n      return MultiCheckboxState.Empty;\r\n    }\r\n\r\n    if (this.selectedFiles.length === this.files.length) {\r\n      return MultiCheckboxState.Full;\r\n    }\r\n\r\n    return MultiCheckboxState.Partial;\r\n  }\r\n\r\n  /**\r\n   * The number of files currently selected\r\n   *\r\n   * @returns {number}\r\n   * @memberof FilesComponent\r\n   */\r\n  get selectedFileCount(): number {\r\n    return this.selectedFiles.length;\r\n  }\r\n\r\n  /**\r\n   * The number of files currently selected that are not available\r\n   *\r\n   * @returns {number}\r\n   * @memberof FilesComponent\r\n   */\r\n   get selectedUnavailableFileCount(): number {\r\n    return this.selectedFiles.filter(f => f.status !== FileStatus.Available).length;\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": "@import '../../styles/overrides.scss';\r\n\r\n:host {\r\n    width: 100%;\r\n\r\n    ::ng-deep .p-datatable-header > div {\r\n        display: flex;\r\n        align-items: center;\r\n\r\n        > label {\r\n            margin-left: 1rem;\r\n        }\r\n\r\n        > div.download {\r\n            display: flex;\r\n            justify-content: center;\r\n\r\n            img {\r\n                width: 1rem;\r\n            }\r\n        }\r\n\r\n        > div {\r\n            margin-left: 2rem;\r\n            cursor: pointer;\r\n        }\r\n    }\r\n\r\n    // @NOTE: Dialog classes, should be kept seperate\r\n    .message {\r\n        font-size: small;\r\n        margin-bottom: 1rem;\r\n    }\r\n\r\n    .notavailable {\r\n        color: $app-color-warning;\r\n        cursor: default !important;\r\n    }\r\n\r\n    .downloads {\r\n        display: grid;\r\n        grid-template-columns: 25% 75%;\r\n        gap: 5px;\r\n\r\n        div {\r\n            text-overflow: ellipsis;\r\n            overflow: hidden;\r\n            white-space: nowrap;\r\n            cursor: pointer;\r\n        }\r\n    }\r\n}\r\n",
+                    "data": "@import '../../styles/overrides.scss';\r\n\r\n:host {\r\n    width: 100%;\r\n\r\n    ::ng-deep .p-datatable-header > div {\r\n        display: flex;\r\n        align-items: center;\r\n\r\n        > label {\r\n            margin-left: 1rem;\r\n        }\r\n\r\n        > div.download {\r\n            display: flex;\r\n            justify-content: center;\r\n\r\n            img {\r\n                width: 1rem;\r\n            }\r\n        }\r\n\r\n        > div {\r\n            margin-left: 2rem;\r\n            cursor: pointer;\r\n        }\r\n    }\r\n\r\n    // NOTE: Dialog classes, should be kept seperate\r\n    .message {\r\n        font-size: small;\r\n        margin-bottom: 1rem;\r\n    }\r\n\r\n    .notavailable {\r\n        color: $app-color-warning;\r\n        cursor: default !important;\r\n    }\r\n\r\n    .downloads {\r\n        display: grid;\r\n        grid-template-columns: 25% 75%;\r\n        gap: 5px;\r\n\r\n        div {\r\n            text-overflow: ellipsis;\r\n            overflow: hidden;\r\n            white-space: nowrap;\r\n            cursor: pointer;\r\n        }\r\n    }\r\n}\r\n",
                     "styleUrl": "./files.component.scss"
                 }
             ],
@@ -1088,7 +1221,7 @@
                         "deprecationMessage": ""
                     }
                 ],
-                "line": 18,
+                "line": 19,
                 "jsdoctags": [
                     {
                         "name": "filesService",
@@ -1112,20 +1245,20 @@
                         "name": "tableState",
                         "type": "",
                         "returnType": "MultiCheckboxState",
-                        "line": 66,
+                        "line": 67,
                         "rawdescription": "\n\nThe row selection state of the table\n\n",
                         "description": "<p>The row selection state of the table</p>\n",
                         "jsdoctags": [
                             {
-                                "pos": 1721,
-                                "end": 1757,
+                                "pos": 1723,
+                                "end": 1759,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
                                 "kind": 339,
                                 "tagName": {
-                                    "pos": 1722,
-                                    "end": 1729,
+                                    "pos": 1724,
+                                    "end": 1731,
                                     "flags": 4227072,
                                     "modifierFlagsCache": 0,
                                     "transformFlags": 0,
@@ -1134,22 +1267,22 @@
                                 },
                                 "comment": "",
                                 "typeExpression": {
-                                    "pos": 1730,
-                                    "end": 1750,
+                                    "pos": 1732,
+                                    "end": 1752,
                                     "flags": 4227072,
                                     "modifierFlagsCache": 0,
                                     "transformFlags": 0,
                                     "kind": 307,
                                     "type": {
-                                        "pos": 1731,
-                                        "end": 1749,
+                                        "pos": 1733,
+                                        "end": 1751,
                                         "flags": 4194304,
                                         "modifierFlagsCache": 0,
                                         "transformFlags": 1,
                                         "kind": 177,
                                         "typeName": {
-                                            "pos": 1731,
-                                            "end": 1749,
+                                            "pos": 1733,
+                                            "end": 1751,
                                             "flags": 4194304,
                                             "modifierFlagsCache": 0,
                                             "transformFlags": 0,
@@ -1160,15 +1293,15 @@
                                 }
                             },
                             {
-                                "pos": 1757,
-                                "end": 1786,
+                                "pos": 1759,
+                                "end": 1788,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
                                 "kind": 325,
                                 "tagName": {
-                                    "pos": 1758,
-                                    "end": 1766,
+                                    "pos": 1760,
+                                    "end": 1768,
                                     "flags": 4227072,
                                     "modifierFlagsCache": 0,
                                     "transformFlags": 0,
@@ -1186,20 +1319,20 @@
                         "name": "selectedFileCount",
                         "type": "number",
                         "returnType": "number",
-                        "line": 84,
+                        "line": 85,
                         "rawdescription": "\n\nThe number of files currently selected\n\n",
                         "description": "<p>The number of files currently selected</p>\n",
                         "jsdoctags": [
                             {
-                                "pos": 2143,
-                                "end": 2167,
+                                "pos": 2145,
+                                "end": 2169,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
                                 "kind": 339,
                                 "tagName": {
-                                    "pos": 2144,
-                                    "end": 2151,
+                                    "pos": 2146,
+                                    "end": 2153,
                                     "flags": 4227072,
                                     "modifierFlagsCache": 0,
                                     "transformFlags": 0,
@@ -1208,15 +1341,15 @@
                                 },
                                 "comment": "",
                                 "typeExpression": {
-                                    "pos": 2152,
-                                    "end": 2160,
+                                    "pos": 2154,
+                                    "end": 2162,
                                     "flags": 4227072,
                                     "modifierFlagsCache": 0,
                                     "transformFlags": 0,
                                     "kind": 307,
                                     "type": {
-                                        "pos": 2153,
-                                        "end": 2159,
+                                        "pos": 2155,
+                                        "end": 2161,
                                         "flags": 4194304,
                                         "modifierFlagsCache": 0,
                                         "transformFlags": 1,
@@ -1225,15 +1358,15 @@
                                 }
                             },
                             {
-                                "pos": 2167,
-                                "end": 2196,
+                                "pos": 2169,
+                                "end": 2198,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
                                 "kind": 325,
                                 "tagName": {
-                                    "pos": 2168,
-                                    "end": 2176,
+                                    "pos": 2170,
+                                    "end": 2178,
                                     "flags": 4227072,
                                     "modifierFlagsCache": 0,
                                     "transformFlags": 0,
@@ -1251,20 +1384,20 @@
                         "name": "selectedUnavailableFileCount",
                         "type": "number",
                         "returnType": "number",
-                        "line": 94,
+                        "line": 95,
                         "rawdescription": "\n\nThe number of files currently selected that are not available\n\n",
                         "description": "<p>The number of files currently selected that are not available</p>\n",
                         "jsdoctags": [
                             {
-                                "pos": 2369,
-                                "end": 2393,
+                                "pos": 2371,
+                                "end": 2395,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
                                 "kind": 339,
                                 "tagName": {
-                                    "pos": 2370,
-                                    "end": 2377,
+                                    "pos": 2372,
+                                    "end": 2379,
                                     "flags": 4227072,
                                     "modifierFlagsCache": 0,
                                     "transformFlags": 0,
@@ -1273,15 +1406,15 @@
                                 },
                                 "comment": "",
                                 "typeExpression": {
-                                    "pos": 2378,
-                                    "end": 2386,
+                                    "pos": 2380,
+                                    "end": 2388,
                                     "flags": 4227072,
                                     "modifierFlagsCache": 0,
                                     "transformFlags": 0,
                                     "kind": 307,
                                     "type": {
-                                        "pos": 2379,
-                                        "end": 2385,
+                                        "pos": 2381,
+                                        "end": 2387,
                                         "flags": 4194304,
                                         "modifierFlagsCache": 0,
                                         "transformFlags": 1,
@@ -1290,15 +1423,15 @@
                                 }
                             },
                             {
-                                "pos": 2393,
-                                "end": 2422,
+                                "pos": 2395,
+                                "end": 2424,
                                 "flags": 4227072,
                                 "modifierFlagsCache": 0,
                                 "transformFlags": 0,
                                 "kind": 325,
                                 "tagName": {
-                                    "pos": 2394,
-                                    "end": 2402,
+                                    "pos": 2396,
+                                    "end": 2404,
                                     "flags": 4227072,
                                     "modifierFlagsCache": 0,
                                     "transformFlags": 0,
@@ -1311,7 +1444,7 @@
                     }
                 }
             },
-            "templateData": "<div>\r\n    <p-table [value]=\"files\" selectionMode=\"multiple\" [(selection)]=\"selectedFiles\">\r\n        <ng-template pTemplate=\"caption\">\r\n            <div>\r\n                <home-checkbox [state]=\"tableState\" (stateChanged)=\"handleSelectionClick($event)\"></home-checkbox>\r\n                <label *ngIf=\"!selectedFileCount\">None Selected</label>\r\n                <label *ngIf=\"selectedFileCount\">Selected {{ selectedFileCount }}</label>\r\n                <div *ngIf=\"selectedFileCount\" class=\"download\" (click)=\"handleDialogDisplay(true)\"><img src=\"assets/svgs/download.svg\" alt=\"Download selected files\" />Download Selected</div>\r\n            </div>\r\n        </ng-template>\r\n        <ng-template pTemplate=\"header\">\r\n            <tr>\r\n                <th></th>\r\n                <th>Name</th>\r\n                <th>Device</th>\r\n                <th>Path</th>\r\n                <th>Status</th>\r\n            </tr>\r\n        </ng-template>\r\n        <ng-template pTemplate=\"body\" let-file>\r\n            <tr [pSelectableRow]=\"file\">\r\n                <td>\r\n                    <p-tableCheckbox [value]=\"file\" (click)=\"$event.stopPropagation()\"></p-tableCheckbox>\r\n                </td>\r\n                <td>\r\n                    {{ file.name }}\r\n                </td>\r\n                <td>\r\n                    {{ file.device }}\r\n                </td>\r\n                <td>\r\n                    {{ file.path }}\r\n                </td>\r\n                <td>\r\n                    <home-status-indicator [status]=file.status></home-status-indicator>\r\n                </td>\r\n            </tr>\r\n        </ng-template>\r\n    </p-table>\r\n\r\n    <!-- @TODO: Make a component that wraps this for reusability -->\r\n    <p-dialog header=\"File Downloads\" [(visible)]=\"showModal\" [style]=\"{width: '50vw'}\" [modal]=\"true\" [draggable]=\"false\">\r\n        <!-- BUSINESSRULE: Only those that have a status of \"available\" are currently able to be downloaded. Your implementation should manage this. -->\r\n        <div  *ngIf=\"selectedUnavailableFileCount\" class=\"message\">File(s) in <span class=\"notavailable\">red</span> are not available to be downloaded.</div>\r\n\r\n        <div class=\"downloads\">\r\n            <ng-container *ngFor=\"let file of selectedFiles\">\r\n                <div title=\"{{ file.device }}\" [ngClass]=\"{'notavailable': file.status !== 'available'}\">{{ file.device }}</div>\r\n                <div *ngIf=\"file.status !== 'available'\" title=\"{{ file.path }}\" class=\"notavailable\">{{ file.path }}</div>\r\n                <div *ngIf=\"file.status === 'available'\" title=\"{{ file.path }}\"><a>{{ file.path }}</a></div>\r\n            </ng-container>\r\n        </div>\r\n        <ng-template pTemplate=\"footer\">\r\n            <p-button label=\"Close\" styleClass=\"p-button-text\" (click)=\"handleDialogDisplay(false)\"></p-button>\r\n        </ng-template>\r\n    </p-dialog>\r\n</div>\r\n"
+            "templateData": "<div>\r\n    <h1>File Downloads</h1>\r\n\r\n    <p-table [value]=\"files\" selectionMode=\"multiple\" [(selection)]=\"selectedFiles\">\r\n        <ng-template pTemplate=\"caption\">\r\n            <div>\r\n                <home-checkbox [state]=\"tableState\" (stateChanged)=\"handleSelectionClick($event)\"></home-checkbox>\r\n                <label *ngIf=\"!selectedFileCount\">None Selected</label>\r\n                <label *ngIf=\"selectedFileCount\">Selected {{ selectedFileCount }}</label>\r\n                <div *ngIf=\"selectedFileCount\" class=\"download\" (click)=\"handleDialogDisplay(true)\"><img src=\"assets/svgs/download.svg\" alt=\"Download selected files\" />Download Selected</div>\r\n            </div>\r\n        </ng-template>\r\n        <ng-template pTemplate=\"header\">\r\n            <tr>\r\n                <th></th>\r\n                <th>Name</th>\r\n                <th>Device</th>\r\n                <th>Path</th>\r\n                <th>Status</th>\r\n            </tr>\r\n        </ng-template>\r\n        <ng-template pTemplate=\"body\" let-file>\r\n            <tr [pSelectableRow]=\"file\">\r\n                <td>\r\n                    <p-tableCheckbox [value]=\"file\" (click)=\"$event.stopPropagation()\"></p-tableCheckbox>\r\n                </td>\r\n                <td>\r\n                    {{ file.name }}\r\n                </td>\r\n                <td>\r\n                    {{ file.device }}\r\n                </td>\r\n                <td>\r\n                    {{ file.path }}\r\n                </td>\r\n                <td>\r\n                    <home-status-indicator [status]=file.status></home-status-indicator>\r\n                </td>\r\n            </tr>\r\n        </ng-template>\r\n    </p-table>\r\n\r\n    <!-- @TODO: Make a component that wraps this for reusability -->\r\n    <p-dialog header=\"File Downloads\" [(visible)]=\"showModal\" [style]=\"{width: '50vw'}\" [modal]=\"true\" [draggable]=\"false\">\r\n        <!-- BUSINESSRULE: Only those that have a status of \"available\" are currently able to be downloaded. Your implementation should manage this. -->\r\n        <div  *ngIf=\"selectedUnavailableFileCount\" class=\"message\">File(s) in <span class=\"notavailable\">red</span> are not available to be downloaded.</div>\r\n\r\n        <div class=\"downloads\">\r\n            <ng-container *ngFor=\"let file of selectedFiles\">\r\n                <div title=\"{{ file.device }}\" [ngClass]=\"{'notavailable': file.status !== 'available'}\">{{ file.device }}</div>\r\n                <div *ngIf=\"file.status !== 'available'\" title=\"{{ file.path }}\" class=\"notavailable\">{{ file.path }}</div>\r\n                <div *ngIf=\"file.status === 'available'\" title=\"{{ file.path }}\"><a>{{ file.path }}</a></div>\r\n            </ng-container>\r\n        </div>\r\n        <ng-template pTemplate=\"footer\">\r\n            <p-button label=\"Close\" styleClass=\"p-button-text\" (click)=\"handleDialogDisplay(false)\"></p-button>\r\n        </ng-template>\r\n    </p-dialog>\r\n</div>\r\n"
         },
         {
             "name": "StatusIndicatorComponent",
@@ -1367,13 +1500,13 @@
     "modules": [
         {
             "name": "AppModule",
-            "id": "module-AppModule-ec91ca715b5221a9c0ec43b2b98c363dbc0f53efa849b2f0917311bfe63426c0a5c0e6b0aa14c5b6759a1ab6b1ebfc844e2f39e1a5ec6f2509fd1e5914272f77",
+            "id": "module-AppModule-e946fe308a56fa1e5c9a22da5b95f54f7f267f1911a91dc324e2a7c74f1dfff0cfda2de8c646e566cb6df6e47555e2d677d4d820fb84ab1ba4e20b90426453a4",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "src/app/app.module.ts",
             "methods": [],
-            "sourceCode": "import { HttpClientModule } from '@angular/common/http';\r\nimport { NgModule } from '@angular/core';\r\nimport { FormsModule } from '@angular/forms';\r\nimport { BrowserModule } from '@angular/platform-browser';\r\nimport { BrowserAnimationsModule } from '@angular/platform-browser/animations';\r\nimport { StoreModule } from '@ngrx/store';\r\nimport { AutoCompleteModule } from 'primeng/autocomplete';\r\nimport { ButtonModule } from 'primeng/button';\r\nimport { DialogModule } from 'primeng/dialog';\r\nimport { TableModule } from 'primeng/table';\r\nimport { AppRoutingModule } from './app-routing.module';\r\nimport { AppComponent } from './app.component';\r\nimport { CheckboxComponent } from './components/checkbox/checkbox.component';\r\nimport { StatusIndicatorComponent } from './components/status-indicator/status-indicator.component';\r\nimport { CryptoSelectorComponent } from './pages/crypto/crypto-selector/crypto-selector.component';\r\nimport { CryptoPortfolioComponent } from './pages/crypto/crypto-portfolio/crypto-portfolio.component';\r\nimport { CryptoComponent } from './pages/crypto/crypto.component';\r\nimport { FilesComponent } from './pages/files/files.component';\r\nimport { currencyReducer } from './state/currencies.reducer';\r\nimport { portfolioReducer } from './state/portfolio.reducer';\r\n\r\n@NgModule({\r\n  declarations: [\r\n    AppComponent,\r\n    CheckboxComponent,\r\n    FilesComponent,\r\n    StatusIndicatorComponent,\r\n    CryptoSelectorComponent,\r\n    CryptoPortfolioComponent,\r\n    CryptoComponent\r\n  ],\r\n  imports: [\r\n    AppRoutingModule,\r\n    FormsModule,\r\n    BrowserModule,\r\n    BrowserAnimationsModule,\r\n    ButtonModule,\r\n    DialogModule,\r\n    HttpClientModule,\r\n    TableModule,\r\n    AutoCompleteModule,\r\n    StoreModule.forRoot({ currencies: currencyReducer, portfolio: portfolioReducer }),\r\n  ],\r\n  providers: [],\r\n  bootstrap: [AppComponent]\r\n})\r\nexport class AppModule { }\r\n",
+            "sourceCode": "import { HttpClientModule } from '@angular/common/http';\r\nimport { NgModule } from '@angular/core';\r\nimport { FormsModule } from '@angular/forms';\r\nimport { BrowserModule } from '@angular/platform-browser';\r\nimport { BrowserAnimationsModule } from '@angular/platform-browser/animations';\r\nimport { StoreModule } from '@ngrx/store';\r\nimport { AutoCompleteModule } from 'primeng/autocomplete';\r\nimport { ButtonModule } from 'primeng/button';\r\nimport { DialogModule } from 'primeng/dialog';\r\nimport { TableModule } from 'primeng/table';\r\nimport { AppRoutingModule } from './app-routing.module';\r\nimport { AppComponent } from './app.component';\r\nimport { CheckboxComponent } from './components/checkbox/checkbox.component';\r\nimport { StatusIndicatorComponent } from './components/status-indicator/status-indicator.component';\r\nimport { CryptoSelectorComponent } from './pages/crypto/crypto-selector/crypto-selector.component';\r\nimport { CryptoPortfolioComponent } from './pages/crypto/crypto-portfolio/crypto-portfolio.component';\r\nimport { CryptoComponent } from './pages/crypto/crypto.component';\r\nimport { FilesComponent } from './pages/files/files.component';\r\nimport { currencyReducer } from './state/currencies.reducer';\r\nimport { portfolioReducer } from './state/portfolio.reducer';\r\nimport { NgxDatatableModule } from '@swimlane/ngx-datatable';\nimport { CryptoRandomizerComponent } from './pages/crypto/crypto-randomizer/crypto-randomizer.component';\r\n\r\n@NgModule({\r\n  declarations: [\r\n    AppComponent,\r\n    CheckboxComponent,\r\n    FilesComponent,\r\n    StatusIndicatorComponent,\r\n    CryptoSelectorComponent,\r\n    CryptoPortfolioComponent,\r\n    CryptoComponent,\r\n    CryptoRandomizerComponent\r\n  ],\r\n  imports: [\r\n    AppRoutingModule,\r\n    FormsModule,\r\n    BrowserModule,\r\n    BrowserAnimationsModule,\r\n    ButtonModule,\r\n    DialogModule,\r\n    HttpClientModule,\r\n    TableModule,\r\n    AutoCompleteModule,\r\n    NgxDatatableModule,\r\n    StoreModule.forRoot({ currencies: currencyReducer, portfolio: portfolioReducer }),\r\n  ],\r\n  providers: [],\r\n  bootstrap: [AppComponent]\r\n})\r\nexport class AppModule { }\r\n",
             "children": [
                 {
                     "type": "providers",
@@ -1393,6 +1526,9 @@
                         },
                         {
                             "name": "CryptoPortfolioComponent"
+                        },
+                        {
+                            "name": "CryptoRandomizerComponent"
                         },
                         {
                             "name": "CryptoSelectorComponent"
@@ -1488,7 +1624,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
-                "defaultValue": "createActionGroup({\r\n  source: 'Currencies',\r\n  events: {\r\n    'Add Currency': props<{ currencyId: string }>(),\r\n    'Remove Currency': props<{ currencyId: string }>(),\r\n  },\r\n})"
+                "defaultValue": "createActionGroup({\r\n  source: 'Currencies',\r\n  events: {\r\n    'Add Currency': props<{ currency: Currency }>(),\r\n    'Remove Currency': props<{ currency: Currency }>(),\r\n  },\r\n})"
             },
             {
                 "name": "currencyReducer",
@@ -1514,21 +1650,21 @@
                 "name": "environment",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/environments/environment.prod.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "object",
-                "defaultValue": "{\r\n  production: true\r\n}"
-            },
-            {
-                "name": "environment",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "src/environments/environment.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "object",
                 "defaultValue": "{\r\n  production: false\r\n}"
+            },
+            {
+                "name": "environment",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/environments/environment.prod.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "object",
+                "defaultValue": "{\r\n  production: true\r\n}"
             },
             {
                 "name": "Full",
@@ -1557,7 +1693,7 @@
                 "file": "src/app/state/portfolio.reducer.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
-                "type": "ReadonlyArray<string>",
+                "type": "ReadonlyArray<Currency>",
                 "defaultValue": "[]"
             },
             {
@@ -1578,7 +1714,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
-                "defaultValue": "createReducer(\r\n  initialState,\r\n  on(CurrencyActions.removeCurrency, (state, { currencyId }) =>\r\n    state.filter((id) => id !== currencyId)\r\n  ),\r\n  on(CurrencyActions.addCurrency, (state, { currencyId }) => {\r\n    if (state.indexOf(currencyId) > -1) return state;\r\n\r\n    return [...state, currencyId];\r\n  })\r\n)"
+                "defaultValue": "createReducer(\r\n  initialState,\r\n  on(CurrencyActions.removeCurrency, (state, { currency }) =>\r\n    state.filter((c) => c.id !== currency.id)\r\n  ),\r\n  on(CurrencyActions.addCurrency, (state, { currency }) => {\r\n    if (state.map(c => c.id).indexOf(currency.id) > -1) return state;\r\n\r\n    return [...state, currency];\r\n  })\r\n)"
             },
             {
                 "name": "selectCurrencies",
@@ -1591,24 +1727,14 @@
                 "defaultValue": "createFeatureSelector<ReadonlyArray<Currency>>('currencies')"
             },
             {
-                "name": "selectCurrencyPortfolio",
+                "name": "selectPortfolio",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "src/app/state/currencies.selectors.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
-                "defaultValue": "createSelector(\r\n  selectCurrencies,\r\n  selectPortfolioState,\r\n  (currencies, portfolio) => {\r\n    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion\r\n    return portfolio.map((id) => currencies.find((currency) => currency.id === id)!);\r\n  }\r\n)"
-            },
-            {
-                "name": "selectPortfolioState",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/app/state/currencies.selectors.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "",
-                "defaultValue": "createFeatureSelector<ReadonlyArray<string>>('portfolio')"
+                "defaultValue": "createFeatureSelector<ReadonlyArray<Currency>>('portfolio')"
             },
             {
                 "name": "Template",
@@ -1709,7 +1835,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
-                    "defaultValue": "createActionGroup({\r\n  source: 'Currencies',\r\n  events: {\r\n    'Add Currency': props<{ currencyId: string }>(),\r\n    'Remove Currency': props<{ currencyId: string }>(),\r\n  },\r\n})"
+                    "defaultValue": "createActionGroup({\r\n  source: 'Currencies',\r\n  events: {\r\n    'Add Currency': props<{ currency: Currency }>(),\r\n    'Remove Currency': props<{ currency: Currency }>(),\r\n  },\r\n})"
                 }
             ],
             "src/app/state/currencies.reducer.ts": [
@@ -1776,18 +1902,6 @@
                     "defaultValue": "(args: CheckboxComponent) => ({\r\n  props: args,\r\n})"
                 }
             ],
-            "src/environments/environment.prod.ts": [
-                {
-                    "name": "environment",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/environments/environment.prod.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "object",
-                    "defaultValue": "{\r\n  production: true\r\n}"
-                }
-            ],
             "src/environments/environment.ts": [
                 {
                     "name": "environment",
@@ -1800,6 +1914,18 @@
                     "defaultValue": "{\r\n  production: false\r\n}"
                 }
             ],
+            "src/environments/environment.prod.ts": [
+                {
+                    "name": "environment",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/environments/environment.prod.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "object",
+                    "defaultValue": "{\r\n  production: true\r\n}"
+                }
+            ],
             "src/app/state/portfolio.reducer.ts": [
                 {
                     "name": "initialState",
@@ -1808,7 +1934,7 @@
                     "file": "src/app/state/portfolio.reducer.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "type": "ReadonlyArray<string>",
+                    "type": "ReadonlyArray<Currency>",
                     "defaultValue": "[]"
                 },
                 {
@@ -1819,7 +1945,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
-                    "defaultValue": "createReducer(\r\n  initialState,\r\n  on(CurrencyActions.removeCurrency, (state, { currencyId }) =>\r\n    state.filter((id) => id !== currencyId)\r\n  ),\r\n  on(CurrencyActions.addCurrency, (state, { currencyId }) => {\r\n    if (state.indexOf(currencyId) > -1) return state;\r\n\r\n    return [...state, currencyId];\r\n  })\r\n)"
+                    "defaultValue": "createReducer(\r\n  initialState,\r\n  on(CurrencyActions.removeCurrency, (state, { currency }) =>\r\n    state.filter((c) => c.id !== currency.id)\r\n  ),\r\n  on(CurrencyActions.addCurrency, (state, { currency }) => {\r\n    if (state.map(c => c.id).indexOf(currency.id) > -1) return state;\r\n\r\n    return [...state, currency];\r\n  })\r\n)"
                 }
             ],
             "src/app/state/currencies.selectors.ts": [
@@ -1834,24 +1960,14 @@
                     "defaultValue": "createFeatureSelector<ReadonlyArray<Currency>>('currencies')"
                 },
                 {
-                    "name": "selectCurrencyPortfolio",
+                    "name": "selectPortfolio",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "src/app/state/currencies.selectors.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
-                    "defaultValue": "createSelector(\r\n  selectCurrencies,\r\n  selectPortfolioState,\r\n  (currencies, portfolio) => {\r\n    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion\r\n    return portfolio.map((id) => currencies.find((currency) => currency.id === id)!);\r\n  }\r\n)"
-                },
-                {
-                    "name": "selectPortfolioState",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/state/currencies.selectors.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "createFeatureSelector<ReadonlyArray<string>>('portfolio')"
+                    "defaultValue": "createFeatureSelector<ReadonlyArray<Currency>>('portfolio')"
                 }
             ]
         },
@@ -2066,12 +2182,21 @@
                 "status": "low"
             },
             {
+                "filePath": "src/app/pages/crypto/crypto-randomizer/crypto-randomizer.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "CryptoRandomizerComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
                 "filePath": "src/app/pages/crypto/crypto-selector/crypto-selector.component.ts",
                 "type": "component",
                 "linktype": "component",
                 "name": "CryptoSelectorComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/9",
+                "coverageCount": "0/14",
                 "status": "low"
             },
             {
@@ -2080,7 +2205,7 @@
                 "linktype": "component",
                 "name": "CryptoComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/7",
+                "coverageCount": "0/10",
                 "status": "low"
             },
             {
@@ -2165,17 +2290,7 @@
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
-                "name": "selectCurrencyPortfolio",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "src/app/state/currencies.selectors.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "selectPortfolioState",
+                "name": "selectPortfolio",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"

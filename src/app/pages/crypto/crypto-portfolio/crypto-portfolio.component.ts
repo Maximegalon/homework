@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Currency } from '../../../interfaces/currency.model';
+import { Currency } from 'src/app/interfaces/currency.model';
 
 @Component({
   selector: 'home-crypto-portfolio',
@@ -7,5 +7,5 @@ import { Currency } from '../../../interfaces/currency.model';
 })
 export class CryptoPortfolioComponent {
   @Input() currencies: ReadonlyArray<Currency> = [];
-  @Output() remove = new EventEmitter<string>();
+  @Output() remove = new EventEmitter<Currency>();
 }

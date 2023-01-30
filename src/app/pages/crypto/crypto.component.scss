@@ -1,0 +1,20 @@
+@import '../../styles/overrides.scss';
+
+:host {
+    width: 100%;
+
+    .crypto-table {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+
+        div {
+            padding: 1rem;
+
+            div {
+                padding-top: .25rem;
+            }
+        }
+    }
+}

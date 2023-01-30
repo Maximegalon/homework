@@ -10,11 +10,12 @@ import { MultiCheckboxState } from '../../components/checkbox/checkbox.model';
   styleUrls: ['./files.component.scss']
 })
 export class FilesComponent implements OnDestroy, OnInit {
+  subscriptions: Subscription[] = [];
+  fileSubscription: Subscription = new Subscription;
+
   filesService: FilesService;
   files: File[] = [];
-  subscriptions: Subscription[] = [];
   selectedFiles: File[] = [];
-  fileSubscription: Subscription = new Subscription;
   showModal = false;
 
   constructor(filesService: FilesService) {
