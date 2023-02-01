@@ -22,17 +22,16 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 1. Inject services the new way
 2. Add class/method documentation
 3. e2e tests
-4. Put in a docker container
-5. Style guide
-6. Make design/component library
-7. Create case for lazy loading, do it
-8. Pipeline build to demo online via Gitlab or such
-9. Better favicon
-10. More unit tests
-11. Improve linting - consider AirBnB, custom rules, strickNullChecks, avoid exceptions, more restrictive perhaps
-12. Barrel comps and services and perhaps put in other modules
-13. Use something like husky or gitcommitizen
-14. Tie into SonarQube
-15. Cosmetics are a mess, and remove inline styles
-16. Add component documentation
-17. Make the page responsive
+4. Style guide
+5. Make design/component library
+6. Create case for lazy loading, do it
+7. Pipeline build to demo online via Gitlab or such
+8. Better favicon
+9. More unit tests
+10. Improve linting - consider AirBnB, custom rules, strickNullChecks, avoid exceptions, more restrictive perhaps
+11. Barrel comps and services and perhaps put in other modules
+12. Use something like husky or gitcommitizen
+13. Tie into SonarQube
+14. Cosmetics are a mess, and remove inline styles
+15. Add component documentation
+16. Make the page responsive
