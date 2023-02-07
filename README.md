@@ -10,7 +10,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Commands that can be run
 
-1. npm run start        // Runs the application
+1. npm run dev          // Runs the application
 2. npm run build        // Runs the production build without errors
 3. npm run test         // Runs all the unit tests successfully
 4. npm run lint         // Lints the code successfully

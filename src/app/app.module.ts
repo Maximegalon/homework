@@ -21,6 +21,26 @@ import { currencyReducer } from './state/currencies.reducer';
 import { portfolioReducer } from './state/portfolio.reducer';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { CryptoRandomizerComponent } from './pages/crypto/crypto-randomizer/crypto-randomizer.component';
+import { FirebaseUIModule, firebase, firebaseui } from 'firebaseui-angular';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { environment } from 'src/environments/environment';
+
+export const firebaseUiAuthConfig: firebaseui.auth.Config = {
+  signInFlow: 'popup',
+  signInOptions: [
+    {
+      requireDisplayName: false,
+      provider: firebase.auth.EmailAuthProvider.PROVIDER_ID
+    },
+  ],
+  //term of service
+  tosUrl: '<your-tos-link>',
+  //privacy url
+  privacyPolicyUrl: '<your-privacyPolicyUrl-link>',
+  //credentialHelper:             firebaseui.auth.CredentialHelper.ACCOUNT_CHOOSER_COM
+  credentialHelper: firebaseui.auth.CredentialHelper.NONE
+};
 
 @NgModule({
   declarations: [
@@ -46,6 +66,9 @@ import { CryptoRandomizerComponent } from './pages/crypto/crypto-randomizer/cryp
     AutoCompleteModule,
     NgxDatatableModule,
     StoreModule.forRoot({ currencies: currencyReducer, portfolio: portfolioReducer }),
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireAuthModule,
+    FirebaseUIModule.forRoot(firebaseUiAuthConfig),
   ],
   providers: [],
   bootstrap: [AppComponent]

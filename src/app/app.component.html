@@ -40,13 +40,27 @@
 </style>
 
 <div class="content">
-  <div class="toolbar" role="banner" style="display: flex; justify-content: space-between; padding: 1rem; color: white;">
-      <div><a [routerLink]="['/files']">File Downloads</a></div>
-      <h1>{{ title }}</h1>
-      <div><a [routerLink]="['/crypto']">Crypto Portfolio</a></div>
+  <!-- TODO: Horrible code below. Remove inline styles and real banner comp should be made -->
+  <div *ngIf="angularFireAuth.user | async as user; else loggedoutbanner" class="toolbar" role="banner" style="display: flex; justify-content: space-between; padding: 1rem; color: white;">
+    <div>
+      <a [routerLink]="['/files']" style="margin-right: 1rem;">File Downloads</a>
+      <a [routerLink]="['/crypto']">Crypto Portfolio</a>
+    </div>
+    <h1>{{ title }}</h1>
+    <div><a (click)="angularFireAuth.signOut();" style="cursor: pointer;">Logout</a></div>
   </div>
+  <ng-template #loggedoutbanner>
+    <div>
+      <h1>{{ title }}</h1>
+    </div>
+  </ng-template>
 
-  <router-outlet></router-outlet>
+  <div *ngIf="angularFireAuth.user | async as user; else login" style="width: 100%;">
+    <router-outlet></router-outlet>
+  </div>
+  <ng-template #login>
+      <firebase-ui (signInSuccessWithAuthResult)="successLoginCallback($event, '')" (signInFailure)="errorLoginCallback($event)"></firebase-ui>
+  </ng-template>
 
   <img id="clouds" src="assets/svgs/clouds.svg" alt="" />
 </div>
