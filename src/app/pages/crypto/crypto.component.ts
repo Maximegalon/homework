@@ -18,7 +18,7 @@ export class CryptoComponent implements OnInit, OnDestroy {
     currencies$ = this.store.select(selectCurrencies);
     currencyPortfolio$ = this.store.select(selectPortfolio);
 
-    constructor(private currencyService: CurrencyService, private store: Store) {}
+    constructor(private store: Store, private currencyService: CurrencyService) {}
 
     ngOnInit() {
       this.allCryptosSubscription = this.currencyService

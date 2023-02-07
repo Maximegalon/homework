@@ -3,6 +3,7 @@
         <p-autoComplete
             [(ngModel)]="text" [suggestions]="results"
             (onSelect)="addCurrency($event)"
+            [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}"
             (completeMethod)="search($event)" field="name" placeholder="Search for a cryptocurrency">
         </p-autoComplete>
     </div>

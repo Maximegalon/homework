@@ -8,6 +8,7 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { TableModule } from 'primeng/table';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CheckboxComponent } from './components/checkbox/checkbox.component';
@@ -37,6 +38,7 @@ import { CryptoRandomizerComponent } from './pages/crypto/crypto-randomizer/cryp
     FormsModule,
     BrowserModule,
     BrowserAnimationsModule,
+    ProgressSpinnerModule,
     ButtonModule,
     DialogModule,
     HttpClientModule,

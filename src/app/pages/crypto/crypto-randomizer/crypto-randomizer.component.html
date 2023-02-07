@@ -1,3 +1,27 @@
-<div>
-    This would have been a component that uses an observable on a set duration to pull a random crypto from the store, and display the other fields that table does not.
-</div>
+<ng-container>
+    <p-progressSpinner *ngIf="!randomCurrency"></p-progressSpinner>
+
+    <table *ngIf="randomCurrency" style="width: 100%;">
+        <thead style="text-align: left;">
+            <tr>
+                <th style="width: 40%;">Field</th>
+                <th>Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Name</td>
+                <td>{{ randomCurrency.name }}</td>
+            </tr>
+            <tr>
+                <td>Symbol</td>
+                <td>{{ randomCurrency.symbol }}</td>
+            </tr>
+            <tr>
+                <td>Market Cap (USD)</td>
+                <td *ngIf="randomCurrency.marketCapUsd">{{ randomCurrency.marketCapUsd | currency: 'USD':true:'2.0'  }}</td>
+                <td *ngIf="!randomCurrency.marketCapUsd">Unknown</td>
+            </tr>
+        </tbody>
+    </table>
+</ng-container>

@@ -8,6 +8,12 @@ import { Currency } from '../../interfaces/currency.model';
 export class CurrencyService {
   constructor(private http: HttpClient) {}
 
+  getCurrency(id: string): Observable<Currency> {
+    return this.http
+      .get<{ data: Currency }>(`https://api.coincap.io/v2/assets/${id}`)
+      .pipe(map((currencies) => currencies.data));
+  }
+
   getCurrencies(searchTerm = ""): Observable<Array<Currency>> {
     return this.http
       .get<{ data: Currency[] }>(`https://api.coincap.io/v2/assets?search=${searchTerm}&limit=2000`)

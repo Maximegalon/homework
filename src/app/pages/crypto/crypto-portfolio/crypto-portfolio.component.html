@@ -1,7 +1,6 @@
 <div>
   <div *ngIf="currencies.length === 0">
-    You have no cryptocurrencies in your portfolio<br/><br/>
-    <span style="font-size: .75rem">(the idea was to have another observable update the values of the cryptos selected)</span>
+    You have no cryptocurrencies in your portfolio
   </div>
 
   <ngx-datatable *ngIf="currencies.length > 0" [rows]="currencies" class="material light">

@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { HttpClientTestingModule  } from '@angular/common/http/testing';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { CryptoRandomizerComponent } from './crypto-randomizer.component';
 
 describe('CryptoRandomizerComponent', () => {
@@ -8,6 +9,7 @@ describe('CryptoRandomizerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule, ProgressSpinnerModule],
       declarations: [ CryptoRandomizerComponent ]
     })
     .compileComponents();
