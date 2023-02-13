@@ -218,9 +218,38 @@
     "injectables": [
         {
             "name": "CurrencyService",
-            "id": "injectable-CurrencyService-ccfb389f4142b803f1234f489605589ba7ebf0d46ea1a0f884851c5cd13b6caef05c7107924247da1808d66121d10a62ac89273daef2ee4c707ac35bff078660",
+            "id": "injectable-CurrencyService-d945a42ac48a60aad043fd6057821976780d324801e6d8eb0b27f7feeba11de18b9a46a89de5f707af65b6c15eb4ac253926548bb98585d2aa327552a2ae9b92",
             "file": "src/app/services/currency/currency.service.ts",
-            "properties": [],
+            "properties": [
+                {
+                    "name": "auth",
+                    "defaultValue": "getAuth()",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 13
+                },
+                {
+                    "name": "collectionPortfolio",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "CollectionReference<any>",
+                    "optional": false,
+                    "description": "",
+                    "line": 16
+                },
+                {
+                    "name": "db",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "any",
+                    "optional": false,
+                    "description": "",
+                    "line": 14
+                }
+            ],
             "methods": [
                 {
                     "name": "getCurrencies",
@@ -236,7 +265,7 @@
                     "optional": false,
                     "returnType": "Observable<Array<Currency>>",
                     "typeParameters": [],
-                    "line": 11,
+                    "line": 45,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -251,13 +280,117 @@
                             }
                         }
                     ]
+                },
+                {
+                    "name": "getCurrency",
+                    "args": [
+                        {
+                            "name": "id",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "Observable<Currency>",
+                    "typeParameters": [],
+                    "line": 39,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "id",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "getPortfolio",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "Observable<any>",
+                    "typeParameters": [],
+                    "line": 23,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "removeCryptoFromPortfolio",
+                    "args": [
+                        {
+                            "name": "cryptoId",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 35,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "cryptoId",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "saveCryptoToPortfolio",
+                    "args": [
+                        {
+                            "name": "cryptoId",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 31,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "cryptoId",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "saveNewPortfolio",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 27,
+                    "deprecated": false,
+                    "deprecationMessage": ""
                 }
             ],
             "deprecated": false,
             "deprecationMessage": "",
             "description": "",
             "rawdescription": "\n",
-            "sourceCode": "import { HttpClient } from '@angular/common/http';\r\nimport { Injectable } from '@angular/core';\r\nimport { Observable } from 'rxjs';\r\nimport { map } from 'rxjs/operators';\r\nimport { Currency } from '../../interfaces/currency.model';\r\n\r\n@Injectable({ providedIn: 'root' })\r\nexport class CurrencyService {\r\n  constructor(private http: HttpClient) {}\r\n\r\n  getCurrencies(searchTerm = \"\"): Observable<Array<Currency>> {\r\n    return this.http\r\n      .get<{ data: Currency[] }>(`https://api.coincap.io/v2/assets?search=${searchTerm}&limit=2000`)\r\n      .pipe(map((currencies) => currencies.data || []));\r\n  }\r\n}",
+            "sourceCode": "import { Injectable } from '@angular/core';\r\nimport { HttpClient } from '@angular/common/http';\r\nimport { Observable } from 'rxjs';\r\nimport { getAuth } from \"firebase/auth\";\r\nimport { map } from 'rxjs/operators';\r\nimport { Currency } from '../../interfaces/currency.model';\r\nimport { Firestore, collectionData, collection, query, where, CollectionReference, deleteField } from '@angular/fire/firestore';\r\nimport { AngularFirestore } from '@angular/fire/compat/firestore';\r\n\r\n@Injectable({ providedIn: 'root' })\r\nexport class CurrencyService {\r\n  auth = getAuth();\r\n  db: any\r\n\r\n  collectionPortfolio: CollectionReference<any>\r\n\r\n  constructor(firestore: Firestore, private http: HttpClient, db: AngularFirestore) {\r\n    this.db = db\r\n    this.collectionPortfolio = collection(firestore, 'portfolio')\r\n  }\r\n\r\n  getPortfolio(): Observable<any> {\r\n    return collectionData(query(this.collectionPortfolio, where('__name__', '==' , this.auth.currentUser?.uid)))\r\n  }\r\n\r\n  saveNewPortfolio(): void {\r\n    this.db.collection('portfolio').doc(this.auth.currentUser?.uid).set({})\r\n  }\r\n\r\n  saveCryptoToPortfolio(cryptoId: string): void {\r\n    this.db.collection('portfolio').doc(this.auth.currentUser?.uid).set({[cryptoId]: 1}, { merge: true })\r\n  }\r\n\r\n  removeCryptoFromPortfolio(cryptoId: string): void {\r\n    this.db.collection('portfolio').doc(this.auth.currentUser?.uid).set({[cryptoId]: deleteField()}, { merge: true })\r\n  }\r\n\r\n  getCurrency(id: string): Observable<Currency> {\r\n    return this.http\r\n      .get<{ data: Currency }>(`https://api.coincap.io/v2/assets/${id}`)\r\n      .pipe(map((currencies) => currencies.data));\r\n  }\r\n\r\n  getCurrencies(searchTerm = \"\"): Observable<Array<Currency>> {\r\n    return this.http\r\n      .get<{ data: Currency[] }>(`https://api.coincap.io/v2/assets?search=${searchTerm}&limit=2000`)\r\n      .pipe(map((currencies) => currencies.data || []));\r\n  }\r\n}",
             "constructorObj": {
                 "name": "constructor",
                 "description": "",
@@ -265,17 +398,47 @@
                 "deprecationMessage": "",
                 "args": [
                     {
+                        "name": "firestore",
+                        "type": "Firestore",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    },
+                    {
                         "name": "http",
                         "type": "HttpClient",
                         "deprecated": false,
                         "deprecationMessage": ""
+                    },
+                    {
+                        "name": "db",
+                        "type": "AngularFirestore",
+                        "deprecated": false,
+                        "deprecationMessage": ""
                     }
                 ],
-                "line": 8,
+                "line": 16,
                 "jsdoctags": [
+                    {
+                        "name": "firestore",
+                        "type": "Firestore",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
                     {
                         "name": "http",
                         "type": "HttpClient",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "db",
+                        "type": "AngularFirestore",
                         "deprecated": false,
                         "deprecationMessage": "",
                         "tagName": {
@@ -288,7 +451,7 @@
         },
         {
             "name": "FilesService",
-            "id": "injectable-FilesService-cf65b09f049ead38af3be8b8603df092e67b5bb24ebc96faf0db315a6b69f19378ad6fc1032b5bf762861eca537798df83b41944f12a8cc1af446447939173b8",
+            "id": "injectable-FilesService-3d243571ccb05ae5da9121690552c79b54f3d8cb84d88f1c546a0ed63782b1416f683969e97853592ba9b617dd7b126cabe83e8c2af1737fd73eafbd54c09042",
             "file": "src/app/services/files/files.service.ts",
             "properties": [],
             "methods": [
@@ -310,7 +473,7 @@
             "deprecationMessage": "",
             "description": "",
             "rawdescription": "\n",
-            "sourceCode": "import { Injectable } from '@angular/core';\r\nimport { HttpClient } from '@angular/common/http';\r\nimport { map, Observable } from 'rxjs';\r\nimport { DataResponse } from '../../interfaces/data-response';\r\nimport { File } from '../../interfaces/file';\r\n\r\n@Injectable({\r\n  providedIn: 'root'\r\n})\r\nexport class FilesService {\r\n  constructor(private http: HttpClient) { }\r\n\r\n  public getFiles(): Observable<File[]>\r\n  {\r\n    const url = '../../assets/data/files.json';\r\n\r\n    // @TODO: Should have error handling\r\n    return this.http.get<DataResponse>(url).pipe(map((res: DataResponse) => {return res.data}));\r\n  }\r\n}\r\n",
+            "sourceCode": "import { Injectable } from '@angular/core';\r\nimport { HttpClient } from '@angular/common/http';\r\nimport { map, Observable } from 'rxjs';\r\nimport { DataResponse } from '../../interfaces/data-response';\r\nimport { File } from '../../interfaces/file';\r\n\r\n@Injectable({\r\n  providedIn: 'root'\r\n})\r\nexport class FilesService {\r\n  constructor(private http: HttpClient) { }\r\n\r\n  public getFiles(): Observable<File[]>\r\n  {\r\n    const url = './assets/data/files.json';\r\n\r\n    // @TODO: Should have error handling\r\n    return this.http.get<DataResponse>(url).pipe(map((res: DataResponse) => {return res.data}));\r\n  }\r\n}\r\n",
             "constructorObj": {
                 "name": "constructor",
                 "description": "",
@@ -347,7 +510,7 @@
     "components": [
         {
             "name": "AppComponent",
-            "id": "component-AppComponent-c8a3aca2568c4adfa3d02458e1d70fb438d8ec61bba5230a5c8a5368862fc629c87e3aa4191118ddb374a4de6a78207cf13fd5f17d41237de99a08d8d0e25a23",
+            "id": "component-AppComponent-c371ebfa4158a481ec2eea91536eb64e412e80eb91a7e1455511cd89f1e594f6478e2ebf9d2d18ce96ba4e023232b2e2dce6dd409eded3d7277a709b4290b4c1",
             "file": "src/app/app.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -365,6 +528,28 @@
             "outputsClass": [],
             "propertiesClass": [
                 {
+                    "name": "angularFireAuth",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "AngularFireAuth",
+                    "optional": false,
+                    "description": "",
+                    "line": 16,
+                    "modifierKind": [
+                        123
+                    ]
+                },
+                {
+                    "name": "newPortfolioSubscription",
+                    "defaultValue": "new Subscription",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Subscription",
+                    "optional": false,
+                    "description": "",
+                    "line": 14
+                },
+                {
                     "name": "title",
                     "defaultValue": "'Homework Web Site'",
                     "deprecated": false,
@@ -372,10 +557,59 @@
                     "type": "string",
                     "optional": false,
                     "description": "",
-                    "line": 8
+                    "line": 12
                 }
             ],
-            "methodsClass": [],
+            "methodsClass": [
+                {
+                    "name": "errorLoginCallback",
+                    "args": [
+                        {
+                            "name": "event",
+                            "type": "any",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 33,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "event",
+                            "type": "any",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "ngOnDestroy",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 18,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "successLoginCallback",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 22,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                }
+            ],
             "deprecated": false,
             "deprecationMessage": "",
             "hostBindings": [],
@@ -383,11 +617,55 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'app-root',\r\n  templateUrl: 'app.component.html',\r\n})\r\nexport class AppComponent {\r\n  title = 'Homework Web Site';\r\n}",
+            "sourceCode": "import { Component, OnDestroy } from '@angular/core';\r\nimport { AngularFireAuth } from '@angular/fire/compat/auth';\r\nimport { Subscription } from 'rxjs';\r\nimport { CurrencyService } from './services/currency/currency.service';\r\n\r\n@Component({\r\n  selector: 'app-root',\r\n  templateUrl: 'app.component.html',\r\n})\r\nexport class AppComponent implements OnDestroy {\r\n  title = 'Homework Web Site';\r\n\r\n  newPortfolioSubscription: Subscription = new Subscription;\r\n\r\n  constructor(public angularFireAuth: AngularFireAuth, private currencyService: CurrencyService,) {}\r\n\r\n  ngOnDestroy() {\r\n    this.newPortfolioSubscription.unsubscribe()\r\n  }\r\n\r\n  successLoginCallback(): void {\r\n    // TODO: Fix this worse code ever. Move this, use a store action\r\n    // NOTE: authResult: any, redirectUrl: string\r\n    this.newPortfolioSubscription = this.currencyService.getPortfolio().subscribe(e => {\r\n      if (e.length === 0) {\r\n        this.currencyService.saveNewPortfolio()\r\n      }\r\n    })\r\n  }\r\n\r\n  // TODO: Use this, log failure\r\n  errorLoginCallback(event: any): void {\r\n    console.error(event)\r\n  }\r\n}",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
-            "templateData": "<style>\r\n  .content {\r\n    display: flex;\r\n    margin: 82px auto 32px;\r\n    padding: 0 16px;\r\n    max-width: 960px;\r\n    flex-direction: column;\r\n    align-items: center;\r\n  }\r\n\r\n  .toolbar {\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\r\n    right: 0;\r\n    height: 60px;\r\n    display: flex;\r\n    align-items: center;\r\n    background-color: #1976d2;\r\n    color: white;\r\n    font-weight: 600;\r\n    justify-content: center;\r\n    align-items: center;\r\n    font-size: 1rem;\r\n  }\r\n\r\n  footer {\r\n    margin-top: 8px;\r\n    display: flex;\r\n    align-items: center;\r\n    line-height: 20px;\r\n  }\r\n\r\n  img#clouds {\r\n    position: fixed;\r\n    bottom: -160px;\r\n    left: -230px;\r\n    z-index: -10;\r\n    width: 1920px;\r\n  }\r\n</style>\r\n\r\n<div class=\"content\">\r\n  <div class=\"toolbar\" role=\"banner\" style=\"display: flex; justify-content: space-between; padding: 1rem; color: white;\">\r\n      <div><a [routerLink]=\"['/files']\">File Downloads</a></div>\r\n      <h1>{{ title }}</h1>\r\n      <div><a [routerLink]=\"['/crypto']\">Crypto Portfolio</a></div>\r\n  </div>\r\n\r\n  <router-outlet></router-outlet>\r\n\r\n  <img id=\"clouds\" src=\"assets/svgs/clouds.svg\" alt=\"\" />\r\n</div>\r\n"
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [
+                    {
+                        "name": "angularFireAuth",
+                        "type": "AngularFireAuth",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    },
+                    {
+                        "name": "currencyService",
+                        "type": "CurrencyService",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "line": 14,
+                "jsdoctags": [
+                    {
+                        "name": "angularFireAuth",
+                        "type": "AngularFireAuth",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "currencyService",
+                        "type": "CurrencyService",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "implements": [
+                "OnDestroy"
+            ],
+            "templateData": "<style>\r\n  .content {\r\n    display: flex;\r\n    margin: 82px auto 32px;\r\n    padding: 0 16px;\r\n    flex-direction: column;\r\n    align-items: center;\r\n  }\r\n\r\n  .toolbar {\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\r\n    right: 0;\r\n    height: 60px;\r\n    display: flex;\r\n    align-items: center;\r\n    background-color: #1976d2;\r\n    color: white;\r\n    font-weight: 600;\r\n    justify-content: center;\r\n    align-items: center;\r\n    font-size: 1rem;\r\n  }\r\n\r\n  footer {\r\n    margin-top: 8px;\r\n    display: flex;\r\n    align-items: center;\r\n    line-height: 20px;\r\n  }\r\n\r\n  img#clouds {\r\n    position: fixed;\r\n    bottom: -160px;\r\n    left: -230px;\r\n    z-index: -10;\r\n    width: 1920px;\r\n  }\r\n</style>\r\n\r\n<div class=\"content\">\r\n  <!-- TODO: Horrible code below. Remove inline styles and real banner comp should be made -->\r\n  <div *ngIf=\"angularFireAuth.user | async as user; else loggedoutbanner\" class=\"toolbar\" role=\"banner\" style=\"display: flex; justify-content: space-between; padding: 1rem; color: white;\">\r\n    <div>\r\n      <a [routerLink]=\"['/files']\" style=\"margin-right: 1rem;\">File Downloads</a>\r\n      <a [routerLink]=\"['/crypto']\">Crypto Portfolio</a>\r\n    </div>\r\n    <h1>{{ title }}</h1>\r\n    <div><a (click)=\"angularFireAuth.signOut();\" style=\"cursor: pointer;\">Logout</a></div>\r\n  </div>\r\n  <ng-template #loggedoutbanner>\r\n    <div>\r\n      <h1>{{ title }}</h1>\r\n    </div>\r\n  </ng-template>\r\n\r\n  <div *ngIf=\"angularFireAuth.user | async as user; else login\" style=\"width: 100%;\">\r\n    <router-outlet></router-outlet>\r\n  </div>\r\n  <ng-template #login>\r\n      <firebase-ui (signInSuccessWithAuthResult)=\"successLoginCallback\" (signInFailure)=\"errorLoginCallback($event)\"></firebase-ui>\r\n  </ng-template>\r\n\r\n  <img id=\"clouds\" src=\"assets/svgs/clouds.svg\" alt=\"\" />\r\n</div>\r\n"
         },
         {
             "name": "CheckboxComponent",
@@ -490,7 +768,7 @@
         },
         {
             "name": "CryptoComponent",
-            "id": "component-CryptoComponent-08497e059f0e61e2772af5649c731deffbd11e3d8dd9a592d950466c102d7e52b0cf06f05553f7d1ed7fbefac0f33a3ad2758306baa299324bafffb224628561",
+            "id": "component-CryptoComponent-0414f26eb6d42ce12dace20501c3e000f4c771906e263529ffd13d91d9868c4117a061ae699aee442033ff90aab8cd59265947dd269957c6be1e433a2ea89581",
             "file": "src/app/pages/crypto/crypto.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -527,7 +805,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 18
+                    "line": 19
                 },
                 {
                     "name": "currencyPortfolio$",
@@ -537,7 +815,17 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 19
+                    "line": 20
+                },
+                {
+                    "name": "portfolioSubscription",
+                    "defaultValue": "new Subscription",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Subscription",
+                    "optional": false,
+                    "description": "",
+                    "line": 17
                 },
                 {
                     "name": "subscriptions",
@@ -557,7 +845,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 39,
+                    "line": 52,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -567,7 +855,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 23,
+                    "line": 24,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -584,7 +872,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 43,
+                    "line": 56,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -612,7 +900,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 47,
+                    "line": 62,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -635,11 +923,11 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, OnInit, OnDestroy } from '@angular/core';\r\nimport { Store } from '@ngrx/store';\r\nimport { Subscription } from 'rxjs';\r\nimport { Currency } from 'src/app/interfaces/currency.model';\r\nimport { CurrencyService } from '../../services/currency/currency.service';\r\nimport { CurrenciesApiActions, CurrencyActions } from '../../state/currencies.actions';\r\nimport { selectCurrencies, selectPortfolio } from '../../state/currencies.selectors';\r\n\r\n@Component({\r\n  selector: 'page-crypto',\r\n  templateUrl: './crypto.component.html',\r\n  styleUrls: ['./crypto.component.scss']\r\n})\r\nexport class CryptoComponent implements OnInit, OnDestroy {\r\n    subscriptions: Subscription[] = [];\r\n    allCryptosSubscription: Subscription = new Subscription;\r\n\r\n    currencies$ = this.store.select(selectCurrencies);\r\n    currencyPortfolio$ = this.store.select(selectPortfolio);\r\n\r\n    constructor(private currencyService: CurrencyService, private store: Store) {}\r\n\r\n    ngOnInit() {\r\n      this.allCryptosSubscription = this.currencyService\r\n        .getCurrencies()\r\n        .subscribe((currencies) => {\r\n            currencies = currencies.sort((a, b) => (a.name > b.name) ? 1 : -1)\r\n\r\n            this.store.dispatch(CurrenciesApiActions.retrievedCurrencies({ currencies }))\r\n          },\r\n          error => {\r\n            console.error('CryptoComponent - ngOnInit: ', error);\r\n          }\r\n        );\r\n\r\n      this.subscriptions.push(this.allCryptosSubscription);\r\n    }\r\n\r\n    ngOnDestroy() {\r\n      this.subscriptions.forEach(sub => sub.unsubscribe());\r\n    }\r\n\r\n    onAdd(currency: Currency) {\r\n      this.store.dispatch(CurrencyActions.addCurrency({ currency }));\r\n    }\r\n\r\n    onRemove(currency: Currency) {\r\n      this.store.dispatch(CurrencyActions.removeCurrency({ currency }));\r\n    }\r\n}\r\n",
+            "sourceCode": "import { Component, OnInit, OnDestroy } from '@angular/core';\r\nimport { Store } from '@ngrx/store';\r\nimport { Subscription } from 'rxjs';\r\nimport { Currency } from 'src/app/interfaces/currency.model';\r\nimport { CurrencyService } from '../../services/currency/currency.service';\r\nimport { CurrenciesApiActions, CurrencyActions } from '../../state/currencies.actions';\r\nimport { selectCurrencies, selectPortfolio } from '../../state/currencies.selectors';\r\n\r\n@Component({\r\n  selector: 'page-crypto',\r\n  templateUrl: './crypto.component.html',\r\n  styleUrls: ['./crypto.component.scss']\r\n})\r\nexport class CryptoComponent implements OnInit, OnDestroy {\r\n    subscriptions: Subscription[] = [];\r\n    allCryptosSubscription: Subscription = new Subscription;\r\n    portfolioSubscription: Subscription = new Subscription;\r\n\r\n    currencies$ = this.store.select(selectCurrencies);\r\n    currencyPortfolio$ = this.store.select(selectPortfolio);\r\n\r\n    constructor(private store: Store, private currencyService: CurrencyService) {}\r\n\r\n    ngOnInit() {\r\n      this.allCryptosSubscription = this.currencyService\r\n        .getCurrencies()\r\n        .subscribe((currencies) => {\r\n            currencies = currencies.sort((a, b) => (a.name > b.name) ? 1 : -1)\r\n\r\n            this.store.dispatch(CurrenciesApiActions.retrievedCurrencies({ currencies }))\r\n          },\r\n          error => {\r\n            console.error('CryptoComponent - ngOnInit: ', error);\r\n          }\r\n        )\r\n\r\n      this.portfolioSubscription = this.currencyService.getPortfolio().subscribe(e => {\r\n          if (e.length > 0) {\r\n            // NOTE: Only one portfolio for a user right now, grab the first/only\r\n            Object.keys(e[0]).forEach((cs: string) => {\r\n              this.currencyService.getCurrency(cs).subscribe(currency => {\r\n                this.store.dispatch(CurrencyActions.addCurrency({ currency }));\r\n              })\r\n            })\r\n          }\r\n      })\r\n\r\n      this.subscriptions.push(this.allCryptosSubscription);\r\n      this.subscriptions.push(this.portfolioSubscription);\r\n    }\r\n\r\n    ngOnDestroy() {\r\n      this.subscriptions.forEach(sub => sub.unsubscribe());\r\n    }\r\n\r\n    onAdd(currency: Currency) {\r\n      // TODO: Check for error, alert user, don't update the store\r\n      this.currencyService.saveCryptoToPortfolio(currency.id)\r\n      this.store.dispatch(CurrencyActions.addCurrency({ currency }));\r\n    }\r\n\r\n    onRemove(currency: Currency) {\r\n      // TODO: Check for error, alert user, don't update the store\r\n      this.currencyService.removeCryptoFromPortfolio(currency.id)\r\n      this.store.dispatch(CurrencyActions.removeCurrency({ currency }));\r\n    }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": "@import '../../styles/overrides.scss';\r\n\r\n:host {\r\n    width: 100%;\r\n\r\n    .crypto-table {\r\n        display: flex;\r\n        flex-direction: row;\r\n        justify-content: space-between;\r\n        width: 100%;\r\n\r\n        div {\r\n            padding: 1rem;\r\n\r\n            div {\r\n                padding-top: .25rem;\r\n            }\r\n        }\r\n    }\r\n}\r\n",
+                    "data": "@import '../../styles/overrides.scss';\r\n\r\n:host {\r\n    width: 100%;\r\n\r\n    .crypto-table {\r\n        display: flex;\r\n        flex-direction: row;\r\n        justify-content: space-between;\r\n        width: 100%;\r\n\r\n        div {\r\n            padding: 1rem;\r\n\r\n            div {\r\n                padding-top: .25rem;\r\n            }\r\n        }\r\n\r\n        h2 {\r\n            font-size: medium;\r\n        }\r\n    }\r\n}\r\n",
                     "styleUrl": "./crypto.component.scss"
                 }
             ],
@@ -651,23 +939,23 @@
                 "deprecationMessage": "",
                 "args": [
                     {
-                        "name": "currencyService",
-                        "type": "CurrencyService",
-                        "deprecated": false,
-                        "deprecationMessage": ""
-                    },
-                    {
                         "name": "store",
                         "type": "Store",
                         "deprecated": false,
                         "deprecationMessage": ""
-                    }
-                ],
-                "line": 19,
-                "jsdoctags": [
+                    },
                     {
                         "name": "currencyService",
                         "type": "CurrencyService",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "line": 20,
+                "jsdoctags": [
+                    {
+                        "name": "store",
+                        "type": "Store",
                         "deprecated": false,
                         "deprecationMessage": "",
                         "tagName": {
@@ -675,8 +963,8 @@
                         }
                     },
                     {
-                        "name": "store",
-                        "type": "Store",
+                        "name": "currencyService",
+                        "type": "CurrencyService",
                         "deprecated": false,
                         "deprecationMessage": "",
                         "tagName": {
@@ -689,7 +977,7 @@
                 "OnInit",
                 "OnDestroy"
             ],
-            "templateData": "<div>\r\n    <h1>Crypto Tracker</h1>\r\n\r\n    <div class=\"crypto-table\">\r\n        <div>\r\n            <div>Available Cryptocurrencies</div>\r\n\r\n            <home-crypto-selector [currencies]=\"(currencies$ | async)!\" (add)=\"onAdd($event)\"></home-crypto-selector>\r\n        </div>\r\n\r\n        <div>\r\n            <div>Portfolio</div>\r\n\r\n            <home-crypto-portfolio [currencies]=\"(currencyPortfolio$ | async)!\" (remove)=\"onRemove($event)\"></home-crypto-portfolio>\r\n        </div>\r\n\r\n        <div>\r\n            <div>Random Cryptocurrency</div>\r\n\r\n            <home-crypto-randomizer></home-crypto-randomizer>\r\n        </div>\r\n    </div>\r\n</div>"
+            "templateData": "<div>\r\n    <h1>Crypto Tracker</h1>\r\n\r\n    <div class=\"crypto-table\">\r\n        <div style=\"width: 20%\">\r\n            <h2>Available Cryptocurrencies</h2>\r\n\r\n            <home-crypto-selector [currencies]=\"(currencies$ | async)!\" (add)=\"onAdd($event)\"></home-crypto-selector>\r\n        </div>\r\n\r\n        <div>\r\n            <h2>Portfolio</h2>\r\n\r\n            <home-crypto-portfolio [currencies]=\"(currencyPortfolio$ | async)!\" (remove)=\"onRemove($event)\"></home-crypto-portfolio>\r\n        </div>\r\n\r\n        <div style=\"width: 20%\">\r\n            <h2>Random Cryptocurrency</h2>\r\n\r\n            <home-crypto-randomizer [currencies]=\"(currencies$ | async)!\"></home-crypto-randomizer>\r\n        </div>\r\n    </div>\r\n</div>"
         },
         {
             "name": "CryptoPortfolioComponent",
@@ -741,11 +1029,11 @@
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
-            "templateData": "<div>\r\n  <div *ngIf=\"currencies.length === 0\">\r\n    You have no cryptocurrencies in your portfolio<br/><br/>\r\n    <span style=\"font-size: .75rem\">(the idea was to have another observable update the values of the cryptos selected)</span>\r\n  </div>\r\n\r\n  <ngx-datatable *ngIf=\"currencies.length > 0\" [rows]=\"currencies\" class=\"material light\">\r\n    <ngx-datatable-column name=\"Id\">\r\n      <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n          <div>{{row.id}}</div>\r\n      </ng-template>\r\n    </ngx-datatable-column>\r\n    <ngx-datatable-column name=\"Name\">\r\n      <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n          <div>{{row.name}}</div>\r\n      </ng-template>\r\n    </ngx-datatable-column>\r\n    <ngx-datatable-column name=\"Symbol\">\r\n      <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n          <div>{{row.symbol}}</div>\r\n      </ng-template>\r\n    </ngx-datatable-column>\r\n    <ngx-datatable-column name=\"Remove\">\r\n      <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n          <div (click)=\"remove.emit(row)\" style=\"cursor: pointer;\">X</div>\r\n      </ng-template>\r\n    </ngx-datatable-column>\r\n  </ngx-datatable>\r\n</div>"
+            "templateData": "<div>\r\n  <div *ngIf=\"currencies.length === 0\">\r\n    You have no cryptocurrencies in your portfolio\r\n  </div>\r\n\r\n  <ngx-datatable *ngIf=\"currencies.length > 0\" [rows]=\"currencies\" class=\"material light\">\r\n    <ngx-datatable-column name=\"Id\">\r\n      <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n          <div>{{row.id}}</div>\r\n      </ng-template>\r\n    </ngx-datatable-column>\r\n    <ngx-datatable-column name=\"Name\">\r\n      <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n          <div>{{row.name}}</div>\r\n      </ng-template>\r\n    </ngx-datatable-column>\r\n    <ngx-datatable-column name=\"Symbol\">\r\n      <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n          <div>{{row.symbol}}</div>\r\n      </ng-template>\r\n    </ngx-datatable-column>\r\n    <ngx-datatable-column name=\"Remove\">\r\n      <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n          <div (click)=\"remove.emit(row)\" style=\"cursor: pointer;\">X</div>\r\n      </ng-template>\r\n    </ngx-datatable-column>\r\n  </ngx-datatable>\r\n</div>"
         },
         {
             "name": "CryptoRandomizerComponent",
-            "id": "component-CryptoRandomizerComponent-b7bb30174189619ea099c0448ac0a01a6c8463da2b5b5d4aec8d117f0389331b6b7db44d83659d350d7dc3dec10c5df96f12bf3fa8bdbfa7fa9f51f0b84998f2",
+            "id": "component-CryptoRandomizerComponent-1151357b9776bfc5e8239798f93276ca3bbef8a9095e3ec637e3463f2e3b649781c1b3fb163f57c5b5257361e8deb9db6a01916ff093711fc8f6ab5e7af2cd69",
             "file": "src/app/pages/crypto/crypto-randomizer/crypto-randomizer.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -761,10 +1049,71 @@
                 "./crypto-randomizer.component.html"
             ],
             "viewProviders": [],
-            "inputsClass": [],
+            "inputsClass": [
+                {
+                    "name": "currencies",
+                    "defaultValue": "[]",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 12,
+                    "type": "ReadonlyArray<Currency>",
+                    "decorators": []
+                }
+            ],
             "outputsClass": [],
-            "propertiesClass": [],
-            "methodsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "randomCryptosSubscription",
+                    "defaultValue": "new Subscription",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Subscription",
+                    "optional": false,
+                    "description": "",
+                    "line": 15
+                },
+                {
+                    "name": "randomCurrency",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Currency",
+                    "optional": false,
+                    "description": "",
+                    "line": 17
+                },
+                {
+                    "name": "subscriptions",
+                    "defaultValue": "[]",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Subscription[]",
+                    "optional": false,
+                    "description": "",
+                    "line": 14
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "ngOnDestroy",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 38,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 21,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                }
+            ],
             "deprecated": false,
             "deprecationMessage": "",
             "hostBindings": [],
@@ -772,16 +1121,46 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\n\n@Component({\n  selector: 'home-crypto-randomizer',\n  templateUrl: './crypto-randomizer.component.html',\n  styleUrls: ['./crypto-randomizer.component.scss']\n})\nexport class CryptoRandomizerComponent {\n\n}\n",
+            "sourceCode": "import { Component, OnDestroy, OnInit, Input } from '@angular/core';\r\nimport { of, timer, mergeMap, Subscription } from 'rxjs';\r\nimport { Currency } from 'src/app/interfaces/currency.model';\r\nimport { CurrencyService } from '../../../services/currency/currency.service';\r\n\r\n@Component({\r\n  selector: 'home-crypto-randomizer',\r\n  templateUrl: './crypto-randomizer.component.html',\r\n  styleUrls: ['./crypto-randomizer.component.scss']\r\n})\r\nexport class CryptoRandomizerComponent implements OnDestroy, OnInit {\r\n  @Input() currencies: ReadonlyArray<Currency> = [];\r\n\r\n  subscriptions: Subscription[] = [];\r\n  randomCryptosSubscription: Subscription = new Subscription;\r\n\r\n  randomCurrency: Currency\r\n\r\n  constructor(private currencyService: CurrencyService) {}\r\n\r\n  ngOnInit() {\r\n    this.randomCryptosSubscription = timer(1000, 1 * 10000).pipe(\r\n      mergeMap(() => {\r\n        if (!this.currencies.length) {\r\n          return of();\r\n        }\r\n\r\n        const r = Math.floor(Math.random() * this.currencies.length)\r\n\r\n        return this.currencyService.getCurrency(this.currencies[r].id)}\r\n      )\r\n    )\r\n    .subscribe(c => this.randomCurrency = c)\r\n\r\n    this.subscriptions.push(this.randomCryptosSubscription)\r\n  }\r\n\r\n  ngOnDestroy() {\r\n    this.subscriptions.forEach(sub => sub.unsubscribe());\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": "",
+                    "data": "@import '../../../styles/overrides.scss';\r\n\r\n:host {\r\n    display: flex;\r\n    justify-content: center;\r\n}\r\n",
                     "styleUrl": "./crypto-randomizer.component.scss"
                 }
             ],
             "stylesData": "",
-            "templateData": "<div>\n    This would have been a component that uses an observable on a set duration to pull a random crypto from the store, and display the other fields that table does not.\n</div>\n"
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [
+                    {
+                        "name": "currencyService",
+                        "type": "CurrencyService",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "line": 17,
+                "jsdoctags": [
+                    {
+                        "name": "currencyService",
+                        "type": "CurrencyService",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "implements": [
+                "OnDestroy",
+                "OnInit"
+            ],
+            "templateData": "<ng-container>\n    <p-progressSpinner *ngIf=\"!randomCurrency\"></p-progressSpinner>\n\n    <table *ngIf=\"randomCurrency\" style=\"width: 100%;\">\n        <thead style=\"text-align: left;\">\n            <tr>\n                <th style=\"width: 40%;\">Field</th>\n                <th>Value</th>\n            </tr>\n        </thead>\n        <tbody>\n            <tr>\n                <td>Name</td>\n                <td>{{ randomCurrency.name }}</td>\n            </tr>\n            <tr>\n                <td>Symbol</td>\n                <td>{{ randomCurrency.symbol }}</td>\n            </tr>\n            <tr>\n                <td>Market Cap (USD)</td>\n                <td *ngIf=\"randomCurrency.marketCapUsd\">{{ randomCurrency.marketCapUsd | currency: 'USD':true:'2.0'  }}</td>\n                <td *ngIf=\"!randomCurrency.marketCapUsd\">Unknown</td>\n            </tr>\n        </tbody>\n    </table>\n</ng-container>"
         },
         {
             "name": "CryptoSelectorComponent",
@@ -1001,7 +1380,7 @@
                 "OnDestroy",
                 "OnInit"
             ],
-            "templateData": "<div>\r\n    <div>\r\n        <p-autoComplete\r\n            [(ngModel)]=\"text\" [suggestions]=\"results\"\r\n            (onSelect)=\"addCurrency($event)\"\r\n            (completeMethod)=\"search($event)\" field=\"name\" placeholder=\"Search for a cryptocurrency\">\r\n        </p-autoComplete>\r\n    </div>\r\n</div>"
+            "templateData": "<div>\r\n    <div>\r\n        <p-autoComplete\r\n            [(ngModel)]=\"text\" [suggestions]=\"results\"\r\n            (onSelect)=\"addCurrency($event)\"\r\n            [style]=\"{'width':'100%'}\" [inputStyle]=\"{'width':'100%'}\"\r\n            (completeMethod)=\"search($event)\" field=\"name\" placeholder=\"Search for a cryptocurrency\">\r\n        </p-autoComplete>\r\n    </div>\r\n</div>"
         },
         {
             "name": "FilesComponent",
@@ -1500,13 +1879,13 @@
     "modules": [
         {
             "name": "AppModule",
-            "id": "module-AppModule-e946fe308a56fa1e5c9a22da5b95f54f7f267f1911a91dc324e2a7c74f1dfff0cfda2de8c646e566cb6df6e47555e2d677d4d820fb84ab1ba4e20b90426453a4",
+            "id": "module-AppModule-e6b784acdb3a726b09bfc37c5ad6ac53402fbd11046b106bc05bf049fb4f54a49c039931ed65c9b91f78e356e0524cbfd7c03496e86be66de6cee6b650886aab",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "src/app/app.module.ts",
             "methods": [],
-            "sourceCode": "import { HttpClientModule } from '@angular/common/http';\r\nimport { NgModule } from '@angular/core';\r\nimport { FormsModule } from '@angular/forms';\r\nimport { BrowserModule } from '@angular/platform-browser';\r\nimport { BrowserAnimationsModule } from '@angular/platform-browser/animations';\r\nimport { StoreModule } from '@ngrx/store';\r\nimport { AutoCompleteModule } from 'primeng/autocomplete';\r\nimport { ButtonModule } from 'primeng/button';\r\nimport { DialogModule } from 'primeng/dialog';\r\nimport { TableModule } from 'primeng/table';\r\nimport { AppRoutingModule } from './app-routing.module';\r\nimport { AppComponent } from './app.component';\r\nimport { CheckboxComponent } from './components/checkbox/checkbox.component';\r\nimport { StatusIndicatorComponent } from './components/status-indicator/status-indicator.component';\r\nimport { CryptoSelectorComponent } from './pages/crypto/crypto-selector/crypto-selector.component';\r\nimport { CryptoPortfolioComponent } from './pages/crypto/crypto-portfolio/crypto-portfolio.component';\r\nimport { CryptoComponent } from './pages/crypto/crypto.component';\r\nimport { FilesComponent } from './pages/files/files.component';\r\nimport { currencyReducer } from './state/currencies.reducer';\r\nimport { portfolioReducer } from './state/portfolio.reducer';\r\nimport { NgxDatatableModule } from '@swimlane/ngx-datatable';\nimport { CryptoRandomizerComponent } from './pages/crypto/crypto-randomizer/crypto-randomizer.component';\r\n\r\n@NgModule({\r\n  declarations: [\r\n    AppComponent,\r\n    CheckboxComponent,\r\n    FilesComponent,\r\n    StatusIndicatorComponent,\r\n    CryptoSelectorComponent,\r\n    CryptoPortfolioComponent,\r\n    CryptoComponent,\r\n    CryptoRandomizerComponent\r\n  ],\r\n  imports: [\r\n    AppRoutingModule,\r\n    FormsModule,\r\n    BrowserModule,\r\n    BrowserAnimationsModule,\r\n    ButtonModule,\r\n    DialogModule,\r\n    HttpClientModule,\r\n    TableModule,\r\n    AutoCompleteModule,\r\n    NgxDatatableModule,\r\n    StoreModule.forRoot({ currencies: currencyReducer, portfolio: portfolioReducer }),\r\n  ],\r\n  providers: [],\r\n  bootstrap: [AppComponent]\r\n})\r\nexport class AppModule { }\r\n",
+            "sourceCode": "// NOTE: Base angular imports\r\nimport { HttpClientModule } from '@angular/common/http';\r\nimport { NgModule } from '@angular/core';\r\nimport { FormsModule } from '@angular/forms';\r\nimport { BrowserModule } from '@angular/platform-browser';\r\nimport { BrowserAnimationsModule } from '@angular/platform-browser/animations';\r\nimport { AngularFireAuthModule } from '@angular/fire/compat/auth';\r\nimport { AngularFireModule } from '@angular/fire/compat';\r\nimport { initializeApp, provideFirebaseApp } from '@angular/fire/app';\r\nimport { provideFirestore,getFirestore } from '@angular/fire/firestore';\r\n\r\n// NOTE: Third party imports\r\nimport { FirebaseUIModule, firebase, firebaseui } from 'firebaseui-angular';\r\nimport { StoreModule } from '@ngrx/store';\r\nimport { NgxDatatableModule } from '@swimlane/ngx-datatable';\r\n\r\n// NOTE: Common, reusable items\r\nimport { AppRoutingModule } from './app-routing.module';\r\nimport { CommonModule } from './common.module';\r\n\r\nimport { CheckboxComponent } from './components/checkbox/checkbox.component';\r\nimport { StatusIndicatorComponent } from './components/status-indicator/status-indicator.component';\r\n\r\n// NOTE: Application specific\r\nimport { CryptoComponent } from './pages/crypto/crypto.component';\r\nimport { CryptoRandomizerComponent } from './pages/crypto/crypto-randomizer/crypto-randomizer.component';\r\nimport { CryptoSelectorComponent } from './pages/crypto/crypto-selector/crypto-selector.component';\r\nimport { CryptoPortfolioComponent } from './pages/crypto/crypto-portfolio/crypto-portfolio.component';\r\nimport { currencyReducer } from './state/currencies.reducer';\r\nimport { portfolioReducer } from './state/portfolio.reducer';\r\n\r\nimport { FilesComponent } from './pages/files/files.component';\r\n\r\nimport { environment } from 'src/environments/environment';\r\n\r\nimport { AppComponent } from './app.component';\r\n\r\nexport const firebaseUiAuthConfig: firebaseui.auth.Config = {\r\n  signInFlow: 'popup',\r\n  signInOptions: [\r\n    {\r\n      requireDisplayName: false,\r\n      provider: firebase.auth.EmailAuthProvider.PROVIDER_ID\r\n    },\r\n  ],\r\n  //term of service\r\n  tosUrl: '<your-tos-link>',\r\n  //privacy url\r\n  privacyPolicyUrl: '<your-privacyPolicyUrl-link>',\r\n  //credentialHelper:             firebaseui.auth.CredentialHelper.ACCOUNT_CHOOSER_COM\r\n  credentialHelper: firebaseui.auth.CredentialHelper.NONE\r\n};\r\n\r\n@NgModule({\r\n  declarations: [\r\n    AppComponent,\r\n    CheckboxComponent,\r\n    FilesComponent,\r\n    StatusIndicatorComponent,\r\n    CryptoSelectorComponent,\r\n    CryptoPortfolioComponent,\r\n    CryptoComponent,\r\n    CryptoRandomizerComponent\r\n  ],\r\n  imports: [\r\n    AppRoutingModule,\r\n    CommonModule,\r\n    FormsModule,\r\n    BrowserModule,\r\n    BrowserAnimationsModule,\r\n    HttpClientModule,\r\n    NgxDatatableModule,\r\n    StoreModule.forRoot({ currencies: currencyReducer, portfolio: portfolioReducer }),\r\n    AngularFireModule.initializeApp(environment.firebaseConfig),\r\n    AngularFireAuthModule,\r\n    FirebaseUIModule.forRoot(firebaseUiAuthConfig),\r\n    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),\r\n    provideFirestore(() => getFirestore()),\r\n  ],\r\n  providers: [],\r\n  exports: [],\r\n  bootstrap: [AppComponent]\r\n})\r\nexport class AppModule { }\r\n",
             "children": [
                 {
                     "type": "providers",
@@ -1546,6 +1925,15 @@
                     "elements": [
                         {
                             "name": "AppRoutingModule"
+                        },
+                        {
+                            "name": "CommonModule"
+                        },
+                        {
+                            "name": "provideFirebaseApp(() => initializeApp(environment"
+                        },
+                        {
+                            "name": "provideFirestore(() => getFirestore())"
                         }
                     ]
                 },
@@ -1569,13 +1957,49 @@
         },
         {
             "name": "AppRoutingModule",
-            "id": "module-AppRoutingModule-969831c67951db2d19786e4c177a8af7c562f570fa6b7f0fe29cd33e6e3053b6af750646b8be882fd5a77741d3e3275b755a117843e994532114ef8d1b97527a",
+            "id": "module-AppRoutingModule-57a32e60c855904f9ba9e5261f22a56d5df44cf4ba503bb41d951de33fa974826c640e47a94ad93d21bfea2d435f05ce74bdb5a15f8be04195d14a5b99b9d590",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "src/app/app-routing.module.ts",
             "methods": [],
-            "sourceCode": "import { NgModule } from '@angular/core';\nimport { RouterModule, Routes } from '@angular/router';\nimport { FilesComponent } from './pages/files/files.component'\nimport { CryptoComponent } from './pages/crypto/crypto.component'\n\nconst routes: Routes = [\n  { path: '', redirectTo: '/crypto', pathMatch: 'full' },\n  {\n    path: 'crypto',\n    component: CryptoComponent,\n    pathMatch: 'full'\n  },\n  {\n    path: 'files',\n    component: FilesComponent,\n    pathMatch: 'full'\n  },\n]\n\n@NgModule({\n  imports: [RouterModule.forRoot(routes)],\n  exports: [RouterModule]\n})\nexport class AppRoutingModule { }",
+            "sourceCode": "import { NgModule } from '@angular/core';\nimport { RouterModule, Routes } from '@angular/router';\nimport { FilesComponent } from './pages/files/files.component'\nimport { CryptoComponent } from './pages/crypto/crypto.component'\n\nconst routes: Routes = [\n  { path: '', redirectTo: '/crypto', pathMatch: 'full' },\n  {\n    path: 'crypto',\n    component: CryptoComponent,\n    pathMatch: 'full'\n  },\n  {\n    path: 'files',\n    component: FilesComponent,\n    pathMatch: 'full'\n  },\n]\n\n@NgModule({\n  imports: [RouterModule.forRoot(routes, { useHash: true })],\n  exports: [RouterModule]\n})\nexport class AppRoutingModule { }",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": []
+                },
+                {
+                    "type": "imports",
+                    "elements": []
+                },
+                {
+                    "type": "exports",
+                    "elements": []
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": []
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        },
+        {
+            "name": "CommonModule",
+            "id": "module-CommonModule-1c02500be56215a8a4bf98829a2421d61df71d4ebf5b655ef93e3dc214fa70e1ae07f32f1f776b87628ee8de561679cc0c20fe91a8f308723841180cd076c125",
+            "description": "",
+            "deprecationMessage": "",
+            "deprecated": false,
+            "file": "src/app/common.module.ts",
+            "methods": [],
+            "sourceCode": "import { NgModule } from '@angular/core';\r\n\r\nimport { AutoCompleteModule } from 'primeng/autocomplete';\r\nimport { ButtonModule } from 'primeng/button';\r\nimport { DialogModule } from 'primeng/dialog';\r\nimport { TableModule } from 'primeng/table';\r\nimport { ProgressSpinnerModule } from 'primeng/progressspinner';\r\n\r\n@NgModule({\r\n  imports: [\r\n    AutoCompleteModule,\r\n    ButtonModule,\r\n    DialogModule,\r\n    ProgressSpinnerModule,\r\n    TableModule,\r\n  ],\r\n  declarations: [],\r\n  providers: [],\r\n  exports: [\r\n    AutoCompleteModule,\r\n    ButtonModule,\r\n    DialogModule,\r\n    ProgressSpinnerModule,\r\n    TableModule,\r\n  ]\r\n})\r\nexport class CommonModule { }\r\n",
             "children": [
                 {
                     "type": "providers",
@@ -1664,7 +2088,17 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "object",
-                "defaultValue": "{\r\n  production: false\r\n}"
+                "defaultValue": "{\r\n  production: false,\r\n  firebaseConfig: {\r\n    apiKey: \"AIzaSyAKqYEYfgbqJWGG3wxDcEdbhio3GKoP6yQ\",\r\n    authDomain: \"homework-c5efc.firebaseapp.com\",\r\n    projectId: \"homework-c5efc\",\r\n    storageBucket: \"homework-c5efc.appspot.com\",\r\n    messagingSenderId: \"1084922941630\",\r\n    appId: \"1:1084922941630:web:de38b3ca0caa199aa5ceef\",\r\n    measurementId: \"G-XG8VTVVQXF\"\r\n  }\r\n}"
+            },
+            {
+                "name": "firebaseUiAuthConfig",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/app.module.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "firebaseui.auth.Config",
+                "defaultValue": "{\r\n  signInFlow: 'popup',\r\n  signInOptions: [\r\n    {\r\n      requireDisplayName: false,\r\n      provider: firebase.auth.EmailAuthProvider.PROVIDER_ID\r\n    },\r\n  ],\r\n  //term of service\r\n  tosUrl: '<your-tos-link>',\r\n  //privacy url\r\n  privacyPolicyUrl: '<your-privacyPolicyUrl-link>',\r\n  //credentialHelper:             firebaseui.auth.CredentialHelper.ACCOUNT_CHOOSER_COM\r\n  credentialHelper: firebaseui.auth.CredentialHelper.NONE\r\n}"
             },
             {
                 "name": "Full",
@@ -1923,7 +2357,19 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "object",
-                    "defaultValue": "{\r\n  production: false\r\n}"
+                    "defaultValue": "{\r\n  production: false,\r\n  firebaseConfig: {\r\n    apiKey: \"AIzaSyAKqYEYfgbqJWGG3wxDcEdbhio3GKoP6yQ\",\r\n    authDomain: \"homework-c5efc.firebaseapp.com\",\r\n    projectId: \"homework-c5efc\",\r\n    storageBucket: \"homework-c5efc.appspot.com\",\r\n    messagingSenderId: \"1084922941630\",\r\n    appId: \"1:1084922941630:web:de38b3ca0caa199aa5ceef\",\r\n    measurementId: \"G-XG8VTVVQXF\"\r\n  }\r\n}"
+                }
+            ],
+            "src/app/app.module.ts": [
+                {
+                    "name": "firebaseUiAuthConfig",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/app.module.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "firebaseui.auth.Config",
+                    "defaultValue": "{\r\n  signInFlow: 'popup',\r\n  signInOptions: [\r\n    {\r\n      requireDisplayName: false,\r\n      provider: firebase.auth.EmailAuthProvider.PROVIDER_ID\r\n    },\r\n  ],\r\n  //term of service\r\n  tosUrl: '<your-tos-link>',\r\n  //privacy url\r\n  privacyPolicyUrl: '<your-privacyPolicyUrl-link>',\r\n  //credentialHelper:             firebaseui.auth.CredentialHelper.ACCOUNT_CHOOSER_COM\r\n  credentialHelper: firebaseui.auth.CredentialHelper.NONE\r\n}"
                 }
             ],
             "src/app/state/portfolio.reducer.ts": [
@@ -2084,7 +2530,17 @@
                 "linktype": "component",
                 "name": "AppComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/2",
+                "coverageCount": "0/8",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/app.module.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "firebaseUiAuthConfig",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
                 "status": "low"
             },
             {
@@ -2187,7 +2643,7 @@
                 "linktype": "component",
                 "name": "CryptoRandomizerComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/1",
+                "coverageCount": "0/8",
                 "status": "low"
             },
             {
@@ -2205,7 +2661,7 @@
                 "linktype": "component",
                 "name": "CryptoComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/10",
+                "coverageCount": "0/11",
                 "status": "low"
             },
             {
@@ -2223,7 +2679,7 @@
                 "linktype": "injectable",
                 "name": "CurrencyService",
                 "coveragePercent": 0,
-                "coverageCount": "0/3",
+                "coverageCount": "0/11",
                 "status": "low"
             },
             {

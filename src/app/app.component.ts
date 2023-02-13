@@ -1,23 +1,35 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { Subscription } from 'rxjs';
+import { CurrencyService } from './services/currency/currency.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
 })
-export class AppComponent {
+export class AppComponent implements OnDestroy {
   title = 'Homework Web Site';
 
-  constructor(public angularFireAuth: AngularFireAuth) {}
+  newPortfolioSubscription: Subscription = new Subscription;
 
-  // TODO: Use this
-  successLoginCallback(authResult: any, redirectUrl: string): void {
-    console.log(authResult)
-    console.log(redirectUrl)
+  constructor(public angularFireAuth: AngularFireAuth, private currencyService: CurrencyService,) {}
+
+  ngOnDestroy() {
+    this.newPortfolioSubscription.unsubscribe()
   }
 
-  // TODO: Use this
+  successLoginCallback(): void {
+    // TODO: Fix this worse code ever. Move this, use a store action
+    // NOTE: authResult: any, redirectUrl: string
+    this.newPortfolioSubscription = this.currencyService.getPortfolio().subscribe(e => {
+      if (e.length === 0) {
+        this.currencyService.saveNewPortfolio()
+      }
+    })
+  }
+
+  // TODO: Use this, log failure
   errorLoginCallback(event: any): void {
     console.error(event)
   }

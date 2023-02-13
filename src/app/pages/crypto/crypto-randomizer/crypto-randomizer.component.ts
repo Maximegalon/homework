@@ -19,7 +19,7 @@ export class CryptoRandomizerComponent implements OnDestroy, OnInit {
   constructor(private currencyService: CurrencyService) {}
 
   ngOnInit() {
-    this.randomCryptosSubscription = timer(1000, 1 * 1000).pipe(
+    this.randomCryptosSubscription = timer(1000, 1 * 10000).pipe(
       mergeMap(() => {
         if (!this.currencies.length) {
           return of();

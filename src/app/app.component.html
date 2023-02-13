@@ -59,7 +59,7 @@
     <router-outlet></router-outlet>
   </div>
   <ng-template #login>
-      <firebase-ui (signInSuccessWithAuthResult)="successLoginCallback($event, '')" (signInFailure)="errorLoginCallback($event)"></firebase-ui>
+      <firebase-ui (signInSuccessWithAuthResult)="successLoginCallback" (signInFailure)="errorLoginCallback($event)"></firebase-ui>
   </ng-template>
 
   <img id="clouds" src="assets/svgs/clouds.svg" alt="" />

@@ -35,3 +35,4 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 14. Cosmetics are a mess, and remove inline styles
 15. Add component documentation
 16. Make the page responsive
+17. Update the currency pipe avoid a console warning
