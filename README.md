@@ -36,3 +36,4 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 15. Add component documentation
 16. Make the page responsive
 17. Update the currency pipe avoid a console warning
+18. Deal with large bundle size
