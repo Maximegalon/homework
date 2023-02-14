@@ -1,42 +1,21 @@
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
-import { AngularFireModule } from '@angular/fire/compat';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { RouterTestingModule } from '@angular/router/testing';
-import { FirebaseUIModule } from 'firebaseui-angular';
-import { BehaviorSubject } from 'rxjs';
-import { environment } from 'src/environments/environment';
-import { firebaseUiAuthConfig } from '../app/app.module';
+import { AngularFireModule } from '@angular/fire/compat';
 import { AppComponent } from './app.component';
+import { firebaseUiAuthConfig } from '../app/app.module'
+import { FirebaseUIModule } from 'firebaseui-angular';
+import { environment } from 'src/environments/environment';
 
 describe('AppComponent', () => {
-  const FirestoreStub = {
-    collection: () => ({
-      doc: () => ({
-        valueChanges: () => new BehaviorSubject({ })
-      })
-    })
-  }
-
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule,
-        AngularFireModule,
-        HttpClientTestingModule,
-        AngularFireModule.initializeApp(environment.firebaseConfig),
+        RouterTestingModule, AngularFireModule, AngularFireModule.initializeApp(environment.firebaseConfig),
         FirebaseUIModule.forRoot(firebaseUiAuthConfig),
-        provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
-        provideFirestore(() => getFirestore()),
       ],
       declarations: [
         AppComponent
       ],
-      providers: [
-        { provide: AngularFirestore, useValue: FirestoreStub },
-      ]
     }).compileComponents();
   });
 
