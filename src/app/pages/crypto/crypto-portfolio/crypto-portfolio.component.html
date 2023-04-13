@@ -1,7 +1,7 @@
 <div>
-  <div *ngIf="currencies.length === 0">
+  <label *ngIf="currencies.length === 0">
     You have no cryptocurrencies in your portfolio
-  </div>
+  </label>
 
   <ngx-datatable *ngIf="currencies.length > 0" [rows]="currencies" class="material light">
     <ngx-datatable-column name="Id">

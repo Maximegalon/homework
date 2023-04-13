@@ -3,19 +3,19 @@
 
     <div class="crypto-table">
         <div style="width: 20%">
-            <h2>Available Cryptocurrencies</h2>
+            <label>Available Cryptocurrencies</label>
 
             <home-crypto-selector [currencies]="(currencies$ | async)!" (add)="onAdd($event)"></home-crypto-selector>
         </div>
 
-        <div>
-            <h2>Portfolio</h2>
+        <div style="width: 60%">
+            <label>Portfolio</label>
 
             <home-crypto-portfolio [currencies]="(currencyPortfolio$ | async)!" (remove)="onRemove($event)"></home-crypto-portfolio>
         </div>
 
         <div style="width: 20%">
-            <h2>Random Cryptocurrency</h2>
+            <label>Random Cryptocurrency</label>
 
             <home-crypto-randomizer [currencies]="(currencies$ | async)!"></home-crypto-randomizer>
         </div>

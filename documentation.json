@@ -510,7 +510,7 @@
     "components": [
         {
             "name": "AppComponent",
-            "id": "component-AppComponent-c371ebfa4158a481ec2eea91536eb64e412e80eb91a7e1455511cd89f1e594f6478e2ebf9d2d18ce96ba4e023232b2e2dce6dd409eded3d7277a709b4290b4c1",
+            "id": "component-AppComponent-42e2f2f67a7d287ddc3a394ea578793c74f9c9ecece03c48523dc505aeb0dfb757ec916930f791342e1e944202de3b3db789229fd73f25933759d1ad20f530b7",
             "file": "src/app/app.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -534,20 +534,10 @@
                     "type": "AngularFireAuth",
                     "optional": false,
                     "description": "",
-                    "line": 16,
+                    "line": 12,
                     "modifierKind": [
                         123
                     ]
-                },
-                {
-                    "name": "newPortfolioSubscription",
-                    "defaultValue": "new Subscription",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Subscription",
-                    "optional": false,
-                    "description": "",
-                    "line": 14
                 },
                 {
                     "name": "title",
@@ -557,7 +547,7 @@
                     "type": "string",
                     "optional": false,
                     "description": "",
-                    "line": 12
+                    "line": 10
                 }
             ],
             "methodsClass": [
@@ -574,7 +564,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 33,
+                    "line": 21,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -590,24 +580,47 @@
                     ]
                 },
                 {
-                    "name": "ngOnDestroy",
-                    "args": [],
-                    "optional": false,
-                    "returnType": "void",
-                    "typeParameters": [],
-                    "line": 18,
-                    "deprecated": false,
-                    "deprecationMessage": ""
-                },
-                {
                     "name": "successLoginCallback",
-                    "args": [],
+                    "args": [
+                        {
+                            "name": "authResult",
+                            "type": "any",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        },
+                        {
+                            "name": "redirectUrl",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 22,
+                    "line": 15,
                     "deprecated": false,
-                    "deprecationMessage": ""
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "authResult",
+                            "type": "any",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        },
+                        {
+                            "name": "redirectUrl",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
                 }
             ],
             "deprecated": false,
@@ -617,7 +630,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, OnDestroy } from '@angular/core';\r\nimport { AngularFireAuth } from '@angular/fire/compat/auth';\r\nimport { Subscription } from 'rxjs';\r\nimport { CurrencyService } from './services/currency/currency.service';\r\n\r\n@Component({\r\n  selector: 'app-root',\r\n  templateUrl: 'app.component.html',\r\n})\r\nexport class AppComponent implements OnDestroy {\r\n  title = 'Homework Web Site';\r\n\r\n  newPortfolioSubscription: Subscription = new Subscription;\r\n\r\n  constructor(public angularFireAuth: AngularFireAuth, private currencyService: CurrencyService,) {}\r\n\r\n  ngOnDestroy() {\r\n    this.newPortfolioSubscription.unsubscribe()\r\n  }\r\n\r\n  successLoginCallback(): void {\r\n    // TODO: Fix this worse code ever. Move this, use a store action\r\n    // NOTE: authResult: any, redirectUrl: string\r\n    this.newPortfolioSubscription = this.currencyService.getPortfolio().subscribe(e => {\r\n      if (e.length === 0) {\r\n        this.currencyService.saveNewPortfolio()\r\n      }\r\n    })\r\n  }\r\n\r\n  // TODO: Use this, log failure\r\n  errorLoginCallback(event: any): void {\r\n    console.error(event)\r\n  }\r\n}",
+            "sourceCode": "import { Component } from '@angular/core';\r\nimport { AngularFireAuth } from '@angular/fire/compat/auth';\r\n\r\n@Component({\r\n  selector: 'app-root',\r\n  templateUrl: 'app.component.html',\r\n})\r\nexport class AppComponent {\r\n  title = 'Homework Web Site';\r\n\r\n  constructor(public angularFireAuth: AngularFireAuth) {}\r\n\r\n  // TODO: Use this\r\n  successLoginCallback(authResult: any, redirectUrl: string): void {\r\n    console.log(authResult)\r\n    console.log(redirectUrl)\r\n  }\r\n\r\n  // TODO: Use this\r\n  errorLoginCallback(event: any): void {\r\n    console.error(event)\r\n  }\r\n}",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -632,15 +645,9 @@
                         "type": "AngularFireAuth",
                         "deprecated": false,
                         "deprecationMessage": ""
-                    },
-                    {
-                        "name": "currencyService",
-                        "type": "CurrencyService",
-                        "deprecated": false,
-                        "deprecationMessage": ""
                     }
                 ],
-                "line": 14,
+                "line": 10,
                 "jsdoctags": [
                     {
                         "name": "angularFireAuth",
@@ -650,21 +657,9 @@
                         "tagName": {
                             "text": "param"
                         }
-                    },
-                    {
-                        "name": "currencyService",
-                        "type": "CurrencyService",
-                        "deprecated": false,
-                        "deprecationMessage": "",
-                        "tagName": {
-                            "text": "param"
-                        }
                     }
                 ]
             },
-            "implements": [
-                "OnDestroy"
-            ],
             "templateData": "<style>\r\n  .content {\r\n    display: flex;\r\n    margin: 82px auto 32px;\r\n    padding: 0 16px;\r\n    flex-direction: column;\r\n    align-items: center;\r\n  }\r\n\r\n  .toolbar {\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\r\n    right: 0;\r\n    height: 60px;\r\n    display: flex;\r\n    align-items: center;\r\n    background-color: #1976d2;\r\n    color: white;\r\n    font-weight: 600;\r\n    justify-content: center;\r\n    align-items: center;\r\n    font-size: 1rem;\r\n  }\r\n\r\n  footer {\r\n    margin-top: 8px;\r\n    display: flex;\r\n    align-items: center;\r\n    line-height: 20px;\r\n  }\r\n\r\n  img#clouds {\r\n    position: fixed;\r\n    bottom: -160px;\r\n    left: -230px;\r\n    z-index: -10;\r\n    width: 1920px;\r\n  }\r\n</style>\r\n\r\n<div class=\"content\">\r\n  <!-- TODO: Horrible code below. Remove inline styles and real banner comp should be made -->\r\n  <div *ngIf=\"angularFireAuth.user | async as user; else loggedoutbanner\" class=\"toolbar\" role=\"banner\" style=\"display: flex; justify-content: space-between; padding: 1rem; color: white;\">\r\n    <div>\r\n      <a [routerLink]=\"['/files']\" style=\"margin-right: 1rem;\">File Downloads</a>\r\n      <a [routerLink]=\"['/crypto']\">Crypto Portfolio</a>\r\n    </div>\r\n    <h1>{{ title }}</h1>\r\n    <div><a (click)=\"angularFireAuth.signOut();\" style=\"cursor: pointer;\">Logout</a></div>\r\n  </div>\r\n  <ng-template #loggedoutbanner>\r\n    <div>\r\n      <h1>{{ title }}</h1>\r\n    </div>\r\n  </ng-template>\r\n\r\n  <div *ngIf=\"angularFireAuth.user | async as user; else login\" style=\"width: 100%;\">\r\n    <router-outlet></router-outlet>\r\n  </div>\r\n  <ng-template #login>\r\n      <firebase-ui (signInSuccessWithAuthResult)=\"successLoginCallback\" (signInFailure)=\"errorLoginCallback($event)\"></firebase-ui>\r\n  </ng-template>\r\n\r\n  <img id=\"clouds\" src=\"assets/svgs/clouds.svg\" alt=\"\" />\r\n</div>\r\n"
         },
         {
@@ -768,7 +763,7 @@
         },
         {
             "name": "CryptoComponent",
-            "id": "component-CryptoComponent-0414f26eb6d42ce12dace20501c3e000f4c771906e263529ffd13d91d9868c4117a061ae699aee442033ff90aab8cd59265947dd269957c6be1e433a2ea89581",
+            "id": "component-CryptoComponent-7741b0d59180bb784fa31e4a49472d0caae34865e306cc794e02d5f3b058fa9cf587f70a8bfba32510f247b3266b79ea689fdb61b8c87633feca52d27fad6037",
             "file": "src/app/pages/crypto/crypto.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -845,7 +840,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 52,
+                    "line": 53,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -872,7 +867,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 56,
+                    "line": 57,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -900,7 +895,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 62,
+                    "line": 63,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -923,7 +918,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, OnInit, OnDestroy } from '@angular/core';\r\nimport { Store } from '@ngrx/store';\r\nimport { Subscription } from 'rxjs';\r\nimport { Currency } from 'src/app/interfaces/currency.model';\r\nimport { CurrencyService } from '../../services/currency/currency.service';\r\nimport { CurrenciesApiActions, CurrencyActions } from '../../state/currencies.actions';\r\nimport { selectCurrencies, selectPortfolio } from '../../state/currencies.selectors';\r\n\r\n@Component({\r\n  selector: 'page-crypto',\r\n  templateUrl: './crypto.component.html',\r\n  styleUrls: ['./crypto.component.scss']\r\n})\r\nexport class CryptoComponent implements OnInit, OnDestroy {\r\n    subscriptions: Subscription[] = [];\r\n    allCryptosSubscription: Subscription = new Subscription;\r\n    portfolioSubscription: Subscription = new Subscription;\r\n\r\n    currencies$ = this.store.select(selectCurrencies);\r\n    currencyPortfolio$ = this.store.select(selectPortfolio);\r\n\r\n    constructor(private store: Store, private currencyService: CurrencyService) {}\r\n\r\n    ngOnInit() {\r\n      this.allCryptosSubscription = this.currencyService\r\n        .getCurrencies()\r\n        .subscribe((currencies) => {\r\n            currencies = currencies.sort((a, b) => (a.name > b.name) ? 1 : -1)\r\n\r\n            this.store.dispatch(CurrenciesApiActions.retrievedCurrencies({ currencies }))\r\n          },\r\n          error => {\r\n            console.error('CryptoComponent - ngOnInit: ', error);\r\n          }\r\n        )\r\n\r\n      this.portfolioSubscription = this.currencyService.getPortfolio().subscribe(e => {\r\n          if (e.length > 0) {\r\n            // NOTE: Only one portfolio for a user right now, grab the first/only\r\n            Object.keys(e[0]).forEach((cs: string) => {\r\n              this.currencyService.getCurrency(cs).subscribe(currency => {\r\n                this.store.dispatch(CurrencyActions.addCurrency({ currency }));\r\n              })\r\n            })\r\n          }\r\n      })\r\n\r\n      this.subscriptions.push(this.allCryptosSubscription);\r\n      this.subscriptions.push(this.portfolioSubscription);\r\n    }\r\n\r\n    ngOnDestroy() {\r\n      this.subscriptions.forEach(sub => sub.unsubscribe());\r\n    }\r\n\r\n    onAdd(currency: Currency) {\r\n      // TODO: Check for error, alert user, don't update the store\r\n      this.currencyService.saveCryptoToPortfolio(currency.id)\r\n      this.store.dispatch(CurrencyActions.addCurrency({ currency }));\r\n    }\r\n\r\n    onRemove(currency: Currency) {\r\n      // TODO: Check for error, alert user, don't update the store\r\n      this.currencyService.removeCryptoFromPortfolio(currency.id)\r\n      this.store.dispatch(CurrencyActions.removeCurrency({ currency }));\r\n    }\r\n}\r\n",
+            "sourceCode": "import { Component, OnInit, OnDestroy } from '@angular/core';\r\nimport { Store } from '@ngrx/store';\r\nimport { Subscription } from 'rxjs';\r\nimport { Currency } from 'src/app/interfaces/currency.model';\r\nimport { CurrencyService } from '../../services/currency/currency.service';\r\nimport { CurrenciesApiActions, CurrencyActions } from '../../state/currencies.actions';\r\nimport { selectCurrencies, selectPortfolio } from '../../state/currencies.selectors';\r\n\r\n@Component({\r\n  selector: 'page-crypto',\r\n  templateUrl: './crypto.component.html',\r\n  styleUrls: ['./crypto.component.scss']\r\n})\r\nexport class CryptoComponent implements OnInit, OnDestroy {\r\n    subscriptions: Subscription[] = [];\r\n    allCryptosSubscription: Subscription = new Subscription;\r\n    portfolioSubscription: Subscription = new Subscription;\r\n\r\n    currencies$ = this.store.select(selectCurrencies);\r\n    currencyPortfolio$ = this.store.select(selectPortfolio);\r\n\r\n    constructor(private store: Store, private currencyService: CurrencyService) {}\r\n\r\n    ngOnInit() {\r\n      // TODO: Refactor to dispatch a \"Get all currencies action\" and call the service in an effect\r\n      this.allCryptosSubscription = this.currencyService\r\n        .getCurrencies()\r\n        .subscribe((currencies) => {\r\n            currencies = currencies.sort((a, b) => (a.name > b.name) ? 1 : -1)\r\n\r\n            this.store.dispatch(CurrenciesApiActions.retrievedCurrencies({ currencies }))\r\n          },\r\n          error => {\r\n            console.error('CryptoComponent - ngOnInit: ', error);\r\n          }\r\n        )\r\n\r\n      this.portfolioSubscription = this.currencyService.getPortfolio().subscribe(e => {\r\n          if (e.length > 0) {\r\n            // NOTE: Only one portfolio for a user right now, grab the first/only\r\n            Object.keys(e[0]).forEach((cs: string) => {\r\n              this.currencyService.getCurrency(cs).subscribe(currency => {\r\n                this.store.dispatch(CurrencyActions.addCurrency({ currency }));\r\n              })\r\n            })\r\n          }\r\n      })\r\n\r\n      this.subscriptions.push(this.allCryptosSubscription);\r\n      this.subscriptions.push(this.portfolioSubscription);\r\n    }\r\n\r\n    ngOnDestroy() {\r\n      this.subscriptions.forEach(sub => sub.unsubscribe());\r\n    }\r\n\r\n    onAdd(currency: Currency) {\r\n      // TODO: Check for error, alert user, don't update the store\r\n      this.currencyService.saveCryptoToPortfolio(currency.id)\r\n      this.store.dispatch(CurrencyActions.addCurrency({ currency }));\r\n    }\r\n\r\n    onRemove(currency: Currency) {\r\n      // TODO: Check for error, alert user, don't update the store\r\n      this.currencyService.removeCryptoFromPortfolio(currency.id)\r\n      this.store.dispatch(CurrencyActions.removeCurrency({ currency }));\r\n    }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -2074,21 +2069,21 @@
                 "name": "environment",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/environments/environment.prod.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "object",
-                "defaultValue": "{\r\n  production: true\r\n}"
-            },
-            {
-                "name": "environment",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "src/environments/environment.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "object",
                 "defaultValue": "{\r\n  production: false,\r\n  firebaseConfig: {\r\n    apiKey: \"AIzaSyAKqYEYfgbqJWGG3wxDcEdbhio3GKoP6yQ\",\r\n    authDomain: \"homework-c5efc.firebaseapp.com\",\r\n    projectId: \"homework-c5efc\",\r\n    storageBucket: \"homework-c5efc.appspot.com\",\r\n    messagingSenderId: \"1084922941630\",\r\n    appId: \"1:1084922941630:web:de38b3ca0caa199aa5ceef\",\r\n    measurementId: \"G-XG8VTVVQXF\"\r\n  }\r\n}"
+            },
+            {
+                "name": "environment",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/environments/environment.prod.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "object",
+                "defaultValue": "{\r\n  production: true\r\n}"
             },
             {
                 "name": "firebaseUiAuthConfig",
@@ -2336,18 +2331,6 @@
                     "defaultValue": "(args: CheckboxComponent) => ({\r\n  props: args,\r\n})"
                 }
             ],
-            "src/environments/environment.prod.ts": [
-                {
-                    "name": "environment",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/environments/environment.prod.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "object",
-                    "defaultValue": "{\r\n  production: true\r\n}"
-                }
-            ],
             "src/environments/environment.ts": [
                 {
                     "name": "environment",
@@ -2358,6 +2341,18 @@
                     "deprecationMessage": "",
                     "type": "object",
                     "defaultValue": "{\r\n  production: false,\r\n  firebaseConfig: {\r\n    apiKey: \"AIzaSyAKqYEYfgbqJWGG3wxDcEdbhio3GKoP6yQ\",\r\n    authDomain: \"homework-c5efc.firebaseapp.com\",\r\n    projectId: \"homework-c5efc\",\r\n    storageBucket: \"homework-c5efc.appspot.com\",\r\n    messagingSenderId: \"1084922941630\",\r\n    appId: \"1:1084922941630:web:de38b3ca0caa199aa5ceef\",\r\n    measurementId: \"G-XG8VTVVQXF\"\r\n  }\r\n}"
+                }
+            ],
+            "src/environments/environment.prod.ts": [
+                {
+                    "name": "environment",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/environments/environment.prod.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "object",
+                    "defaultValue": "{\r\n  production: true\r\n}"
                 }
             ],
             "src/app/app.module.ts": [
@@ -2530,7 +2525,7 @@
                 "linktype": "component",
                 "name": "AppComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/8",
+                "coverageCount": "0/6",
                 "status": "low"
             },
             {

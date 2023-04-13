@@ -1,53 +1,13 @@
-<style>
-  .content {
-    display: flex;
-    margin: 82px auto 32px;
-    padding: 0 16px;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .toolbar {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    background-color: #1976d2;
-    color: white;
-    font-weight: 600;
-    justify-content: center;
-    align-items: center;
-    font-size: 1rem;
-  }
-
-  footer {
-    margin-top: 8px;
-    display: flex;
-    align-items: center;
-    line-height: 20px;
-  }
-
-  img#clouds {
-    position: fixed;
-    bottom: -160px;
-    left: -230px;
-    z-index: -10;
-    width: 1920px;
-  }
-</style>
-
 <div class="content">
-  <!-- TODO: Horrible code below. Remove inline styles and real banner comp should be made -->
-  <div *ngIf="angularFireAuth.user | async as user; else loggedoutbanner" class="toolbar" role="banner" style="display: flex; justify-content: space-between; padding: 1rem; color: white;">
+  <!-- TODO: Real banner comp should be made, with items aligned better and no inline styles -->
+  <div *ngIf="angularFireAuth.user | async as user; else loggedoutbanner" class="toolbar" role="banner">
     <div>
-      <a [routerLink]="['/files']" style="margin-right: 1rem;">File Downloads</a>
-      <a [routerLink]="['/crypto']">Crypto Portfolio</a>
+      <a [routerLink]="['/files']" style="margin-right: 1rem; color: white;">File Downloads</a>
+      <a [routerLink]="['/crypto']" style="margin-right: 1rem;  color: white;">Crypto Portfolio</a>
+      <a [routerLink]="['/map']" style="margin-right: 1rem;  color: white;">Drone Routes</a>
     </div>
-    <h1>{{ title }}</h1>
-    <div><a (click)="angularFireAuth.signOut();" style="cursor: pointer;">Logout</a></div>
+    <div style="text-align: center;"><h1>{{ title }}</h1></div>
+    <div style="text-align: right;"><a (click)="angularFireAuth.signOut();" style="cursor: pointer;">Logout</a></div>
   </div>
   <ng-template #loggedoutbanner>
     <div>
@@ -55,12 +15,10 @@
     </div>
   </ng-template>
 
-  <div *ngIf="angularFireAuth.user | async as user; else login" style="width: 100%;">
+  <div *ngIf="angularFireAuth.user | async as user; else login" style="width: 100%; height: 100%; padding: 1rem">
     <router-outlet></router-outlet>
   </div>
   <ng-template #login>
       <firebase-ui (signInSuccessWithAuthResult)="successLoginCallback" (signInFailure)="errorLoginCallback($event)"></firebase-ui>
   </ng-template>
-
-  <img id="clouds" src="assets/svgs/clouds.svg" alt="" />
 </div>

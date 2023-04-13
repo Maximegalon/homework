@@ -13,6 +13,7 @@ import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { FirebaseUIModule, firebase, firebaseui } from 'firebaseui-angular';
 import { StoreModule } from '@ngrx/store';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
 
 // NOTE: Common, reusable items
 import { AppRoutingModule } from './app-routing.module';
@@ -22,14 +23,14 @@ import { CheckboxComponent } from './components/checkbox/checkbox.component';
 import { StatusIndicatorComponent } from './components/status-indicator/status-indicator.component';
 
 // NOTE: Application specific
+import { MapComponent } from './pages/map/map.component';
+import { FilesComponent } from './pages/files/files.component';
 import { CryptoComponent } from './pages/crypto/crypto.component';
 import { CryptoRandomizerComponent } from './pages/crypto/crypto-randomizer/crypto-randomizer.component';
 import { CryptoSelectorComponent } from './pages/crypto/crypto-selector/crypto-selector.component';
 import { CryptoPortfolioComponent } from './pages/crypto/crypto-portfolio/crypto-portfolio.component';
 import { currencyReducer } from './state/currencies.reducer';
 import { portfolioReducer } from './state/portfolio.reducer';
-
-import { FilesComponent } from './pages/files/files.component';
 
 import { environment } from 'src/environments/environment';
 
@@ -55,6 +56,7 @@ export const firebaseUiAuthConfig: firebaseui.auth.Config = {
   declarations: [
     AppComponent,
     CheckboxComponent,
+    MapComponent,
     FilesComponent,
     StatusIndicatorComponent,
     CryptoSelectorComponent,
@@ -76,6 +78,9 @@ export const firebaseUiAuthConfig: firebaseui.auth.Config = {
     FirebaseUIModule.forRoot(firebaseUiAuthConfig),
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     provideFirestore(() => getFirestore()),
+    NgxMapboxGLModule.withConfig({
+      accessToken: environment.mapboxKey
+    })
   ],
   providers: [],
   exports: [],

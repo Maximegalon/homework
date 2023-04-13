@@ -22,6 +22,7 @@ export class CryptoComponent implements OnInit, OnDestroy {
     constructor(private store: Store, private currencyService: CurrencyService) {}
 
     ngOnInit() {
+      // TODO: Refactor to dispatch a "Get all currencies action" and call the service in an effect
       this.allCryptosSubscription = this.currencyService
         .getCurrencies()
         .subscribe((currencies) => {
@@ -34,6 +35,7 @@ export class CryptoComponent implements OnInit, OnDestroy {
           }
         )
 
+      // NOTE: Get user's saved currencies, add to the store, use possible merge map / loading indicator
       this.portfolioSubscription = this.currencyService.getPortfolio().subscribe(e => {
           if (e.length > 0) {
             // NOTE: Only one portfolio for a user right now, grab the first/only
